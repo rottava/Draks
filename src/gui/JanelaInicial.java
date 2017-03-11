@@ -18,15 +18,22 @@ import javax.swing.JPanel;
  *
  * @author wagner
  */
-public class JanelaPrincipal extends JFrame implements ActionListener {
+public class JanelaInicial extends JFrame implements ActionListener {
     private JButton btnNovoJogo;
     private JButton btnCarregarJogo;
+    private Sala1 sala1;
     
-    public JanelaPrincipal() {
+    /**
+     * Construtor
+     */
+    public JanelaInicial() {
         initGUI();
     }
     
-    public void initGUI() {
+    /**
+     * Abre a janela carregando seus componentes
+     */
+    private void initGUI() {
         //Características da Janela
         setTitle("Castelo do Draks");
         setSize(1024, 720);
@@ -35,12 +42,13 @@ public class JanelaPrincipal extends JFrame implements ActionListener {
         setLayout(new GridLayout());
         setResizable(false);
         
-        JLabel bg = new JLabel (new ImageIcon("resources/backgroundInicio.jpg"));
-        add(bg);
+        //Carrega imagem de background
+        JLabel background = new JLabel (new ImageIcon("resources/backgroundInicio.jpg"));
+        add(background);
         
         
-        bg.setLayout(new GridLayout(4,3));
-        bg.setVisible(true);
+        background.setLayout(new GridLayout(4,3));
+        background.setVisible(true);
         JPanel painelBotoes = new JPanel();
 	painelBotoes.setLayout(new GridLayout(2,0));
         btnNovoJogo = new JButton("Novo Jogo");
@@ -50,22 +58,22 @@ public class JanelaPrincipal extends JFrame implements ActionListener {
         painelBotoes.add(btnNovoJogo);
         painelBotoes.add(btnCarregarJogo);
         
-        add (bg);
-        bg.add(new JLabel(""));
+        add (background);
+        background.add(new JLabel(""));
         JLabel titulo = new JLabel ("Castelo do Draks");
         titulo.setFont(new Font("Dialog", Font.BOLD, 40));
         titulo.setForeground(Color.white);
-        bg.add(titulo);
+        background.add(titulo);
         
-        bg.add(new JLabel(""));
-        bg.add(new JLabel(""));
-        bg.add(new JLabel(""));
-        bg.add(new JLabel(""));
-        bg.add(new JLabel(""));
-        bg.add(painelBotoes);
-        bg.add(new JLabel(""));
-        bg.add(new JLabel(""));
-        bg.add(new JLabel(""));
+        background.add(new JLabel(""));
+        background.add(new JLabel(""));
+        background.add(new JLabel(""));
+        background.add(new JLabel(""));
+        background.add(new JLabel(""));
+        background.add(painelBotoes);
+        background.add(new JLabel(""));
+        background.add(new JLabel(""));
+        background.add(new JLabel(""));
         
     }    
     
@@ -73,7 +81,10 @@ public class JanelaPrincipal extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == btnNovoJogo) {
             System.out.println ("NOVO JOGO");
-            JOptionPane.showMessageDialog(null, "Iniciar novo jogo!");
+            //JOptionPane.showMessageDialog(null, "Iniciando novo jogo!");
+            this.dispose();
+            sala1 = new Sala1();
+            
 	} else if (ae.getSource() == btnCarregarJogo) {
             System.out.println ("CARREGAR JOGO");
             JOptionPane.showMessageDialog(null, "Carregar jogo!");
@@ -84,7 +95,7 @@ public class JanelaPrincipal extends JFrame implements ActionListener {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JanelaPrincipal jp = new JanelaPrincipal();
+                JanelaInicial jp = new JanelaInicial();
                 jp.setVisible(true);
             }
         });
