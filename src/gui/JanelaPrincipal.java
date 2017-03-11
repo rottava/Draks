@@ -2,12 +2,16 @@ package gui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -15,8 +19,8 @@ import javax.swing.JPanel;
  * @author wagner
  */
 public class JanelaPrincipal extends JFrame implements ActionListener {
-    private JButton NovoJogo;
-    private JButton CarregarJogo;
+    private JButton btnNovoJogo;
+    private JButton btnCarregarJogo;
     
     public JanelaPrincipal() {
         initGUI();
@@ -29,45 +33,51 @@ public class JanelaPrincipal extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridLayout());
+        setResizable(false);
         
-        // Construcao dos paineis principais Esquerda/Direita #############################
-        JPanel painelEsq = new JPanel();
-        JPanel painelDir = new JPanel();
-        JPanel painelCentro = new JPanel ();
-        add(painelEsq);
-        add(painelCentro);
-        add(painelDir);
-        painelEsq.setBackground(new Color(255, 0, 0));
-        painelCentro.setBackground(Color.WHITE);
-        painelDir.setBackground(new Color(0, 0, 255));
-        painelEsq.setVisible(true);
-        painelCentro.setVisible(true);
-        painelDir.setVisible(true);
+        JLabel bg = new JLabel (new ImageIcon("resources/backgroundInicio.jpg"));
+        add(bg);
         
-        // Construcao do painel central #################################################
-        painelCentro.setLayout(new GridLayout(4,0));
-        // Painel com os botoes -------------------------------------------------------------
-        JPanel painelDosBotoes = new JPanel();
-	painelDosBotoes.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
-	painelDosBotoes.setLayout(new GridLayout());
-        JPanel comandos = new JPanel();
-	comandos.setLayout(new GridLayout(2,0));
-	comandos.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
-	NovoJogo = new JButton("Novo Jogo");
-	//NovoJogo.addActionListener(this);
-	comandos.add(NovoJogo);
-	CarregarJogo = new JButton("Carregar Jogo");
-	//CarregarJogo.addActionListener(this);
-	comandos.add(CarregarJogo);
-	painelDosBotoes.add(comandos);
         
-        painelCentro.add(painelDosBotoes).setLocation(0, 1000);
+        bg.setLayout(new GridLayout(4,3));
+        bg.setVisible(true);
+        JPanel painelBotoes = new JPanel();
+	painelBotoes.setLayout(new GridLayout(2,0));
+        btnNovoJogo = new JButton("Novo Jogo");
+        btnCarregarJogo = new JButton("Carregar Jogo");
+        btnNovoJogo.addActionListener(this);
+        btnCarregarJogo.addActionListener(this);
+        painelBotoes.add(btnNovoJogo);
+        painelBotoes.add(btnCarregarJogo);
+        
+        add (bg);
+        bg.add(new JLabel(""));
+        JLabel titulo = new JLabel ("Castelo do Draks");
+        titulo.setFont(new Font("Dialog", Font.BOLD, 40));
+        titulo.setForeground(Color.white);
+        bg.add(titulo);
+        
+        bg.add(new JLabel(""));
+        bg.add(new JLabel(""));
+        bg.add(new JLabel(""));
+        bg.add(new JLabel(""));
+        bg.add(new JLabel(""));
+        bg.add(painelBotoes);
+        bg.add(new JLabel(""));
+        bg.add(new JLabel(""));
+        bg.add(new JLabel(""));
         
     }    
     
     @Override
     public void actionPerformed(ActionEvent ae) {
-        
+        if (ae.getSource() == btnNovoJogo) {
+            System.out.println ("NOVO JOGO");
+            JOptionPane.showMessageDialog(null, "Iniciar novo jogo!");
+	} else if (ae.getSource() == btnCarregarJogo) {
+            System.out.println ("CARREGAR JOGO");
+            JOptionPane.showMessageDialog(null, "Carregar jogo!");
+	}
     }
     
     public static void main(String[] args) {
