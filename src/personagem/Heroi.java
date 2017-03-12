@@ -5,6 +5,8 @@
  */
 package personagem;
 
+import habilidade.Habilidade;
+import habilidade.Talentos;
 import item.Item;
 import item.Mochila;
 import java.util.List;
@@ -18,6 +20,7 @@ public class Heroi extends Persona {
     private byte pontos;            //PONTOS DE ATRIBUTOS
     private byte peso;              //CARGA DE ITENS ATUAL
     private final Mochila mochila;  //ARMAZEM DE ITENS
+    
     
     //PARAMETROS DEPENDENTES
     private byte pesoMax;           //FORCA + RESISTENCIA

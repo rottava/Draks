@@ -6,6 +6,7 @@
 package item;
 
 import java.util.Scanner;
+import static main.Main.ARQUIVOITENS;
 
 /**
  *
@@ -13,10 +14,9 @@ import java.util.Scanner;
  */
 public class Item {
     //PARAMETRO DE CONFIGURACAO
-    private final byte id;                  //ID DO ITEM 0 = MOEDA, 1 = POCAO VIDA, 2 = POCAO ENERGIA, ETC
-    private final String ids = "/config/itens.txt";//ARQUIVO NOMES ESPACO PESO ESPACO QUANTIDADE MAXIMA
+    private final byte id;                  //ID DO ITEM = LINHA DO ARQUIVO
     
-    //PARAMETRO DE SISTEMA
+    //PARAMETRO DE DEFINIÇÃO
     private String nome;                    //NOME DO ITEM
     private byte tipo;                      //TIPO DO ITEM 0 = CONSUMIVEL, 1 = ARMA, 2 = ARMADURA
     private byte pesoItem;                  //PESO POR ITEM
@@ -36,24 +36,6 @@ public class Item {
     //GETTERS AND SETTERS
     public String getNome(){
         return nome;
-    }
-    
-    private void setParam(){
-        Scanner scanner;
-        int n = 0;
-        for(scanner = new Scanner(ids); (scanner.hasNext() && n < id); n++){
-            String nextLine = scanner.nextLine();
-        }
-        if (scanner.hasNext()){
-            String[] parametros;
-            parametros = scanner.nextLine().split("/");
-            nome = parametros[0];
-            tipo = (byte) Integer.parseInt(parametros[1]);
-            efeito = (byte) Integer.parseInt(parametros[2]);
-            pesoItem = (byte) Integer.parseInt(parametros[3]);
-        }
-        //else
-            //CHAMA ERRO ID NAO EXISTE
     }
     
     public byte getId(){
@@ -83,5 +65,23 @@ public class Item {
     
     public byte getPesoTotal(){
         return (byte) (pesoItem * quantidade);
+    }
+    
+    private void setParam(){
+        Scanner scanner;
+        int n = 0;
+        for(scanner = new Scanner(ARQUIVOITENS); (scanner.hasNext() && n < id); n++){
+            String nextLine = scanner.nextLine();
+        }
+        if (scanner.hasNext()){
+            String[] parametros;
+            parametros = scanner.nextLine().split("/");
+            nome = parametros[0];
+            tipo = (byte) Integer.parseInt(parametros[1]);
+            efeito = (byte) Integer.parseInt(parametros[2]);
+            pesoItem = (byte) Integer.parseInt(parametros[3]);
+        }
+        else
+            throw new UnsupportedOperationException("ID de habilidade não encontrado.");
     }
 }

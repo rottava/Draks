@@ -51,6 +51,7 @@ public class Mochila {
         return peso;
     }
     
+    //ADICIONA ITEM NA MOCHILA
     public boolean addMochila(Item item){
         byte loop = 0;
         while ((mochila.get(loop).getId() != item.getId()) && loop < tamanho)
@@ -84,6 +85,7 @@ public class Mochila {
         }
     }
     
+    //REMOVE ITEM DA MOCHILA
     public boolean subMochila(Item item){
         byte loop = 0;
         byte ultimo = 0;

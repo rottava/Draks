@@ -5,17 +5,21 @@
  */
 package personagem;
 
+import habilidade.Habilidade;
+import java.util.ArrayList;
 import java.util.Scanner;
+import static main.Main.aleatorio;
+import static main.Main.ARQUIVONOMES;
+import static main.Main.TAMANHOHABILIDADE;
 import static main.Main.aleatorio;
 
 /**
  *
  * @author Junior
  */
-public class Inimigo extends Persona{
+public final class Inimigo extends Persona{
     //PARAMETRO DE CONFIGURACAO
     private byte id;                                                //0 = FRACO, 1 = MEDIO, 2 = FORTE, 3 = SUBCHEFE, 4 = CHEFE, 5 = CHEFE FINAL, OTHERS = RND
-    private final String nomes = "/config/nomes.txt";               //ARQUIVO COM NOMES
     private int pontos;                                             //PONTOS PARA PARAMETROS
     
     //CONSTRUTOR POR PASSAGEM DE PARAMETRO
@@ -23,13 +27,14 @@ public class Inimigo extends Persona{
         super(nome, forca, inteligencia, velocidade, resistencia);
     }
     
-    //CONSTRUTOR VAZIO
-    public Inimigo(){
+    //CONSTRUTOR ALEATORIO
+    public Inimigo(byte id){
         super();
+        randomizer(id);
     }
     
     //RANDOMIZER
-    public void randomizer(byte id){
+    private void randomizer(byte id){
         this.id = id;
         geraPontos();
         setNome(geraNome());
@@ -50,17 +55,18 @@ public class Inimigo extends Persona{
         setResistencia(resistencia);
         geraVidaMax();
         geraEnergiaMax();
+        
+        
     }
     
     //GERA NOME APARTIR DE ARQUIVO
     private String geraNome(){
         String resultado = null;
-        int n = 0;
-        for(Scanner scanner = new Scanner(nomes); scanner.hasNext(); ){
-           ++n;
+        int contador = 0;
+        for(Scanner scanner = new Scanner(ARQUIVONOMES); scanner.hasNext(); contador++){
            String linha = scanner.nextLine();
-           if(aleatorio.nextInt(n) == 0)
-              resultado = linha;         
+           if(aleatorio.nextInt(contador) == 0)
+              resultado = linha;
         }
         return resultado;
     }
@@ -105,6 +111,31 @@ public class Inimigo extends Persona{
            default:
                 pontos = (byte) (aleatorio.nextInt(Byte.SIZE * 4));
                 break;
+        }
+    }
+    
+    //CONSTRUTOR RANDOM
+    public void geraTalentos(byte id){
+        if(TAMANHOHABILIDADE > 0){
+            byte quantidade;
+            if(TAMANHOHABILIDADE > id)
+                quantidade = (byte) (aleatorio.nextInt(id)+1);
+            else
+                quantidade = (byte) (aleatorio.nextInt(TAMANHOHABILIDADE-1)+1);
+            Habilidade habilidade;
+            do{
+                habilidade = new Habilidade((byte) aleatorio.nextInt(TAMANHOHABILIDADE));
+                boolean auxiliar = false;
+                for(int contador = 0; contador < getTalentos().getTamanho(); contador++){
+                    if(getTalentos().getHabilidades().get(quantidade).getId() == habilidade.getId())
+                        auxiliar = true;
+                }
+                if(!auxiliar){
+                    addTalentos(habilidade);
+                    quantidade--;
+                }
+            }
+            while (quantidade > 0);
         }
     }
     

@@ -5,6 +5,8 @@
  */
 package personagem;
 
+import habilidade.Habilidade;
+import habilidade.Talentos;
 import item.Item;
 import static main.Main.aleatorio;
 
@@ -14,26 +16,27 @@ import static main.Main.aleatorio;
  */
 public abstract class Persona {
     //PARAMETROS DE SISTEMA
-    private String nome;  //NOME DO PERSONAGEM
+    private String nome;                            //NOME DO PERSONAGEM
     
     //PARAMETROS VARIAVEIS
-    private byte vida;          //VIDA
-    private byte energia;       //ENERGIA
-    private Item arma;          //EQUIPAMENTO DE ATAQUE
-    private Item armadura;      //EQUIPAMENTO DE DEFESA
+    private byte vida;                              //VIDA
+    private byte energia;                           //ENERGIA
+    private Item arma;                              //EQUIPAMENTO DE ATAQUE
+    private Item armadura;                          //EQUIPAMENTO DE DEFESA
+    private final Talentos talentos;                //TALENTOS DO PERSONAGEM
     
     //PARAMETROS DEPENDENTES
-    private byte vidaMax;       //RESISTENCIA + (FORÇA / 2)    
-    private byte energiaMax;    //RESISTENCIA + (INTELIGENCIA / 2)
+    private byte vidaMax;                           //RESISTENCIA + (FORÇA / 2)    
+    private byte energiaMax;                        //RESISTENCIA + (INTELIGENCIA / 2)
     
     //PARAMETROS INDEPENDENTES
-    private byte forca;         //DEFINE ATAQUE
-    private byte inteligencia;  //DEFINE HABILIDADE
-    private byte velocidade;    //DEFINE ORDEM E EVASÃO
-    private byte resistencia;   //DEFINE DEFESA
+    private byte forca;                             //DEFINE ATAQUE
+    private byte inteligencia;                      //DEFINE HABILIDADE
+    private byte velocidade;                        //DEFINE ORDEM E EVASÃO
+    private byte resistencia;                       //DEFINE DEFESA
     
     //PARAMETROS RANDOMICOS
-    private final byte sorte;   //DEFINE %BONUS
+    private final byte sorte;                       //DEFINE %BONUS
     
     //CONSTRUTOR POR PARAMETRO
     Persona(String nome, byte forca, byte inteligencia, byte velocidade, byte resistencia){
@@ -47,11 +50,13 @@ public abstract class Persona {
         this.vida = vidaMax;                        //PARAMETRO VIDA
         geraEnergiaMax();                           //PARAMETRO ENERGIA MAXIMA INICIAL
         this.energia = energiaMax;                  //PARAMETRO ENERGIA
+        this.talentos = new Talentos();
     }
     
     //CONSTRUTOR VAZIO
     Persona(){
         sorte = (byte) aleatorio.nextInt(10);       //PARAMETRO SORTE
+        talentos = new Talentos();
     }
     
     //GETTERS AND SETTERS
@@ -68,15 +73,15 @@ public abstract class Persona {
     }
     
     private boolean setVida(byte vida){
-        if (vida != vidaMax){
+        if (vida != vidaMax && vida > 0){
             if (vida < vidaMax)
                 this.vida = vida;
             else
                 this.vida = vidaMax;
             return true;
         }
-        else 
-            return false; 
+        else
+            return false;
     }
     
     public byte getVidaMax(){
@@ -95,7 +100,7 @@ public abstract class Persona {
     }
 
     private boolean setEnergia(byte energia){
-        if (energia != energiaMax){
+        if (energia != energiaMax && energia > 0){
             if (energia < energiaMax)
                 this.energia = energia;
             else
@@ -137,7 +142,7 @@ public abstract class Persona {
         return forca;
     }
     
-    public void setForca(byte forca){
+    protected void setForca(byte forca){
         if (forca < Byte.SIZE)
             this.forca = forca;
         else
@@ -148,7 +153,7 @@ public abstract class Persona {
         return inteligencia;
     }
     
-    public void setInteligencia(byte inteligencia){
+    protected void setInteligencia(byte inteligencia){
         if (inteligencia < Byte.SIZE)
             this.inteligencia = inteligencia;
         else
@@ -159,7 +164,7 @@ public abstract class Persona {
         return velocidade;
     }
     
-    public void setVelocidade(byte velocidade){
+    protected void setVelocidade(byte velocidade){
         if (velocidade < Byte.SIZE)
             this.velocidade = velocidade;
         else
@@ -170,7 +175,7 @@ public abstract class Persona {
         return resistencia;
     }
     
-    public void setResistencia(byte resistencia){
+    protected void setResistencia(byte resistencia){
         if (resistencia < Byte.SIZE)
             this.resistencia = resistencia;
         else
@@ -193,7 +198,23 @@ public abstract class Persona {
         return setVida((byte) (getVida() + regen));
     }
     
+    public boolean reduzVida(byte damage){
+        return setVida((byte) (getVida() - damage));
+    }
+    
     public boolean regenEnergia(byte regen){
         return setEnergia((byte) (getEnergia() + regen));
+    }
+    
+    public boolean reduzEnergia(byte damage){
+        return setVida((byte) (getVida() - damage));
+    }
+    
+    public Talentos getTalentos(){
+        return talentos;
+    }
+    
+    public boolean addTalentos(Habilidade habilidade){
+        return (talentos.addTalentos(habilidade));
     }
 }
