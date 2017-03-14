@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 public class JanelaInicial extends JFrame implements ActionListener {
     private JButton btnNovoJogo;
     private JButton btnCarregarJogo;
-    private Sala1 sala1;
+    private Sala sala1;
     
     /**
      * Construtor
@@ -43,9 +43,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
         setResizable(false);
         
         //Carrega imagem de background
-        JLabel background = new JLabel (new ImageIcon("resources/backgroundInicio.jpg"));
-        add(background);
-        
+        JLabel background = new JLabel (new ImageIcon("resources/backgroundInicio.jpg"));        
         
         background.setLayout(new GridLayout(4,3));
         background.setVisible(true);
@@ -58,7 +56,6 @@ public class JanelaInicial extends JFrame implements ActionListener {
         painelBotoes.add(btnNovoJogo);
         painelBotoes.add(btnCarregarJogo);
         
-        add (background);
         background.add(new JLabel(""));
         JLabel titulo = new JLabel ("Castelo do Draks");
         titulo.setFont(new Font("Dialog", Font.BOLD, 40));
@@ -75,6 +72,8 @@ public class JanelaInicial extends JFrame implements ActionListener {
         background.add(new JLabel(""));
         background.add(new JLabel(""));
         
+        add (background);
+        
     }    
     
     @Override
@@ -83,7 +82,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
             System.out.println ("NOVO JOGO");
             //JOptionPane.showMessageDialog(null, "Iniciando novo jogo!");
             this.dispose();
-            sala1 = new Sala1();
+            sala1 = new Sala("Saguão Principal");
             
 	} else if (ae.getSource() == btnCarregarJogo) {
             System.out.println ("CARREGAR JOGO");
