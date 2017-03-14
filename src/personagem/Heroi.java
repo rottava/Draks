@@ -5,11 +5,9 @@
  */
 package personagem;
 
-import habilidade.Habilidade;
-import habilidade.Talentos;
 import item.Item;
 import item.Mochila;
-import java.util.List;
+import static main.Main.TAMANHOMAXIMO;
 
 /**
  *
@@ -17,33 +15,41 @@ import java.util.List;
  */
 public class Heroi extends Persona {
     //PARAMETROS VARIAVEIS
-    private byte pontos;            //PONTOS DE ATRIBUTOS
-    private byte peso;              //CARGA DE ITENS ATUAL
-    private final Mochila mochila;  //ARMAZEM DE ITENS
+    private byte pontos;                                                        //PONTOS DE ATRIBUTOS
+    private byte peso;                                                          //CARGA DE ITENS ATUAL
+    private final Mochila mochila;                                              //ARMAZEM DE ITENS
     
     
     //PARAMETROS DEPENDENTES
-    private byte pesoMax;           //FORCA + RESISTENCIA
+    private byte pesoMax;                                                       //FORCA + RESISTENCIA
     
     //CONSTRUTOR
-    public Heroi(String nome, byte forca, byte inteligencia, byte velocidade, byte resistencia) {
-        super(nome, forca, inteligencia, velocidade, resistencia);
-        mochila = new Mochila();
+    public Heroi(String nome, byte forca, byte inteligencia, byte agilidade, byte resistencia) {
+        super(nome, forca, inteligencia, agilidade, resistencia);               //CONSTRUTOR PAI
+        mochila = new Mochila();                                                //LISTA DE ITENS
     }
     
     //GETTERS AND SETTERS
+    
+    //RETORNA PONTOS
     public byte getPontos(){
         return pontos;
     }
     
+    //SETA PONTOS E RETORNA VERDADEIRO OU RETORNA FALSO
     public void setPontos(byte pontos){
-        this.pontos = pontos;
+        if (pontos < TAMANHOMAXIMO)
+            this.pontos = pontos;
+        else
+            this.pontos = TAMANHOMAXIMO;
     }
     
+    //RETORNA PESO
     public byte getPeso(){
         return peso;
     }
     
+    //SETA PESO E RETORNA VERDADEIRO OU RETORNA FALSO
     public boolean setPeso(byte peso){
         if (peso <= pesoMax){
             this.peso = peso;
@@ -53,25 +59,30 @@ public class Heroi extends Persona {
             return false;
     }
     
+    //RETORNA PESO MAXIMO
     public byte getPesoMax(){
         return pesoMax;
     }
     
+    //SETA PESO MAXIMO PARA
     private void setPesoMax(byte pesoMax){
-        if (pesoMax < Byte.SIZE)
+        if (pesoMax < TAMANHOMAXIMO)
             this.pesoMax = pesoMax;
         else
-            this.pesoMax = Byte.SIZE;
+            this.pesoMax = TAMANHOMAXIMO;
     }
     
+    //GERA PESO MAXIMO
     public void geraPesoMax(){
         setPesoMax((byte) (getForca() + getResistencia()));
     }
     
+    //RETORNA LISTA DE ITENS
     public Mochila getMochila(){
         return mochila;
     }
     
+    //ADICIONA ITEM A LISTA DE ITENS E RETORNA 0, RETORNA 1 CASO MOCHILA CHEIA, RETORNA 2 CASO PESO EXEDE LIMITE
     public byte addMochila(Item item){
         Byte pesoAux = (byte) ((getArma().getPesoItem() + getArmadura().getPesoItem() + mochila.getPeso()));
         if (pesoAux <= pesoMax){
@@ -86,6 +97,7 @@ public class Heroi extends Persona {
             return 2;
     }
     
+    //REMOVE ITEM DA MOCHILA E RETORNA VERDADEIRO OU RETORNA FALSO SE ITEM NAO EXISTE
     public boolean subMochila(Item item){
         if(mochila.subMochila(item)){
             setPeso((byte) (getArma().getPesoItem() + getArmadura().getPesoItem() + mochila.getPeso()) );
@@ -95,6 +107,7 @@ public class Heroi extends Persona {
             return false;
     }
     
+    //EQUIPA ARMA OU NOVA ARMA E GUARDA NA LISTA DE ITENS ARMA ANTIGA
     public void equipaArma(Item arma){
         mochila.subMochila(arma);
         if (getArma() != null)
@@ -102,12 +115,14 @@ public class Heroi extends Persona {
         setArma(arma);
     }
     
+    //REMOVE ARMA DO PERSONAGEM E GUARDA NA LISTA DE ITENS
     public void desequipaArma(){
         if (getArma() != null)
             mochila.addMochila(getArma());
         setArma(null);
     }
     
+    //EQUIPA ARMADURA OU NOVA ARMADURA E GUARDA NA LISTA DE ITENS ARMADURA ANTIGA
     public void equipaArmadura(Item arma){
         mochila.subMochila(arma);
         if (getArmadura() != null)
@@ -115,11 +130,11 @@ public class Heroi extends Persona {
         setArma(arma);
     }
     
+    //REMOVE ARMADURA DO PERSONAGEM E GUARDA NA LISTA DE ITENS
     public void desequipaArmadura(){
         if (getArmadura() != null)
             mochila.addMochila(getArmadura());
         setArma(null);
     }
             
-
 }

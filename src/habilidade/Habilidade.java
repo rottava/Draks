@@ -14,13 +14,13 @@ import static main.Main.ARQUIVOHABILIDADES;
  */
 public class Habilidade {
     //PARAMETRO DE CONFIGURACAO
-    private final byte id;              //LINHA DO ARQUIVO
+    private final byte id;                                                      //LINHA DO ARQUIVO
     
     //PARAMETRO DE DEFINIÇÃO
-    private String nome;                //NOME DE HABILIDADE
-    private byte tipo;                  //TIPO DE HABILIDADE
-    private byte efeito;                //EFEITO DE HABILIDADE
-    private byte consumo;               //CONSUMO DE ENERGIA POR HABILIDADE
+    private String nome;                                                        //NOME DE HABILIDADE
+    private byte tipo;                                                          //TIPO DE HABILIDADE: 0 = CURA, 1 = DANO SIMPLES, 2 = DANO EM AREA, 3 = DANO POR TEMPO
+    private byte efeito;                                                        //EFEITO DE HABILIDADE
+    private byte consumo;                                                       //CONSUMO DE ENERGIA POR HABILIDADE
     
     //CONSTRUTOR POR ID
     public Habilidade(byte id){
@@ -29,38 +29,47 @@ public class Habilidade {
     }
     
     //GETTERS AND SETTERS
+    
+    //RETORNA ID
     public byte getId(){
         return id;
     }
+    
+    //RETORNA NOME
     public String getNome(){
         return nome;
     } 
     
+    //RETORNA TIPO
     public byte getTipo(){
         return tipo;
     }
     
+    //RETORNA EFEITO
     public byte getEfeito(){
         return efeito;
     }
     
+    //RETORNA CONSUMO
     public byte getConsumo(){
         return consumo;
     }
     
+    //CONFIGURA HABILIDADE ATRAVEZ DO ARQUIVO
     private void setParam(){
-        Scanner scanner;
-        int n = 0;
-        for(scanner = new Scanner(ARQUIVOHABILIDADES); (scanner.hasNext() && n < id); n++){
+        Scanner scanner = new Scanner(ARQUIVOHABILIDADES);
+        byte loop = 1;
+        while((scanner.hasNext()) && (loop < id)){
             String nextLine = scanner.nextLine();
+            loop++;
         }
         if (scanner.hasNext()){
             String[] parametros;
-            parametros = scanner.nextLine().split("/");
-            nome = parametros[0];
-            tipo = (byte) Integer.parseInt(parametros[1]);
-            efeito = (byte) Integer.parseInt(parametros[2]);
-            consumo = (byte) Integer.parseInt(parametros[3]);
+            parametros = scanner.nextLine().split("/");                         //NOME/TIPO/EFEITO/CONSUMO
+            nome = parametros[0];                                               //NOME
+            tipo = (byte) Integer.parseInt(parametros[1]);                      //TIPO
+            efeito = (byte) Integer.parseInt(parametros[2]);                    //EFEITO
+            consumo = (byte) Integer.parseInt(parametros[3]);                   //CONSUMO
         }
         else
             throw new UnsupportedOperationException("ID de habilidade não encontrado.");

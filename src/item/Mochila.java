@@ -14,68 +14,73 @@ import java.util.List;
  */
 public class Mochila {
     //PARAMETRO DE DEFINICAO
-    private final List<Item> mochila;           //MOCHILA
+    private final List<Item> mochila;                                           //MOCHILA
     
     //PARAMETRO VARIAVEL
-    private byte tamanho;                       //TAMANHO
-    private byte peso;                          //PESO
+    private byte tamanho;                                                       //TAMANHO
+    private byte peso;                                                          //PESO
     
     //PARAMETRO INDEPENDENTE
-    private final byte tamanhoIni = 10;         //TAMANHO INICIAL
-    private final byte tamanhoMax = 100;        //TAMANHO MAXIMO
+    private final byte TAMANHOINICIAL = 10;                                     //TAMANHO INICIAL
+    private final byte TAMANHOFINAL = 100;                                      //TAMANHO MAXIMO
     
     //CONSTRUTOR
     public Mochila(){
-        mochila = new ArrayList<>();
-        tamanho = tamanhoIni;
-        peso = 0;
+        mochila = new ArrayList<>();                                            //LISTA DE ITENS
+        tamanho = TAMANHOINICIAL;                                                   //TAMANHO INICIAL DA LISTA
+        peso = 0;                                                               //PESO
     }
     
     //GETTERS AND SETTERS
+    
+    //RETORNA LISTA DE ITENS
     public List<Item> getMochila(){
         return mochila;
     }
     
+    //RETORNA TAMANHO
     public byte getTamanho(){
         return tamanho;
     }
     
+    //SETA TAMANHO ENQUANTO TAMANHO MENO QUE TAMANHOFINAL
     public void setTamanho(byte tamanho){
-        if (tamanho < tamanhoMax)
+        if (tamanho < TAMANHOFINAL)
             this.tamanho = tamanho;
         else
-            this.tamanho = tamanhoMax;
+            this.tamanho = TAMANHOFINAL;
     }
     
+    //RETORNA PESO
     public byte getPeso(){
         return peso;
     }
     
-    //ADICIONA ITEM NA MOCHILA
+    //ADICIONA ITEM NA LISTA DE ITENS
     public boolean addMochila(Item item){
         byte loop = 0;
-        while ((mochila.get(loop).getId() != item.getId()) && loop < tamanho)
+        while ((mochila.get(loop).getId() != item.getId()) && loop < tamanho)   //VERIFICA LISTA PROCURANDO O ITEM
             loop++;
-        if (mochila.get(loop).getId() == item.getId()){
-            if ((mochila.get(loop).getQuantidadeMax() - mochila.get(loop).getQuantidade()) >= item.getQuantidade()){
+        if (mochila.get(loop).getId() == item.getId()){                         //SE ITEM JA EXISTE NA LISTA DE ITENS
+            if ((mochila.get(loop).getQuantidadeMax() - mochila.get(loop).getQuantidade()) >= item.getQuantidade()){ //SE NUMERO DE ITENS NÃO ULTRAPASSA LIMITE DE ITENS POR OBJETO
                 peso = (byte) (peso + item.getPesoTotal());
                 mochila.get(loop).setQuantidade((byte) (mochila.get(loop).getQuantidade() + item.getQuantidade()));
-                return true;
+                return true;                                                    
             }
-            else{
-                if(mochila.size() < tamanho){
+            else{                                                               //NUMERO DE ITENS ULTRAPASSA LIMITE DE ITENS POR OBJETO
+                if(mochila.size() < tamanho){                                   //SE NOVO NUMERO DE ITENS NAO ULTRAPASSA LIMITE DE ITENS NA LISTA
                     peso = (byte) (peso + item.getPesoTotal());
                     item.setQuantidade((byte) (mochila.get(loop).getQuantidade() + item.getQuantidade() - mochila.get(loop).getQuantidadeMax()));
                     mochila.get(loop).setQuantidade(mochila.get(loop).getQuantidadeMax());
-                    mochila.add(item);
+                    mochila.add(item);                                          //ADICIONA NOVO OBJETO NA LISTA
                     return true;
                 }
                 else
                     return false;
             }
         }
-        else {
-            if (mochila.size() < tamanho){
+        else {                                                                  //SE ITEM NAO EXISTE NA LISTA DE ITENS
+            if (mochila.size() < tamanho){                                      //SE O NOVO PESO NAO ULTRAPASSA LIMITE MAXIMO DE ITENS
                     peso = (byte) (peso + item.getPesoTotal());
                     mochila.add(item);
                     return true;
@@ -85,22 +90,22 @@ public class Mochila {
         }
     }
     
-    //REMOVE ITEM DA MOCHILA
+    //REMOVE ITEM DA LISTA DE ITENS
     public boolean subMochila(Item item){
         byte loop = 0;
         byte ultimo = 0;
         while (loop < tamanho){
-            if (mochila.get(loop).getId() == item.getId())
+            if (mochila.get(loop).getId() == item.getId())                      //VERIFICA LISTA PROCURANDO ITEM
                 ultimo = loop;
             loop++;
         } 
-        if (mochila.get(ultimo).getId() == item.getId()){
-            if ((mochila.get(ultimo).getQuantidade() - item.getQuantidade()) > 0){
+        if (mochila.get(ultimo).getId() == item.getId()){                       //SE ITEM EXISTE NA LISTA
+            if ((mochila.get(ultimo).getQuantidade() - item.getQuantidade()) > 0){// SE NOVO NUMERO DE ITENS E MAIOR QUE 0
                 peso = (byte) (peso - (item.getPesoTotal()));
                 mochila.get(ultimo).setQuantidade((byte) (mochila.get(ultimo).getQuantidade() - item.getQuantidade()));
                 return true;
             }
-            else {
+            else {                                                              //SE NOVO NUMERO DE ITENS E 0
                 if ((mochila.get(loop).getQuantidade() - item.getQuantidade()) == 0){
                     peso = (byte) (peso - (item.getPesoTotal()));
                     mochila.remove(loop);
