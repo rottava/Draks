@@ -7,8 +7,6 @@ package habilidade;
 
 import java.util.ArrayList;
 import java.util.List;
-import static main.Main.aleatorio;
-import static main.Main.TAMANHOHABILIDADE;
 
 /**
  *
@@ -16,7 +14,7 @@ import static main.Main.TAMANHOHABILIDADE;
  */
 public class Talentos {
     //PARAMETRO VARIAVEL
-    private List<Habilidade> talentos;
+    private final List<Habilidade> talentos;
     
     //CONSTRUTOR VAZIO
     public Talentos(){
@@ -35,12 +33,12 @@ public class Talentos {
     //ADICIONA HABILIDADE EM TALENTOS
     public boolean addTalentos(Habilidade habilidade) {
         byte loop = 0;
-        while ((talentos.get(loop).getId() != habilidade.getId()) && loop < talentos.size())
+        while ((talentos.get(loop).getId() != habilidade.getId()) && loop < talentos.size())//PROCURA HABILIDADE NA LISTA
             loop++;
-        if (talentos.get(loop).getId() == habilidade.getId())
+        if (talentos.get(loop).getId() == habilidade.getId())                   //VERIFICA SE HABILIDADE JA EXISTE NA LISTA
             return false;
         else{
-            talentos.add(habilidade);
+            talentos.add(habilidade);                                           //ADICIONA HABILIDADE
             return true;
         }
     }
