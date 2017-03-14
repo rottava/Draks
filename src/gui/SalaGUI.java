@@ -28,7 +28,7 @@ import javax.swing.ListSelectionModel;
  *
  * @author wagner
  */
-public class Sala extends JFrame implements ActionListener {
+public class SalaGUI extends JFrame implements ActionListener {
     private String nomeSala;
     private JButton btnNorte;
     private JButton btnSul;
@@ -36,13 +36,22 @@ public class Sala extends JFrame implements ActionListener {
     private JButton btnOeste;
     private JList inventario;
     private JList acoes;
-
-    public Sala (String nomeSala) {
+    
+    /**
+     * Construtor da interface gráfica da sala
+     * @param nomeSala = Nome exibido como título em cada sala
+     * @param ordem = Número da imagem a ser exibida como background
+     */
+    public SalaGUI (String nomeSala, int ordem) {
         this.nomeSala = nomeSala;
-        initGUI();
+        initGUI(ordem);
     }
     
-    private void initGUI () {
+    /**
+     * Inicia a janela de Interface Gráfica da Sala
+     * @param ordem = Número da imagem a ser exibida com background
+     */
+    private void initGUI (int ordem) {
         //Características da Janela
         setTitle("Castelo do Draks");
         setSize(1024, 720);
@@ -52,7 +61,7 @@ public class Sala extends JFrame implements ActionListener {
         setResizable(false);
         setVisible(true);
         
-        JLabel background = new JLabel (new ImageIcon("resources/sagao.jpg"));
+        JLabel background = new JLabel (new ImageIcon("resources/"+ordem+".jpg"));
         background.setBounds(0, 0, 1024, 720);
         
         JLabel titulo = new JLabel(nomeSala.toUpperCase());
@@ -114,6 +123,9 @@ public class Sala extends JFrame implements ActionListener {
         adicionarAcoes();
     }
     
+    /**
+     * Ações disponíveis na lista
+     */
     private void adicionarAcoes() {
         ((DefaultListModel) acoes.getModel()).removeAllElements();
         ((DefaultListModel) acoes.getModel()).addElement("Mover");

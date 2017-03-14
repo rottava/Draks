@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 public class JanelaInicial extends JFrame implements ActionListener {
     private JButton btnNovoJogo;
     private JButton btnCarregarJogo;
-    private Sala sala1;
+    private SalaGUI sala1;
     
     /**
      * Construtor
@@ -82,7 +82,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
             System.out.println ("NOVO JOGO");
             //JOptionPane.showMessageDialog(null, "Iniciando novo jogo!");
             this.dispose();
-            sala1 = new Sala("Saguão Principal");
+            sala1 = new SalaGUI("Saguão Principal", 1);
             
 	} else if (ae.getSource() == btnCarregarJogo) {
             System.out.println ("CARREGAR JOGO");
