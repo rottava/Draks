@@ -5,14 +5,20 @@
  */
 package gui;
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -23,6 +29,8 @@ public class Sala1 extends JFrame implements ActionListener {
     private JButton btnSul;
     private JButton btnLeste;
     private JButton btnOeste;
+    private JList itens;
+    private JList acoes;
 
     public Sala1 () {
         initGUI();
@@ -34,166 +42,54 @@ public class Sala1 extends JFrame implements ActionListener {
         setSize(1024, 720);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(new GridLayout());
+        setLayout(null);
         setResizable(false);
         setVisible(true);
         
-        JLabel background = new JLabel ("");
-        
-        background.setLayout(new GridLayout(11,11));
-        
-        //linha 1
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
         btnNorte = new JButton ("Norte");
+        btnNorte.setBounds(480,10,80,30); //x, y, largura, altura
         btnNorte.addActionListener(this);
-        background.add(btnNorte);
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        
-        //linha 2
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        
-        //linha 3
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        
-        //linha 4
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        
-        //linha 5
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        
-        //linha 6
+        add(btnNorte);
         btnOeste = new JButton ("Oeste");
+        btnOeste.setBounds(10,300,80,30); //x, y, largura, altura
         btnOeste.addActionListener(this);
-        background.add (btnOeste);
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
+        add (btnOeste);
         btnLeste = new JButton ("Leste");
+        btnLeste.setBounds(930,300,80,30); //x, y, largura, altura
         btnLeste.addActionListener(this);
-        background.add(btnLeste);
-        
-        //linha 7
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        
-        //linha 8
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        
-        //linha 9
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        
-        //linha 10
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        
-        //linha 11
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
+        add(btnLeste);
         btnSul = new JButton ("Sul");
+        btnSul.setBounds(480,650,80,30); //x, y, largura, altura
         btnSul.addActionListener(this);
-        background.add(btnSul);
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));
-        background.add(new JLabel (""));  
+        add(btnSul);
         
-        add(background);
+        JLabel labelItens = new JLabel ("Itens");
+        labelItens.setFont(new Font("Dialog", Font.BOLD, 20));
+        labelItens.setBounds(30, 450, 50, 50);
+        add(labelItens);
+        
+        itens = new JList();
+	itens.setModel(new DefaultListModel());
+	itens.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	itens.setLayoutOrientation(JList.VERTICAL);
+	itens.setVisibleRowCount(-1);
+	JScrollPane pItens = new JScrollPane(itens);
+        pItens.setBounds(30, 500, 300, 170);
+	add(pItens);
+        
+        JLabel labelAcoes = new JLabel ("Ações");
+        labelAcoes.setFont(new Font("Dialog", Font.BOLD, 20));
+        labelAcoes.setBounds(930, 450, 60, 50);
+        add(labelAcoes);
+        
+        acoes = new JList();
+	acoes.setModel(new DefaultListModel());
+	acoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	acoes.setLayoutOrientation(JList.VERTICAL);
+	acoes.setVisibleRowCount(-1);
+	JScrollPane pAcoes = new JScrollPane(acoes);
+        pAcoes.setBounds(700, 500, 300, 170);
+	add(pAcoes);
     }
     
     @Override
