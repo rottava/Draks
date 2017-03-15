@@ -15,18 +15,28 @@ import java.util.Scanner;
  * @author Junior
  */
 public class Main {
-    public static Random aleatorio;
-    public static final String ARQUIVOITENS = "/config/itens.txt";              //ARQUIVO: NOME/TIPO/EFEITO/PESO
-    public static final String ARQUIVONOMES = "/config/nomes.txt";              //ARQUIVO: NOME/TIPO/EFEITO/PESO
-    public static final String ARQUIVOHABILIDADES = "/config/habilidades.txt";  //ARQUIVO: NOME/TIPO/EFEITO/PESO
-    public static final String ARQUIVOINIMIGOS = "/config/inimigos.txt";        //ARQUIVO: NOME/FORCA/INTELIGENCIA/VELOCIDADE/RESISTENCIA/ID ARMA/ID ARMADURA/ID HABILIDADES1/ID HABILIDADE2...
-    public static final String ARQUIVOSALAS = "/config/salas.txt";              //ARQUIVO: NOME/TIPO/EFEITO/PESO
-    public static final byte TAMANHOITENS = getTamanhoArquivo(ARQUIVOITENS);    //TAMANHO DO ARQUIVO DE ITENS (EM LINHAS)
-    public static final byte TAMANHONOMES = getTamanhoArquivo(ARQUIVONOMES);    //TAMANHO DO ARQUIVO DE NOMES (EM LINHAS)
-    public static final byte TAMANHOHABILIDADE = getTamanhoArquivo(ARQUIVOHABILIDADES);//TAMANHO DO ARQUIVO DE HABILIDADES (EM LINHAS)
-    public static final byte TAMANHOINIMIGOS = getTamanhoArquivo(ARQUIVOINIMIGOS);//TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS)
-    public static final byte TAMANHOSALAS = getTamanhoArquivo(ARQUIVOSALAS);    //TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS
-    public static final byte TAMANHOMAXIMO = 127;                                  //TAMANHO MAXIMO DE ARQUIVOS
+    public static Random aleatorio;    
+    public static final File ITENSCURA = new File("/config/itenscura.txt");     //ARQUIVO: NOME/EFEITO/PESO
+    public static final File ITENSENERGIA = new File("/config/itensenergia.txt");//ARQUIVO: NOME/EFEITO/PESO
+    public static final File CHAVES = new File("/config/chaves.txt");           //ARQUIVO: NOME/EFEITO/PESO
+    public static final File ARMAS = new File("/config/armas.txt");             //ARQUIVO: NOME/EFEITO/PESO
+    public static final File ARMADURAS = new File("/config/armaduras.txt");     //ARQUIVO: NOME/EFEITO/PESO
+    public static final File NOMES = new File("/config/nomes.txt");             //ARQUIVO: NOME
+    public static final File HABILIDADESCURA = new File("/config/habilidadescura.txt"); //ARQUIVO: NOME/EFEITO/CUSTO
+    public static final File HABILIDADESDANO = new File("/config/habilidadesdano.txt"); //ARQUIVO: NOME/EFEITO/CUSTO
+    public static final File INIMIGOS = new File("/config/inimigos.txt");       //ARQUIVO: NOME/TIPO/EFEITO/PESO
+    public static final File SALAS = new File("/config/salas.txt");             //ARQUIVO: NOME/TIPO/EFEITO/PESO
+    public static final byte TAMANHOITENSCURA = getTamanhoArquivo(ITENSCURA);   //TAMANHO DO ARQUIVO DE ITENS DE CURA (EM LINHAS)
+    public static final byte TAMANHOITENSENERGIA = getTamanhoArquivo(ITENSENERGIA);//TAMANHO DO ARQUIVO DE ITENS DE ENERGIA (EM LINHAS)
+    public static final byte TAMANHOCHAVES = getTamanhoArquivo(CHAVES);         //TAMANHO DO ARQUIVO DE CHAVES (EM LINHAS)
+    public static final byte TAMANHOARMAS = getTamanhoArquivo(ARMAS);           //TAMANHO DO ARQUIVO DE ARMAS (EM LINHAS)
+    public static final byte TAMANHOARMADURAS = getTamanhoArquivo(ARMADURAS);   //TAMANHO DO ARQUIVO DE ARMADURAS (EM LINHAS)
+    public static final byte TAMANHONOMES = getTamanhoArquivo(NOMES);           //TAMANHO DO ARQUIVO DE NOMES (EM LINHAS)
+    public static final byte TAMANHOHABILIDADESCURA = getTamanhoArquivo(HABILIDADESCURA);//TAMANHO DO ARQUIVO DE HABILIDADES DE CURA(EM LINHAS)
+    public static final byte TAMANHOHABILIDADESDANO = getTamanhoArquivo(HABILIDADESDANO);//TAMANHO DO ARQUIVO DE HABILIDADES DE DANO(EM LINHAS)
+    public static final byte TAMANHOINIMIGOS = getTamanhoArquivo(INIMIGOS);     //TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS)
+    public static final byte TAMANHOSALAS = getTamanhoArquivo(SALAS);           //TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS
+    public static final byte TAMANHOMAXIMO = 127;                               //TAMANHO MAXIMO DE ARQUIVOS
     /**
      * @param args the command line arguments
      */
@@ -38,10 +48,10 @@ public class Main {
        
     }
     
-    private static byte getTamanhoArquivo(String arquivo) {
+    private static byte getTamanhoArquivo(File arquivo) {
         byte contador = 0;
         try{
-            Scanner scanner = new Scanner(new File(arquivo));
+            Scanner scanner = new Scanner(arquivo);
             while(scanner.hasNext()){
                 String linha = scanner.nextLine();
                 if (contador == TAMANHOMAXIMO)

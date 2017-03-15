@@ -7,6 +7,8 @@ package personagem;
 
 import habilidade.Habilidade;
 import habilidade.Talentos;
+import item.Arma;
+import item.Armadura;
 import item.Item;
 import static main.Main.TAMANHOMAXIMO;
 import static main.Main.aleatorio;
@@ -22,8 +24,8 @@ public abstract class Persona {
     //PARAMETROS VARIAVEIS
     private byte vida;                                                          //VIDA
     private byte energia;                                                       //ENERGIA
-    private Item arma;                                                          //EQUIPAMENTO DE ATAQUE
-    private Item armadura;                                                      //EQUIPAMENTO DE DEFESA
+    private Arma arma;                                                          //EQUIPAMENTO DE ATAQUE
+    private Armadura armadura;                                                  //EQUIPAMENTO DE DEFESA
     private final Talentos talentos;                                            //TALENTOS DO PERSONAGEM
     
     //PARAMETROS DEPENDENTES
@@ -134,22 +136,22 @@ public abstract class Persona {
     }
     
     //RETONA ARMA EQUIPADA
-    public Item getArma(){
+    public Arma getArma(){
         return arma;
     }
     
     //SETA ARMA EQUIPADA PARA
-    protected void setArma(Item arma){
+    protected void setArma(Arma arma){
         this.arma = arma;
     }
     
     //RETONAR ARMADURA EQUIPADA
-    public Item getArmadura(){
+    public Armadura getArmadura(){
         return armadura;
     }
     
     //SETA ARMADURA EQUIPADA PARA
-    protected void setArmadura(Item armadura){
+    protected void setArmadura(Armadura armadura){
         this.armadura = armadura;
     }
     

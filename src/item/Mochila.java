@@ -27,7 +27,7 @@ public class Mochila {
     //CONSTRUTOR
     public Mochila(){
         mochila = new ArrayList<>();                                            //LISTA DE ITENS
-        tamanho = TAMANHOINICIAL;                                                   //TAMANHO INICIAL DA LISTA
+        tamanho = TAMANHOINICIAL;                                               //TAMANHO INICIAL DA LISTA
         peso = 0;                                                               //PESO
     }
     

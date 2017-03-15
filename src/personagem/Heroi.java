@@ -5,6 +5,8 @@
  */
 package personagem;
 
+import item.Arma;
+import item.Armadura;
 import item.Item;
 import item.Mochila;
 import static main.Main.TAMANHOMAXIMO;
@@ -84,7 +86,7 @@ public class Heroi extends Persona {
     
     //ADICIONA ITEM A LISTA DE ITENS E RETORNA 0, RETORNA 1 CASO MOCHILA CHEIA, RETORNA 2 CASO PESO EXEDE LIMITE
     public byte addMochila(Item item){
-        Byte pesoAux = (byte) ((getArma().getPesoItem() + getArmadura().getPesoItem() + mochila.getPeso()));
+        Byte pesoAux = (byte) ((getArma().getPeso() + getArmadura().getPeso() + mochila.getPeso()));
         if (pesoAux <= pesoMax){
             if(mochila.addMochila(item)){
                 setPeso(pesoAux);
@@ -100,7 +102,7 @@ public class Heroi extends Persona {
     //REMOVE ITEM DA MOCHILA E RETORNA VERDADEIRO OU RETORNA FALSO SE ITEM NAO EXISTE
     public boolean subMochila(Item item){
         if(mochila.subMochila(item)){
-            setPeso((byte) (getArma().getPesoItem() + getArmadura().getPesoItem() + mochila.getPeso()) );
+            setPeso((byte) (getArma().getPeso() + getArmadura().getPeso() + mochila.getPeso()) );
             return true;
         }
         else 
@@ -108,7 +110,7 @@ public class Heroi extends Persona {
     }
     
     //EQUIPA ARMA OU NOVA ARMA E GUARDA NA LISTA DE ITENS ARMA ANTIGA
-    public void equipaArma(Item arma){
+    public void equipaArma(Arma arma){
         mochila.subMochila(arma);
         if (getArma() != null)
             mochila.addMochila(getArma());
@@ -123,11 +125,11 @@ public class Heroi extends Persona {
     }
     
     //EQUIPA ARMADURA OU NOVA ARMADURA E GUARDA NA LISTA DE ITENS ARMADURA ANTIGA
-    public void equipaArmadura(Item arma){
-        mochila.subMochila(arma);
+    public void equipaArmadura(Armadura armadura){
+        mochila.subMochila(armadura);
         if (getArmadura() != null)
             mochila.addMochila(getArmadura());
-        setArma(arma);
+        setArmadura(armadura);
     }
     
     //REMOVE ARMADURA DO PERSONAGEM E GUARDA NA LISTA DE ITENS

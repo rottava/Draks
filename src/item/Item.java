@@ -5,31 +5,25 @@
  */
 package item;
 
-import java.util.Scanner;
-import static main.Main.ARQUIVOITENS;
-
 /**
  *
  * @author Junior
  */
-public class Item {
+public abstract class Item {
     //PARAMETRO DE CONFIGURACAO
-    private final byte id;                                                      //ID DO ITEM = LINHA DO ARQUIVO
+    private byte id;                                                            //ID DO ITEM = LINHA DO ARQUIVO
     
     //PARAMETRO DE DEFINIÇÃO
     private String nome;                                                        //NOME DO ITEM
-    private byte tipo;                                                          //TIPO DO ITEM 0 = CONSUMIVEL, 1 = ARMA, 2 = ARMADURA
-    private byte efeito;                                                        //QUANTIDADE EFEITO (VIDA, ENERGIA, ATAQUE, DEFESA)
-    private byte pesoItem;                                                      //PESO POR ITEM
-    private final byte quantidadeMax = 100;                                     //MAXIMO DE ITENS POR SLOT +1
+    private byte efeito;                                                        //EFEITO
+    private byte peso;                                                          //PESO POR ITEM
+    private final byte QUANTIDADEMAX = 100;                                     //MAXIMO DE ITENS POR SLOT +1
     
     //PARAMETRO VARIAVEL
     private byte quantidade;                                                    //QUANTIDADE
     
     //CONSTRUTOR
-    public Item(byte id){
-        this.id = id;                                                           //LINHA DO ARQUIVO
-        setParam();                                                             //CONFIGURA PARAMETROS
+    public Item(){
         quantidade = 1;                                                         //QUANTIDADE MINIMA PARA EXISTIR = 1
     }
     
@@ -40,14 +34,29 @@ public class Item {
         return nome;
     }
     
+    //SETA NOME PARA
+    protected void setNome(String nome){
+        this.nome = nome;
+    }
+    
     //RETORNA ID
     public byte getId(){
         return id;
     }
     
-    //RETORNA TIPO DE ITEM
-    public byte getTipo(){
-        return tipo;
+    //SETA ID PARA
+    protected void setId(byte id){
+        this.id = id;
+    }
+    
+    //RETORNA EFEITO
+    public byte getEfeito(){
+        return efeito;
+    }
+    
+    //SETA EFEITO PARA
+    protected void setEfeito(byte efeito){
+        this.efeito = efeito;
     }
     
     //RETORNA QUANTIDADE TOTAL
@@ -55,48 +64,57 @@ public class Item {
         return quantidade;
     }
     
-    //SETA QUANTIDADE E RETORNA VERDADEIRO OU RETORNA FALSO
+    //RETORNA QUANTIDADE MAXIMA DO ITEM POR OBJETO
+    public byte getQuantidadeMax(){
+        return QUANTIDADEMAX;
+    }
+    
+    //SETA QUANTIDADE PARA
     public boolean setQuantidade(byte quantidade){
-        if (quantidade < quantidadeMax){
+        if(quantidade <= QUANTIDADEMAX && quantidade > 0){
             this.quantidade = quantidade;
+            return true;
+        }
+        else
+            return false;
+        
+    }
+    
+    //RETORNA PESO INDIVIDUAL DO ITEM
+    public byte getPeso(){
+        return peso;
+    }
+    
+    //SETA PESO ITEM PARA
+    protected void setPeso(byte peso){
+        this.peso = peso;
+    }
+    
+    //RETORNA PESO TOTAL DO ITEM
+    public byte getPesoTotal(){
+        float pesoTotal = peso;
+        pesoTotal = ((pesoTotal * quantidade));
+        return (byte) pesoTotal;
+    }
+    
+    public boolean decrementa(){
+        if (quantidade > 1){
+            quantidade--;
             return true;
         }
         else
             return false;
     }
     
-    //RETORNA QUANTIDADE MAXIMA DO ITEM POR OBJETO
-    public byte getQuantidadeMax(){
-        return quantidadeMax;
-    }
-    
-    //RETORNA PESO INDIVIDUAL DO ITEM
-    public byte getPesoItem(){
-        return pesoItem;
-    }
-    
-    //RETORNA PESO TOTAL DO ITEM
-    public byte getPesoTotal(){
-        return (byte) (pesoItem * quantidade);
-    }
-    
-    //CONFIGURA OBJETO ITEM APARTIR DE ARQUIVO
-    private void setParam(){
-        Scanner scanner = new Scanner(ARQUIVOITENS);
-        byte loop = 1;
-        while((scanner.hasNext()) && (loop < id)){
-            String nextLine = scanner.nextLine();
-            loop++;
+    public boolean incrementa(){
+        if (quantidade < QUANTIDADEMAX){
+            quantidade++;
+            return true;
         }
-        if (scanner.hasNext()){
-            String[] parametros;                        
-            parametros = scanner.nextLine().split("/");                         //DIVIDE A LINHA EM NOME/TIPO/EFEITO/PESO
-            nome = parametros[0];                                               //NOME
-            tipo = (byte) Integer.parseInt(parametros[1]);                      //TIPO
-            efeito = (byte) Integer.parseInt(parametros[2]);                    //EFEITO
-            pesoItem = (byte) Integer.parseInt(parametros[3]);                  //PESO
+        else{
+            quantidade = (QUANTIDADEMAX);
+            return false;
         }
-        else
-            throw new UnsupportedOperationException("ID de habilidade não encontrado.");
     }
+    
 }

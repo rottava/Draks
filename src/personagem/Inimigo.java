@@ -6,11 +6,16 @@
 package personagem;
 
 import habilidade.Habilidade;
-import item.Item;
+import habilidade.HabilidadeCura;
+import habilidade.HabilidadeDano;
+import item.Arma;
+import item.Armadura;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
-import static main.Main.ARQUIVOINIMIGOS;
-import static main.Main.ARQUIVONOMES;
-import static main.Main.TAMANHOHABILIDADE;
+import static main.Main.INIMIGOS;
+import static main.Main.NOMES;
+import static main.Main.TAMANHOHABILIDADESCURA;
+import static main.Main.TAMANHOHABILIDADESDANO;
 import static main.Main.TAMANHOMAXIMO;
 import static main.Main.aleatorio;
 
@@ -51,19 +56,24 @@ public final class Inimigo extends Persona{
             geraAtributos();
             geraVidaMax();
             geraEnergiaMax();
-            geraTalentos();
+            geraTalentosCura();
+            geraTalentosDano();
     }
     
     //GERA NOME APARTIR DE ARQUIVO
     private String geraNome(){
-        String resultado = null;
-        int contador = 0;
-        for(Scanner scanner = new Scanner(ARQUIVONOMES); scanner.hasNext(); contador++){
-           String linha = scanner.nextLine();
-           if(aleatorio.nextInt(contador) == 0)
-              resultado = linha;
+        try {
+            String resultado = null;
+            int contador = 0;
+            for(Scanner scanner = new Scanner(NOMES); scanner.hasNext(); contador++){
+                String linha = scanner.nextLine();
+                if(aleatorio.nextInt(contador) == 0)
+                    resultado = linha;
+            }
+            return resultado;
+        } catch (FileNotFoundException ex) {
+            throw new UnsupportedOperationException("Arquivo nomes.txt não foi encontrado.");
         }
-        return resultado;
     }
     
     //GERA PARAMETRO NO INTERVALO DE 1 A 255
@@ -128,18 +138,39 @@ public final class Inimigo extends Persona{
         }
     }
     
-    //GERADOR DE TALENTOS
-    private void geraTalentos(){
+    //GERADOR TALENTOS DE CURA
+    private void geraTalentosCura(){
         byte idInv = (byte) (id*-1);
-        if(TAMANHOHABILIDADE > 0){
+        if(TAMANHOHABILIDADESCURA > 0){
             byte quantidade;
-            if(TAMANHOHABILIDADE > idInv)
-                quantidade = (byte) (aleatorio.nextInt(idInv)+1);
+            if(TAMANHOHABILIDADESCURA > idInv)
+                quantidade = (byte) ((aleatorio.nextInt(idInv) + 2) /2);
             else
-                quantidade = (byte) (aleatorio.nextInt(TAMANHOHABILIDADE-1)+1);
+                quantidade = (byte) (aleatorio.nextInt((TAMANHOHABILIDADESCURA-1)/2)+1);
             Habilidade habilidade;
             do{
-                habilidade = new Habilidade((byte) aleatorio.nextInt(TAMANHOHABILIDADE));
+                habilidade = new HabilidadeCura((byte) aleatorio.nextInt(TAMANHOHABILIDADESCURA));
+                if(!verificaHabilidade(habilidade)){
+                    addTalentos(habilidade);
+                    quantidade--;
+                }
+            }
+            while (quantidade > 0);
+        }
+    }
+    
+    //GERA TALENTOS DE DANO
+    private void geraTalentosDano(){
+        byte idInv = (byte) (id*-1);
+        if(TAMANHOHABILIDADESDANO > 0){
+            byte quantidade;
+            if(TAMANHOHABILIDADESDANO > idInv)
+                quantidade = (byte) ((aleatorio.nextInt(idInv) + 2) /2);
+            else
+                quantidade = (byte) (aleatorio.nextInt((TAMANHOHABILIDADESDANO-1)/2)+1);
+            Habilidade habilidade;
+            do{
+                habilidade = new HabilidadeCura((byte) aleatorio.nextInt(TAMANHOHABILIDADESDANO));
                 if(!verificaHabilidade(habilidade)){
                     addTalentos(habilidade);
                     quantidade--;
@@ -161,39 +192,48 @@ public final class Inimigo extends Persona{
     
     //LE INIMIGO DO ARQUIVO DE CONFIGURACOES
     private void lerArquivo(){
-        Scanner scanner = new Scanner(ARQUIVOINIMIGOS);
-        byte loop = 1;
-        while((scanner.hasNext()) && (loop < id)){
-            String nextLine = scanner.nextLine();
-            loop++;
-        }
-        if (scanner.hasNext()){
-            String[] parametros;
-            parametros = scanner.nextLine().split("/");                         //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
-            setNome(parametros[0]);                                             //NOME
-            setForca((byte) Integer.parseInt(parametros[1]));                   //FORCA
-            setInteligencia((byte) Integer.parseInt(parametros[2]));            //INTELIGENCIA
-            setAgilidade((byte) Integer.parseInt(parametros[3]));               //AGILIDADE
-            setResistencia((byte) Integer.parseInt(parametros[4]));             //RESISTENCIA
-            Item item;
-            if(!parametros[5].equals("")){                                      //TESTE SE ARMA VALIDA
-                 item = new Item((byte) Integer.parseInt(parametros[5]));       
-                if (item.getTipo() == 1);                                       //1 = ARMA
-                    setArma(item);                                              //ARMA
+        try {
+            Scanner scanner = new Scanner(INIMIGOS);
+            byte loop = 1;
+            while((scanner.hasNext()) && (loop < id)){
+                String nextLine = scanner.nextLine();
+                loop++;
             }
-            if(!parametros[6].equals("")){                                      //TESTE SE ARMADURA VALIDA
-                item = new Item((byte) Integer.parseInt(parametros[6]));
-                if (item.getTipo() == 2);                                       //2 = ARMADURA
-                    setArmadura(item);                                          //ARMADURA
+            if (scanner.hasNext()){
+                String[] parametros;
+                parametros = scanner.nextLine().split("/");                         //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
+                setNome(parametros[0]);                                             //NOME
+                setForca((byte) Integer.parseInt(parametros[1]));                   //FORCA
+                setInteligencia((byte) Integer.parseInt(parametros[2]));            //INTELIGENCIA
+                setAgilidade((byte) Integer.parseInt(parametros[3]));               //AGILIDADE
+                setResistencia((byte) Integer.parseInt(parametros[4]));             //RESISTENCIA
+                if(!parametros[5].equals("0")){                                     //TESTE SE ARMA VALIDA
+                    Arma arma = new Arma((byte) Integer.parseInt(parametros[5]));
+                    setArma(arma);                                              //ARMA
+                }
+                if(!parametros[5].equals("0")){                                     //TESTE SE ARMADURA VALIDA
+                    Armadura armadura = new Armadura((byte) Integer.parseInt(parametros[6]));
+                    setArmadura(armadura);                                      //ARMADURA
+                }
+                for(int contador = 7; !parametros[contador].equals("0"); contador++){//VERIFICA HABILIDADES
+                    byte auxiliar = (byte) Integer.parseInt(parametros[contador]);
+                    if (auxiliar > 0){                                              //POSITIVOS
+                        HabilidadeCura habilidade = new HabilidadeCura(auxiliar);
+                        if(!verificaHabilidade(habilidade))                         //TESTA SE HABILIDADE JA ESTA NA LISTA
+                            addTalentos(habilidade);                                //ADICIONA HABILIDADES
+                    }
+                    else{                                                           //NEGATIVOS
+                        HabilidadeDano habilidade = new HabilidadeDano(auxiliar);
+                        if(!verificaHabilidade(habilidade))                         //TESTA SE HABILIDADE JA ESTA NA LISTA
+                            addTalentos(habilidade);                                //ADICIONA HABILIDADES
+                    }
+                }
             }
-            for(int contador = 7; parametros[contador] != null; contador++){    //VERIFICA HABILIDADES
-                Habilidade habilidade = new Habilidade((byte) Integer.parseInt(parametros[contador]));
-                if(!verificaHabilidade(habilidade))                             //VERIFICA SE HABILIDADES NAO ESTAO NA LISTA
-                    addTalentos(habilidade);                                    //ADICIONA HABILIDADES
-            }
-        }
-        else
+            else
+                throw new UnsupportedOperationException("ID de inimigo não encontrado.");
+        } catch (FileNotFoundException ex) {
             throw new UnsupportedOperationException("ID de inimigo não encontrado.");
+        }
     }
     
 }
