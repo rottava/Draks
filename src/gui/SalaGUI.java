@@ -1,21 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Random;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,16 +14,14 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 /**
- *
+ * Criação das salas com seus ítens e inimigos
  * @author wagner
  */
 public class SalaGUI extends JFrame implements ActionListener {
@@ -43,7 +32,7 @@ public class SalaGUI extends JFrame implements ActionListener {
     private int ordem;
     private int inimigos;
     private int chefe;
-    private String nomeSala;
+    private final String nomeSala;
     private JButton btnNorte;
     private JButton btnSul;
     private JButton btnLeste;
@@ -54,7 +43,6 @@ public class SalaGUI extends JFrame implements ActionListener {
     /**
      * Construtor da interface gráfica da sala
      * @param nomeSala = Nome exibido como título em cada sala
-     * @param ordem = Número da imagem a ser exibida como background
      */
     public SalaGUI (String nomeSala) {
         this.nomeSala = nomeSala;
@@ -103,7 +91,10 @@ public class SalaGUI extends JFrame implements ActionListener {
             this.saidaOeste = sala;
         }
     }
-    
+    /**
+     * Pega as saídas disponíveis da sala
+     * @return String com as saídas disponíveis
+     */
     public String pegarSaidas () {
         String saidas = "";
         if (saidaNorte != 0) {
@@ -145,100 +136,36 @@ public class SalaGUI extends JFrame implements ActionListener {
         titulo.setBounds(430, 40, 350, 50);
         add(titulo);
         
-        for (int i = 0; i < inimigos; i++) {
-            Random gerador = new Random();
-            int posicaoX = gerador.nextInt(850)+30;
-            int posicaoY = gerador.nextInt(400)+100;
-            JLabel inimigo = new JLabel (new ImageIcon("resources/inimigo.png"));
-            inimigo.setBounds(posicaoX, posicaoY, 100, 100);
-            add(inimigo);
-            inimigo.addMouseListener(new MouseListener(){
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    JPopupMenu pop = new JPopupMenu ();
-                    JMenuItem menuItem = new JMenuItem ("Lutar");
-                    pop.add(menuItem);
-                    pop.show(inimigo, 100, 100);
-                    menuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            JOptionPane.showMessageDialog(null, "Matando...");
-                        }
-                    });
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {}
-
-                @Override
-                public void mouseReleased(MouseEvent e) {}
-
-                @Override
-                public void mouseEntered(MouseEvent e) {}
-
-                @Override
-                public void mouseExited(MouseEvent e) {}
-            });
-            /*inimigo.addActionListener(new ActionListener()
-            {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    JPopupMenu pop = new JPopupMenu ();
-                    JMenuItem menuItem = new JMenuItem ("Lutar");
-                    pop.add(menuItem);
-                    pop.show(inimigo, 100, 100);
-                    menuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            JOptionPane.showMessageDialog(null, "Matando...");
-                        }
-                    });
-                }
-            }); */     
-        }
-        
-        for (int i = 0; i < chefe; i++) {
-            Random gerador = new Random();
-            int posicaoX = gerador.nextInt(850)+30;
-            int posicaoY = gerador.nextInt(400)+100;
-            JButton chefe = new JButton ("Chefe "+i);
-            chefe.setBounds(posicaoX, posicaoY, 100, 100);
-            add(chefe);
-            chefe.addActionListener(new ActionListener()
-            {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    JPopupMenu pop = new JPopupMenu ();
-                    JMenuItem menuItem = new JMenuItem ("Lutar");
-                    pop.add(menuItem);
-                    pop.show(chefe, 100, 100);
-                    menuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            JOptionPane.showMessageDialog(null, "Matando...");
-                        }
-                    });
-                }
-            });      
-        }
+        adicionarInimigos();
+        adicionarChefes();
         
         btnNorte = new JButton ("Norte");
         btnNorte.setBounds(480,10,80,30); //x, y, largura, altura
         btnNorte.addActionListener(this);
+        if (saidaNorte == 0) {
+            btnNorte.setVisible(false);
+        }
         add(btnNorte);
         btnOeste = new JButton ("Oeste");
         btnOeste.setBounds(10,300,80,30); //x, y, largura, altura
         btnOeste.addActionListener(this);
+        if (saidaOeste == 0) {
+            btnOeste.setVisible(false);
+        }
         add (btnOeste);
         btnLeste = new JButton ("Leste");
         btnLeste.setBounds(930,300,80,30); //x, y, largura, altura
         btnLeste.addActionListener(this);
+        if (saidaLeste == 0) {
+            btnLeste.setVisible(false);
+        }
         add(btnLeste);
         btnSul = new JButton ("Sul");
         btnSul.setBounds(480,650,80,30); //x, y, largura, altura
         btnSul.addActionListener(this);
+        if (saidaSul == 0) {
+            btnSul.setVisible(false);
+        }
         add(btnSul);
         
         JLabel labelItens = new JLabel ("Inventário");
@@ -274,6 +201,80 @@ public class SalaGUI extends JFrame implements ActionListener {
         add(background);
         
         adicionarAcoes();
+    }
+    
+    /**
+     * Adiciona na tela a imagem dos inimigos
+     */
+    private void adicionarInimigos() {
+        for (int i = 0; i < inimigos; i++) {
+            Random gerador = new Random();
+            int posicaoX = gerador.nextInt(850)+30;
+            int posicaoY = gerador.nextInt(350)+100;
+            JLabel inimigo = new JLabel (new ImageIcon("resources/inimigo.png"));
+            inimigo.setBounds(posicaoX, posicaoY, 100, 100);
+            add(inimigo);
+            inimigo.addMouseListener(new MouseListener(){
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    JPopupMenu pop = new JPopupMenu ();
+                    JMenuItem menuItem = new JMenuItem ("Lutar");
+                    pop.add(menuItem);
+                    pop.show(inimigo, 100, 100);
+                    menuItem.addActionListener((ActionEvent e1) -> {
+                        JOptionPane.showMessageDialog(null, "Matando...");
+                    });
+                }
+                @Override
+                public void mousePressed(MouseEvent e) {}
+
+                @Override
+                public void mouseReleased(MouseEvent e) {}
+
+                @Override
+                public void mouseEntered(MouseEvent e) {}
+
+                @Override
+                public void mouseExited(MouseEvent e) {}
+            });   
+        }
+    }
+    
+    /**
+     * Adiciona na tela a imagem dos chefes
+     */
+    private void adicionarChefes() {
+        for (int i = 0; i < chefe; i++) {
+            Random gerador = new Random();
+            int posicaoX = gerador.nextInt(650)+50;
+            int posicaoY = gerador.nextInt(200)+100;
+            JLabel chefe = new JLabel (new ImageIcon("resources/chefe.png"));
+            chefe.setBounds(posicaoX, posicaoY, 300, 300);
+            add(chefe);
+            chefe.addMouseListener(new MouseListener(){
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    JPopupMenu pop = new JPopupMenu ();
+                    JMenuItem menuItem = new JMenuItem ("Lutar");
+                    pop.add(menuItem);
+                    pop.show(chefe, 100, 100);
+                    menuItem.addActionListener((ActionEvent e1) -> {
+                        JOptionPane.showMessageDialog(null, "Matando...");
+                    });
+                }
+                @Override
+                public void mousePressed(MouseEvent e) {}
+
+                @Override
+                public void mouseReleased(MouseEvent e) {}
+
+                @Override
+                public void mouseEntered(MouseEvent e) {}
+
+                @Override
+                public void mouseExited(MouseEvent e) {}
+            });      
+        }
     }
     
     /**

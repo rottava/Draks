@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- *
+ * Janela Inicial, dando opção de continuar ou iniciar um novo jogo
  * @author wagner
  */
 public class JanelaInicial extends JFrame implements ActionListener {
@@ -117,6 +116,12 @@ public class JanelaInicial extends JFrame implements ActionListener {
 	}
     }
     
+    /**
+     * Faz a movimentação entre as salas
+     * @param atual = sala atual
+     * @param destino = sala para qual o usuário deseja se mover
+     * @return = true se a movimentação foi bem sucedida ou false caso não foi possível
+     */
     public boolean irSala (int atual, int destino) {
         carregarSalas();
         this.dispose();
@@ -335,70 +340,77 @@ public class JanelaInicial extends JFrame implements ActionListener {
         return false;
     }
     
+    /**
+     * Carrega as salas fazendo suas devidas configurações
+     */
     private void carregarSalas () {
-        sala1 = new SalaGUI("Saguão Principal");
+        sala1 = new SalaGUI("Pátio Entrada");
         sala1.setarSaida("norte", 2);
         sala1.setarInimigos(2);
-        sala2 = new SalaGUI("Sala 2");
+        sala2 = new SalaGUI("Saguão Principal");
         sala2.setarSaida("oeste", 3);
         sala2.setarSaida("sul", 1);
         sala2.setarSaida("leste", 4);
         sala2.setarInimigos(3);
-        sala3 = new SalaGUI("Sala 3");
+        sala3 = new SalaGUI("Cozinha");
         sala3.setarSaida("leste", 2);
-        sala4 = new SalaGUI("Sala 4");
+        sala4 = new SalaGUI("Escada");
         sala4.setarSaida("oeste", 2);
         sala4.setarSaida("norte", 6);
-        sala5 = new SalaGUI("Sala 5");
+        sala5 = new SalaGUI("Depósito");
         sala5.setarSaida("norte", 8);
-        sala6 = new SalaGUI("Sala 6");
+        sala6 = new SalaGUI("Sala");
         sala6.setarSaida("oeste", 7);
         sala6.setarSaida("sul", 4);
         sala6.setarSaida("leste", 8);
-        sala7 = new SalaGUI("Sala 7");
+        sala7 = new SalaGUI("Quarto de Visitas");
         sala7.setarSaida("leste", 6);
-        sala8 = new SalaGUI("Sala 8");
+        sala8 = new SalaGUI("Biblioteca");
         sala8.setarSaida("oeste", 6);
         sala8.setarSaida("sul", 5);
         sala8.setarSaida("leste", 9);
-        sala9 = new SalaGUI("Sala 9");
+        sala9 = new SalaGUI("Sala Secreta");
         sala9.setarChefe(1);
         sala9.setarSaida("oeste", 8);
         sala9.setarSaida("norte", 10);
-        sala10 = new SalaGUI("Sala 10");
+        sala10 = new SalaGUI("Sala Grande");
         sala10.setarSaida("sul", 9);
         sala10.setarSaida("norte", 12);
         sala10.setarSaida("leste", 11);
-        sala11 = new SalaGUI("Sala 11");
+        sala11 = new SalaGUI("Depósito de Armas");
         sala11.setarSaida("oeste", 10);
-        sala12 = new SalaGUI("Sala 12");
+        sala12 = new SalaGUI("Acesso ao Corredor");
         sala12.setarSaida("sul", 10);
         sala12.setarSaida("oeste", 13);
-        sala13 = new SalaGUI("Sala 13");
+        sala13 = new SalaGUI("Corredor");
         sala13.setarSaida("leste", 12);
         sala13.setarSaida("oeste", 14);
-        sala14 = new SalaGUI("Sala 14");
+        sala14 = new SalaGUI("Corredor");
         sala14.setarSaida("leste", 13);
         sala14.setarSaida("oeste", 15);
-        sala15 = new SalaGUI("Sala 15");
+        sala15 = new SalaGUI("Corredor");
         sala15.setarSaida("leste", 14);
         sala15.setarSaida("oeste", 16);
-        sala16 = new SalaGUI("Sala 16");
+        sala16 = new SalaGUI("Corredor");
         sala16.setarSaida("leste", 15);
         sala16.setarSaida("norte", 17);
-        sala17 = new SalaGUI("Sala 17");
+        sala17 = new SalaGUI("Corredor");
         sala17.setarSaida("sul", 16);
         sala17.setarSaida("norte", 18);
-        sala18 = new SalaGUI("Sala 18");
+        sala18 = new SalaGUI("Corredor");
         sala18.setarSaida("sul", 17);
         sala18.setarSaida("leste", 19);
-        sala19 = new SalaGUI("Sala 19");
+        sala19 = new SalaGUI("Acesso ao Quarto do Drácula");
         sala19.setarSaida("oeste", 18);
         sala19.setarSaida("sul", 20);
-        sala20 = new SalaGUI("SALA 20 FINAL PORRA!!!");
+        sala20 = new SalaGUI("Quarto do Drácula");
         sala20.setarSaida("norte", 19);
     }
     
+    /**
+     * Início, chama a tela principal
+     * @param args 
+     */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
