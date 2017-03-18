@@ -226,13 +226,7 @@ public class SalaGUI extends JFrame implements ActionListener {
             inimigo.addMouseListener(new MouseListener(){
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    JPopupMenu pop = new JPopupMenu ();
-                    JMenuItem menuItem = new JMenuItem ("Lutar");
-                    pop.add(menuItem);
-                    pop.show(inimigo, 100, 100);
-                    menuItem.addActionListener((ActionEvent e1) -> {
-                        JOptionPane.showMessageDialog(null, "Matando...");
-                    });
+                    CombateGUI combate = new CombateGUI();
                 }
                 @Override
                 public void mousePressed(MouseEvent e) {}
