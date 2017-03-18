@@ -3,46 +3,48 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package habilidade;
+package item;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import static main.Main.HABILIDADESCURA;
-import static main.Main.TAMANHOHABILIDADESCURA;
+import static main.Main.TOTEM;
+import static main.Main.TAMANHOTOTEM;
 
 /**
  *
  * @author Junior
  */
-public class HabilidadeCura extends Habilidade{
+public class Totem extends Item{
+    private byte tipo;                                                          //0 = FORCA, 1 = INTELIGENCIA, 2 = AGILIDADE, 3 = RESISTENCIA
     
-    public HabilidadeCura(byte id){
+    public Totem(byte id){
         setParam(id);
     }
     
-    //CONFIGURA HABILDIADE APARTIR DE ARQUIVO
+    //CONFIGURA OBJETO ITEM APARTIR DE ARQUIVO
     private void setParam(byte id){
         setId(id);
         Scanner scanner;
         byte loop = 1;
         try {
-            scanner = new Scanner(HABILIDADESCURA);
-            while(loop < TAMANHOHABILIDADESCURA && (loop < id)){
+            scanner = new Scanner(TOTEM);
+            while((loop < TAMANHOTOTEM) && (loop < id)){
                 String nextLine = scanner.nextLine();
                 loop++;
             }
-            if (loop == id && loop <= TAMANHOHABILIDADESCURA){
+            if ((loop == id) && (loop <= TAMANHOTOTEM)){
                 String[] parametros;                        
-                parametros = scanner.nextLine().split("/");                     //DIVIDE A LINHA EM NOME/EFEITO/CONSUMO
+                parametros = scanner.nextLine().split("/");                     //DIVIDE A LINHA EM NOME/EFEITO/PESO
                 setNome(parametros[0]);                                         //NOME
+                tipo = (byte) Integer.parseInt(parametros[1]);                  //TIPO
                 setEfeito((byte) Integer.parseInt(parametros[1]));              //EFEITO
-                setConsumo((byte) Integer.parseInt(parametros[2]));             //CONSUMO
+                setPeso((byte) Integer.parseInt(parametros[2]));                //PESO
             }
             else
                 throw new UnsupportedOperationException("ID de habilidade não encontrado.");
         } 
         catch (FileNotFoundException ex) {
-            throw new UnsupportedOperationException("Arquivo HabilidadeCura.txt não foi encontrado.");
+            throw new UnsupportedOperationException("Arquivo totem.txt não foi encontrado.");
         }
     }
     

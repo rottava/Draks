@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package habilidade;
+package item;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -14,35 +14,35 @@ import static main.Main.TAMANHOHABILIDADESDANO;
  *
  * @author Junior
  */
-public class HabilidadeDano extends Habilidade{
+public class ItemHabilidadeDano extends Item{
     
-    public HabilidadeDano(byte id){
+    public ItemHabilidadeDano(byte id){
         setParam(id);
     }
     
-    //CONFIGURA HABILDIADE APARTIR DE ARQUIVO
+    //CONFIGURA OBJETO ITEM APARTIR DE ARQUIVO
     private void setParam(byte id){
         setId(id);
         Scanner scanner;
         byte loop = 1;
         try {
             scanner = new Scanner(HABILIDADESDANO);
-            while(loop < TAMANHOHABILIDADESDANO && (loop < id)){
+            while((loop < TAMANHOHABILIDADESDANO) && (loop < id)){
                 String nextLine = scanner.nextLine();
                 loop++;
             }
-            if (loop == id && loop <= TAMANHOHABILIDADESDANO){
+            if ((loop == id) && (loop <= TAMANHOHABILIDADESDANO)){
                 String[] parametros;                        
-                parametros = scanner.nextLine().split("/");                     //DIVIDE A LINHA EM NOME/EFEITO/CONSUMO
-                setNome(parametros[0]);                                         //NOME
-                setEfeito((byte) Integer.parseInt(parametros[1]));              //EFEITO
-                setConsumo((byte) Integer.parseInt(parametros[2]));             //CONSUMO
+                parametros = scanner.nextLine().split("/");                     //DIVIDE A LINHA EM NOME/EFEITO/PESO
+                setNome("Magia" + parametros[0]);                               //NOME
+                setEfeito((byte) 0);                                            //EFEITO
+                setPeso((byte) 1);                                              //PESO
             }
             else
                 throw new UnsupportedOperationException("ID de habilidade não encontrado.");
         } 
         catch (FileNotFoundException ex) {
-            throw new UnsupportedOperationException("Arquivo HabilidadeDano.txt não foi encontrado.");
+            throw new UnsupportedOperationException("Arquivo habilidadesdano.txt não foi encontrado.");
         }
     }
     

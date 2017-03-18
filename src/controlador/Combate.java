@@ -9,7 +9,7 @@ import habilidade.Habilidade;
 import static main.Main.TAMANHOMAXIMO;
 import static main.Main.aleatorio;
 import personagem.Heroi;
-import personagem.Inimigo;
+import personagem.InimigoComum;
 import personagem.Persona;
 
 /**
@@ -18,7 +18,7 @@ import personagem.Persona;
  */
 public class Combate {
     private boolean fuga = false;                                               //FLAG DE FUGA
-    private Inimigo inimigo1, inimigo2, inimigo3;                               //MAXIMO DE 3 INIMIGOS POR BATALHA
+    private InimigoComum inimigo1, inimigo2, inimigo3;                               //MAXIMO DE 3 INIMIGOS POR BATALHA
     private Heroi heroi;                                                        //
     
     //TURNO DE BATALHA
@@ -31,15 +31,15 @@ public class Combate {
         if (sala[2] == 0)
             inimigo1 = null;
         else
-            inimigo1 = new Inimigo(sala[2]);
+            inimigo1 = new InimigoComum(sala[2]);
         if (sala[3] == 0)
             inimigo2 = null;
         else
-            inimigo2 = new Inimigo(sala[2]);
+            inimigo2 = new InimigoComum(sala[2]);
         if (sala[4] == 0)
             inimigo3 = null;
         else
-            inimigo3 = new Inimigo(sala[2]);
+            inimigo3 = new InimigoComum(sala[2]);
     }
     
     //REDUZ VIDA DO ALVO E RETORNA VERDADEIRO OU RETORNA FALSO

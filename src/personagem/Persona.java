@@ -27,6 +27,7 @@ public abstract class Persona {
     private Arma arma;                                                          //EQUIPAMENTO DE ATAQUE
     private Armadura armadura;                                                  //EQUIPAMENTO DE DEFESA
     private final Talentos talentos;                                            //TALENTOS DO PERSONAGEM
+    private int moedas;                                                         //MOEDAS DO PERSONAGEM
     
     //PARAMETROS DEPENDENTES
     private byte vidaMax;                                                       //RESISTENCIA + (FORÇA / 2)    
@@ -251,4 +252,15 @@ public abstract class Persona {
     public boolean addTalentos(Habilidade habilidade){
         return (talentos.addTalentos(habilidade));
     }
+    
+    //RETORNA MOEDAS
+    public int getMoedas(){
+        return moedas;
+    }
+    
+    //SETA MOEDAS PARA MOEDAS
+    protected void setMoedas(int moedas){
+        this.moedas = moedas;
+    }
+
 }

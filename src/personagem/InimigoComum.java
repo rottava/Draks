@@ -23,19 +23,19 @@ import static main.Main.aleatorio;
  *
  * @author Junior
  */
-public final class Inimigo extends Persona{
+public final class InimigoComum extends Persona{
     //PARAMETRO DE CONFIGURACAO
     private final byte id;                                                      //-1 = FRACO, -2 = MEDIO, -3 = FORTE, -4 = SUBCHEFE, -5 = CHEFE, -6 = CHEFE FINAL, OTHERS = RND
-    private int pontos;                                                         //PONTOS PARA PARAMETROS
+    private byte pontos;                                                        //PONTOS PARA PARAMETROS
     
     //CONSTRUTOR POR PASSAGEM DE PARAMETRO
-    public Inimigo(String nome, byte forca, byte inteligencia, byte agilidade, byte resistencia) {
+    public InimigoComum(String nome, byte forca, byte inteligencia, byte agilidade, byte resistencia) {
         super(nome, forca, inteligencia, agilidade, resistencia);               //CONSTRUTOR PAI
         id = 0;                                                                 //0 = ID NULO
     }
     
     //CONSTRUTOR
-    public Inimigo(byte id){
+    public InimigoComum(byte id){
         super();                                                                //CONSTRUTOR PAI
         this.id = id;                                                           //LINHA DO ARQUIVO
         seletor();                                                              //SELETOR DE GERADOR
@@ -201,31 +201,32 @@ public final class Inimigo extends Persona{
             }
             if (scanner.hasNext()){
                 String[] parametros;
-                parametros = scanner.nextLine().split("/");                         //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
-                setNome(parametros[0]);                                             //NOME
-                setForca((byte) Integer.parseInt(parametros[1]));                   //FORCA
-                setInteligencia((byte) Integer.parseInt(parametros[2]));            //INTELIGENCIA
-                setAgilidade((byte) Integer.parseInt(parametros[3]));               //AGILIDADE
-                setResistencia((byte) Integer.parseInt(parametros[4]));             //RESISTENCIA
-                if(!parametros[5].equals("0")){                                     //TESTE SE ARMA VALIDA
+                parametros = scanner.nextLine().split("/");                     //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
+                setNome(parametros[0]);                                         //NOME
+                setForca((byte) Integer.parseInt(parametros[1]));               //FORCA
+                setInteligencia((byte) Integer.parseInt(parametros[2]));        //INTELIGENCIA
+                setAgilidade((byte) Integer.parseInt(parametros[3]));           //AGILIDADE
+                setResistencia((byte) Integer.parseInt(parametros[4]));         //RESISTENCIA
+                if(!parametros[5].equals("0")){                                 //TESTE SE ARMA VALIDA
                     Arma arma = new Arma((byte) Integer.parseInt(parametros[5]));
                     setArma(arma);                                              //ARMA
                 }
-                if(!parametros[5].equals("0")){                                     //TESTE SE ARMADURA VALIDA
+                if(!parametros[6].equals("0")){                                 //TESTE SE ARMADURA VALIDA
                     Armadura armadura = new Armadura((byte) Integer.parseInt(parametros[6]));
                     setArmadura(armadura);                                      //ARMADURA
                 }
-                for(int contador = 7; !parametros[contador].equals("0"); contador++){//VERIFICA HABILIDADES
+                setMoedas(Integer.parseInt(parametros[7]));                     //MOEDAS
+                for(int contador = 8; !parametros[contador].equals("0"); contador++){//VERIFICA HABILIDADES
                     byte auxiliar = (byte) Integer.parseInt(parametros[contador]);
-                    if (auxiliar > 0){                                              //POSITIVOS
+                    if (auxiliar > 0){                                          //POSITIVOS
                         HabilidadeCura habilidade = new HabilidadeCura(auxiliar);
-                        if(!verificaHabilidade(habilidade))                         //TESTA SE HABILIDADE JA ESTA NA LISTA
-                            addTalentos(habilidade);                                //ADICIONA HABILIDADES
+                        if(!verificaHabilidade(habilidade))                     //TESTA SE HABILIDADE JA ESTA NA LISTA
+                            addTalentos(habilidade);                            //ADICIONA HABILIDADES
                     }
-                    else{                                                           //NEGATIVOS
+                    else{                                                       //NEGATIVOS
                         HabilidadeDano habilidade = new HabilidadeDano(auxiliar);
-                        if(!verificaHabilidade(habilidade))                         //TESTA SE HABILIDADE JA ESTA NA LISTA
-                            addTalentos(habilidade);                                //ADICIONA HABILIDADES
+                        if(!verificaHabilidade(habilidade))                     //TESTA SE HABILIDADE JA ESTA NA LISTA
+                            addTalentos(habilidade);                            //ADICIONA HABILIDADES
                     }
                 }
             }

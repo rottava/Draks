@@ -26,6 +26,7 @@ public class Main {
     public static final File HABILIDADESDANO = new File("/config/habilidadesdano.txt"); //ARQUIVO: NOME/EFEITO/CUSTO
     public static final File INIMIGOS = new File("/config/inimigos.txt");       //ARQUIVO: NOME/TIPO/EFEITO/PESO
     public static final File SALAS = new File("/config/salas.txt");             //ARQUIVO: NOME/TIPO/EFEITO/PESO
+    public static final File TOTEM = new File("/config/totem.txt");             //ARQUIVO: NOME/TIPO/EFEITO/PESO
     public static final byte TAMANHOITENSCURA = getTamanhoArquivo(ITENSCURA);   //TAMANHO DO ARQUIVO DE ITENS DE CURA (EM LINHAS)
     public static final byte TAMANHOITENSENERGIA = getTamanhoArquivo(ITENSENERGIA);//TAMANHO DO ARQUIVO DE ITENS DE ENERGIA (EM LINHAS)
     public static final byte TAMANHOCHAVES = getTamanhoArquivo(CHAVES);         //TAMANHO DO ARQUIVO DE CHAVES (EM LINHAS)
@@ -36,6 +37,7 @@ public class Main {
     public static final byte TAMANHOHABILIDADESDANO = getTamanhoArquivo(HABILIDADESDANO);//TAMANHO DO ARQUIVO DE HABILIDADES DE DANO(EM LINHAS)
     public static final byte TAMANHOINIMIGOS = getTamanhoArquivo(INIMIGOS);     //TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS)
     public static final byte TAMANHOSALAS = getTamanhoArquivo(SALAS);           //TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS
+    public static final byte TAMANHOTOTEM = getTamanhoArquivo(TOTEM);           //TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS
     public static final byte TAMANHOMAXIMO = 127;                               //TAMANHO MAXIMO DE ARQUIVOS
     /**
      * @param args the command line arguments
