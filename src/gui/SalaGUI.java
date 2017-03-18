@@ -32,6 +32,9 @@ public class SalaGUI extends JFrame implements ActionListener {
     private int ordem;
     private int inimigos;
     private int chefe;
+    private int itens;
+    private int inventarioAtual;
+    private int inventarioMaximo;
     private final String nomeSala;
     private JButton btnNorte;
     private JButton btnSul;
@@ -70,6 +73,14 @@ public class SalaGUI extends JFrame implements ActionListener {
      */
     public void setarChefe (int chefe) {
         this.chefe = chefe;
+    }
+    
+    /**
+     * Configura a quantidade de itens que terá na sala, o tipo de ítem é gerado aleatoriamente
+     * @param quantidade quantidade de itens que estarão na sala
+     */
+    public void setarItens (int quantidade) {
+        this.itens = quantidade;
     }
     
     /**
@@ -138,6 +149,7 @@ public class SalaGUI extends JFrame implements ActionListener {
         
         adicionarInimigos();
         adicionarChefes();
+        adicionarItens();
         
         btnNorte = new JButton ("Norte");
         btnNorte.setBounds(480,10,80,30); //x, y, largura, altura
@@ -168,10 +180,17 @@ public class SalaGUI extends JFrame implements ActionListener {
         }
         add(btnSul);
         
-        JLabel labelItens = new JLabel ("Inventário");
+        /**
+         * ALTERAR AQUI PARA ATUALIZAR
+         */
+        inventarioAtual = 1;
+        inventarioMaximo = 10;
+        String txtInventario = "Inventário "+inventarioAtual+"/"+inventarioMaximo;
+        
+        JLabel labelItens = new JLabel (txtInventario);
         labelItens.setFont(new Font("Dialog", Font.BOLD, 20));
         labelItens.setForeground(Color.YELLOW);
-        labelItens.setBounds(30, 540, 100, 50);
+        labelItens.setBounds(30, 540, 150, 50);
         add(labelItens);
         
         inventario = new JList();
@@ -182,25 +201,15 @@ public class SalaGUI extends JFrame implements ActionListener {
 	JScrollPane pItens = new JScrollPane(inventario);
         pItens.setBounds(30, 580, 150, 100);
 	add(pItens);
-        
-        JLabel labelAcoes = new JLabel ("Ações");
-        labelAcoes.setFont(new Font("Dialog", Font.BOLD, 20));
-        labelAcoes.setForeground(Color.YELLOW);
-        labelAcoes.setBounds(930, 540, 60, 50);
-        add(labelAcoes);
-        
-        acoes = new JList();
-	acoes.setModel(new DefaultListModel());
-	acoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	acoes.setLayoutOrientation(JList.VERTICAL);
-	acoes.setVisibleRowCount(-1);
-	JScrollPane pAcoes = new JScrollPane(acoes);
-        pAcoes.setBounds(850, 580, 150, 100);
-	add(pAcoes);
-        
-        add(background);
-        
-        adicionarAcoes();
+        carregarInventario();
+        add(background);        
+        if (ordem == 1) {
+            JOptionPane.showMessageDialog(null, "Você está no Castelo do Drácula\n\n"+
+                                        "Drácula matou sua esposa e você está aqui para se vingar!\n\n"+
+                                        "Ele se preparou e contratou vários capangas\n\n"+
+                                        "Você tem apenas uma espada, use os ítens que encontrar pelo mapa "+
+                                        "para ajudar em sua vingança!\n\nBoa sorte! Você irá precisa!");
+        }
     }
     
     /**
@@ -277,15 +286,77 @@ public class SalaGUI extends JFrame implements ActionListener {
         }
     }
     
+    private void adicionarItens() {
+        for (int i = 0; i < itens; i++) {
+            Random gerador = new Random();
+            int posicaoX = gerador.nextInt(650)+50;
+            int posicaoY = gerador.nextInt(200)+100;
+            int itemAleatorio = gerador.nextInt(10);
+            if (itemAleatorio == 0 || itemAleatorio == 1 || itemAleatorio == 2 || itemAleatorio == 3 || itemAleatorio == 4 || itemAleatorio == 5) {
+                    JLabel ouro = new JLabel (new ImageIcon("resources/ouro.png"));
+                    ouro.setBounds(posicaoX, posicaoY, 30, 30);
+                    add(ouro);
+                    ouro.addMouseListener(new MouseListener(){
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        JPopupMenu pop = new JPopupMenu ();
+                        JMenuItem menuItem = new JMenuItem ("Pegar");
+                        pop.add(menuItem);
+                        pop.show(ouro, 100, 100);
+                        menuItem.addActionListener((ActionEvent e1) -> {
+                            JOptionPane.showMessageDialog(null, "Pegando...");
+                        });
+                    }
+                    @Override
+                    public void mousePressed(MouseEvent e) {}
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {}
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {}
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {}
+                    });
+            }
+            if (itemAleatorio == 6 || itemAleatorio == 7) {
+                JLabel pocaoCura = new JLabel (new ImageIcon("resources/pocaoCura.png"));
+                pocaoCura.setBounds(posicaoX, posicaoY, 30, 30);
+                add(pocaoCura);
+                pocaoCura.addMouseListener(new MouseListener(){
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    JPopupMenu pop = new JPopupMenu ();
+                    JMenuItem menuItem = new JMenuItem ("Pegar");
+                    pop.add(menuItem);
+                    pop.show(pocaoCura, 100, 100);
+                    menuItem.addActionListener((ActionEvent e1) -> {
+                        JOptionPane.showMessageDialog(null, "Pegando...");
+                    });
+                }
+                @Override
+                public void mousePressed(MouseEvent e) {}
+
+                @Override
+                public void mouseReleased(MouseEvent e) {}
+
+                @Override
+                public void mouseEntered(MouseEvent e) {}
+
+                @Override
+                public void mouseExited(MouseEvent e) {}
+                });
+            }
+        }
+    }
+    
     /**
-     * Ações disponíveis na lista
+     * Itens disponíveis no inventário
      */
-    private void adicionarAcoes() {
-        ((DefaultListModel) acoes.getModel()).removeAllElements();
-        ((DefaultListModel) acoes.getModel()).addElement("Mover");
-        ((DefaultListModel) acoes.getModel()).addElement("Atacar");
-        ((DefaultListModel) acoes.getModel()).addElement("Pegar");
-        ((DefaultListModel) acoes.getModel()).addElement("Espiar");
+    private void carregarInventario() {
+        ((DefaultListModel) inventario.getModel()).removeAllElements();
+        ((DefaultListModel) inventario.getModel()).addElement("Espada");
     }
     
     @Override
