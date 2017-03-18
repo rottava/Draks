@@ -29,6 +29,11 @@ import javax.swing.ListSelectionModel;
  * @author wagner
  */
 public class SalaGUI extends JFrame implements ActionListener {
+    private int saidaNorte;
+    private int saidaSul;
+    private int saidaLeste;
+    private int saidaOeste;
+    private int ordem;
     private String nomeSala;
     private JButton btnNorte;
     private JButton btnSul;
@@ -42,16 +47,57 @@ public class SalaGUI extends JFrame implements ActionListener {
      * @param nomeSala = Nome exibido como título em cada sala
      * @param ordem = Número da imagem a ser exibida como background
      */
-    public SalaGUI (String nomeSala, int ordem) {
+    public SalaGUI (String nomeSala) {
         this.nomeSala = nomeSala;
-        initGUI(ordem);
+        this.saidaLeste = 0;
+        this.saidaNorte = 0;
+        this.saidaOeste = 0;
+        this.saidaSul = 0;
+    }
+    
+    /**
+     * Seta as saídas da sala
+     * @param direcao = Norte, Sul, Leste, Oeste
+     * @param sala = código da sala na direção
+     */
+    public void setarSaida (String direcao, int sala) {
+        if (direcao.toLowerCase().contains("norte")) {
+            this.saidaNorte = sala;
+        }
+        if (direcao.toLowerCase().contains("sul")) {
+            this.saidaSul = sala;
+        }
+        if (direcao.toLowerCase().contains("leste")) {
+            this.saidaLeste = sala;
+        }
+        if (direcao.toLowerCase().contains("oeste")) {
+            this.saidaOeste = sala;
+        }
+    }
+    
+    public String pegarSaidas () {
+        String saidas = "";
+        if (saidaNorte != 0) {
+            saidas += "Norte\n";
+        }
+        if (saidaSul != 0) {
+            saidas += "Sul\n";
+        }
+        if (saidaLeste != 0) {
+            saidas += "Leste\n";
+        }
+        if (saidaOeste != 0) {
+            saidas += "Oeste\n";
+        }        
+        return saidas;
     }
     
     /**
      * Inicia a janela de Interface Gráfica da Sala
      * @param ordem = Número da imagem a ser exibida com background
      */
-    private void initGUI (int ordem) {
+    public void initGUI (int ordem) {
+        this.ordem = ordem;
         //Características da Janela
         setTitle("Castelo do Draks");
         setSize(1024, 720);
@@ -67,26 +113,25 @@ public class SalaGUI extends JFrame implements ActionListener {
         JLabel titulo = new JLabel(nomeSala.toUpperCase());
         titulo.setFont(new Font("Dialog", Font.BOLD, 20));
         titulo.setForeground(Color.YELLOW);
-        titulo.setBounds(430, 20, 350, 50);
+        titulo.setBounds(430, 40, 350, 50);
         add(titulo);
         
-        JPanel movimentos = new JPanel();
-	movimentos.setLayout(new BorderLayout());
-	movimentos.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
-        movimentos.setBounds(430,580,180, 100);
         btnNorte = new JButton ("Norte");
+        btnNorte.setBounds(480,10,80,30); //x, y, largura, altura
         btnNorte.addActionListener(this);
-        movimentos.add(btnNorte, BorderLayout.NORTH);
-        btnSul = new JButton ("Sul");
-        btnSul.addActionListener(this);
-        movimentos.add(btnSul, BorderLayout.SOUTH);
+        add(btnNorte);
         btnOeste = new JButton ("Oeste");
+        btnOeste.setBounds(10,300,80,30); //x, y, largura, altura
         btnOeste.addActionListener(this);
-        movimentos.add(btnOeste, BorderLayout.WEST);
+        add (btnOeste);
         btnLeste = new JButton ("Leste");
+        btnLeste.setBounds(930,300,80,30); //x, y, largura, altura
         btnLeste.addActionListener(this);
-        movimentos.add(btnLeste, BorderLayout.EAST);
-        add(movimentos);
+        add(btnLeste);
+        btnSul = new JButton ("Sul");
+        btnSul.setBounds(480,650,80,30); //x, y, largura, altura
+        btnSul.addActionListener(this);
+        add(btnSul);
         
         JLabel labelItens = new JLabel ("Inventário");
         labelItens.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -138,16 +183,24 @@ public class SalaGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == btnNorte) {
             System.out.println ("Norte");
-            JOptionPane.showMessageDialog(null, "Norte");            
+            JanelaInicial ji = new JanelaInicial();
+            if (ji.irSala (ordem, saidaNorte))
+                this.dispose();          
 	} else if (ae.getSource() == btnSul) {
             System.out.println ("Sul");
-            JOptionPane.showMessageDialog(null, "Sul");
+            JanelaInicial ji = new JanelaInicial();
+            if (ji.irSala (ordem, saidaSul))
+                this.dispose();
 	} else if (ae.getSource() == btnLeste) {
             System.out.println ("Leste");
-            JOptionPane.showMessageDialog(null, "Leste");
+            JanelaInicial ji = new JanelaInicial();
+            if (ji.irSala (ordem, saidaLeste))
+                this.dispose();
         } else if (ae.getSource() == btnOeste) {
             System.out.println ("Oeste");
-            JOptionPane.showMessageDialog(null, "Oeste");
+            JanelaInicial ji = new JanelaInicial();
+            if (ji.irSala (ordem, saidaOeste))
+                this.dispose();
         }
     }
     
