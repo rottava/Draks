@@ -47,6 +47,8 @@ public class Combate {
                 ataqueHeroi(comandoHeroi, habilidadeHeroi);
             }      
         }
+        if(HEROI.getVida() > 0 && !fuga)
+            HEROI.setPontos((byte)(HEROI.getPontos() + 5));
     }
     
     private void ataqueHeroi(byte comando, byte habilidade){
