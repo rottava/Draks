@@ -175,11 +175,11 @@ public class Combate {
     
     //DEFININE INIMIGOS NO COMBATE
     private void setaInimigos(Porta porta){
-        if (porta.getInimigo((byte)0) != 0)                                     //INIMIGO0 E VALIDO
-            if(testaItem(porta.getInimigo((byte)(0))))                          //INIMIGO0 POSSUI ITEM 
-                inimigo = new InimigoChefe(porta.getInimigo((byte)0));          //SETA SE ID DO ITEM E VALIDO
+        if (porta.getInimigo() != 0)                                            //INIMIGO E VALIDO
+            if(testaItem(porta.getInimigo()))                                   //INIMIGO POSSUI ITEM 
+                inimigo = new InimigoChefe(porta.getInimigo());                 //SETA SE ID DO ITEM E VALIDO
             else
-                inimigo = new Inimigo(porta.getInimigo((byte)0));               //SETA SE ID DO ITEM E VALIDO
+                inimigo = new Inimigo(porta.getInimigo());                      //SETA SE ID DO ITEM E VALIDO
         else
             inimigo = null;                                                     //INIMIGO INVALIDO
     }
