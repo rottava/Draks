@@ -1,0 +1,11 @@
+Armaduras:Nome/Defesa/Peso
+Armas:Nome/Defesa/Peso
+Chaves:Nome/IdDaPorta/Peso
+Habilidades:Nome/Tipo/Efeito/Consumo
+InimigoComum:Nome/Forca/Inteligencia/Velocidade/Resistencia/Arma/Armadura/Moedas/0/0/Habilidade1/Habilidade2/...
+InimigoChefe:Nome/Forca/Inteligencia/Agilidade/Resistencia/Arma/Armadura/Moedas/TipoDoItemPortado/IdDoItemPortado/Habilidades...
+ItensCura:Nome/Recuperacao/Peso
+ItensEnergia:Nome/Recuperacao/Peso
+Nomes:Nome
+Salas:Nome/IDSalaNorte/IdChave/TipoItem/IDItem/Quantidade/IDInimigo/IDSalaSul/IdChave/TipoItem/IDItem/Quantidade/IDInimigo/IDSalaLeste/IdChave/TipoItem/IDItem/Quantidade/IDInimigo/IDSalaOeste/IdChave/TipoItem/IDItem/Quantidade/IDInimigo
+TiposDeItens: 1 = Armadura, 2 = Arma, 3 = Chave, 4+ = Habilidade de Cura, 4- = Habilidade de Dano, 5 = Itens de Cura, 6 = Itens de Energia, 7 = Moedas

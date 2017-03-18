@@ -37,23 +37,31 @@ public class Mapa {
                 String nome = parametros[0];                                    //NOME                                                                                     
                 Porta norte = new Porta((byte) Integer.parseInt(parametros[1]), //PROXIMA SALA
                                         (byte) Integer.parseInt(parametros[2]), //ID CHAVE
-                                        (byte) Integer.parseInt(parametros[3]), //ITEM
-                                        (byte) Integer.parseInt(parametros[4])); //INIMIGO                                                                        String nome = parametros[9];                                        //NOME 
+                                        (byte) Integer.parseInt(parametros[3]), //TIPO ITEM
+                                        (byte) Integer.parseInt(parametros[4]), //ITEM
+                                        Integer.parseInt(parametros[5]),        //QUANTIDADE
+                                        (byte) Integer.parseInt(parametros[6])); //INIMIGO                                                                        String nome = parametros[9];                                        //NOME 
 
-                Porta sul = new Porta((byte) Integer.parseInt(parametros[5]),   //PROXIMA SALA
-                                        (byte) Integer.parseInt(parametros[6]), //ID CHAVE
-                                        (byte) Integer.parseInt(parametros[7]), //ITEM
-                                        (byte) Integer.parseInt(parametros[8])); //INIMIGO
-
-                Porta leste = new Porta((byte) Integer.parseInt(parametros[9]), //PROXIMA SALA
-                                        (byte) Integer.parseInt(parametros[10]),//ID CHAVE
-                                        (byte) Integer.parseInt(parametros[11]),//ITEM
+                Porta sul = new Porta((byte) Integer.parseInt(parametros[7]),   //PROXIMA SALA
+                                        (byte) Integer.parseInt(parametros[8]), //ID CHAVE
+                                        (byte) Integer.parseInt(parametros[9]), //TIPO ITEM
+                                        (byte) Integer.parseInt(parametros[10]),//ITEM
+                                        Integer.parseInt(parametros[11]),       //QUANTIDADE
                                         (byte) Integer.parseInt(parametros[12]));//INIMIGO
 
-                Porta oeste = new Porta((byte) Integer.parseInt(parametros[13]),//PROXIMA SALA
+                Porta leste = new Porta((byte) Integer.parseInt(parametros[13]),//PROXIMA SALA
                                         (byte) Integer.parseInt(parametros[14]),//ID CHAVE
-                                        (byte) Integer.parseInt(parametros[15]),//ITEM
-                                        (byte) Integer.parseInt(parametros[16]));//INIMIGO
+                                        (byte) Integer.parseInt(parametros[15]),//TIPO ITEM
+                                        (byte) Integer.parseInt(parametros[16]),//ITEM
+                                        Integer.parseInt(parametros[17]),        //QUANTIDADE
+                                        (byte) Integer.parseInt(parametros[18]));//INIMIGO
+
+                Porta oeste = new Porta((byte) Integer.parseInt(parametros[19]),//PROXIMA SALA
+                                        (byte) Integer.parseInt(parametros[20]),//ID CHAVE
+                                        (byte) Integer.parseInt(parametros[21]), //TIPO ITEM
+                                        (byte) Integer.parseInt(parametros[22]),//ITEM
+                                        Integer.parseInt(parametros[23]),        //QUANTIDADE
+                                        (byte) Integer.parseInt(parametros[24]));//INIMIGO
 
                 Sala sala = new Sala(id, nome, norte, sul, leste, oeste);       //CRIA SALA
                 salas.add(sala);                                                //ADICIONA A LISTA DE SALAS

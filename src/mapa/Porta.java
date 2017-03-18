@@ -13,13 +13,17 @@ public final class Porta {
     private boolean estado;                                                     //ESTADO DA PORTA. TRUE = ABERTO, FALSE = FECHADO
     private final byte proximaSala;                                             //ID DA PROXIMA SALA
     private final byte chave;                                                   //ID DO ITEM PARA ABRIR A PORTA, 0 = NENHUM
-    private byte item;                                                          //ID DO ITEM0 NA PORTA, 0 = NENHUM
-    private byte inimigo;                                                       //ID DO INIMIGO0 NA PORTA, 0 = NENHUM
+    private byte tipo;                                                          //TIPO DO ITEM TiposDeItens: 1 = Armadura, 2 = Arma, 3 = Chave, 4 = Habilidades, 5 = Itens de Cura, 6 = Itens de Energia, 7 = Totem
+    private byte item;                                                          //ID DO ITEM NA PORTA, 0 = NENHUM
+    private int quantidade;                                                     //QUANTIDADE DE ITENS
+    private byte inimigo;                                                       //ID DO INIMIGO NA PORTA, 0 = NENHUM
     
-    public Porta(byte proximaSala, byte chave, byte item, byte inimigo){
+    public Porta(byte proximaSala, byte chave, byte tipo, byte item, int quantidade, byte inimigo){
         this.proximaSala = proximaSala;
         this.chave = chave;
+        this.tipo = tipo;
         this.item = item;
+        this.quantidade = quantidade;
         this.inimigo = inimigo;
         testaPorta();
     }

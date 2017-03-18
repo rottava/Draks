@@ -1,2 +1,1 @@
-Nome/Tipo/Efeito/Consumo
 Meteoro de Pegasus/1/100/100

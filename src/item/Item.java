@@ -76,8 +76,7 @@ public abstract class Item {
             return true;
         }
         else
-            return false;
-        
+            return false;  
     }
     
     //RETORNA PESO INDIVIDUAL DO ITEM

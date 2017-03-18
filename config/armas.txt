@@ -1,1 +1,1 @@
-Nome/Dano/Peso
+Espada/10/5
