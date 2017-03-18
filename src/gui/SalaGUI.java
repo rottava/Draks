@@ -12,6 +12,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -141,16 +143,43 @@ public class SalaGUI extends JFrame implements ActionListener {
         titulo.setFont(new Font("Dialog", Font.BOLD, 20));
         titulo.setForeground(Color.YELLOW);
         titulo.setBounds(430, 40, 350, 50);
-        add(titulo);        
+        add(titulo);
         
         for (int i = 0; i < inimigos; i++) {
             Random gerador = new Random();
             int posicaoX = gerador.nextInt(850)+30;
             int posicaoY = gerador.nextInt(400)+100;
-            JButton inimigo = new JButton ("Inimigo "+i);
+            JLabel inimigo = new JLabel (new ImageIcon("resources/inimigo.png"));
             inimigo.setBounds(posicaoX, posicaoY, 100, 100);
             add(inimigo);
-            inimigo.addActionListener(new ActionListener()
+            inimigo.addMouseListener(new MouseListener(){
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    JPopupMenu pop = new JPopupMenu ();
+                    JMenuItem menuItem = new JMenuItem ("Lutar");
+                    pop.add(menuItem);
+                    pop.show(inimigo, 100, 100);
+                    menuItem.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            JOptionPane.showMessageDialog(null, "Matando...");
+                        }
+                    });
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {}
+
+                @Override
+                public void mouseReleased(MouseEvent e) {}
+
+                @Override
+                public void mouseEntered(MouseEvent e) {}
+
+                @Override
+                public void mouseExited(MouseEvent e) {}
+            });
+            /*inimigo.addActionListener(new ActionListener()
             {
                 @Override
                 public void actionPerformed(ActionEvent e)
@@ -166,7 +195,7 @@ public class SalaGUI extends JFrame implements ActionListener {
                         }
                     });
                 }
-            });      
+            }); */     
         }
         
         for (int i = 0; i < chefe; i++) {

@@ -343,6 +343,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
         sala2.setarSaida("oeste", 3);
         sala2.setarSaida("sul", 1);
         sala2.setarSaida("leste", 4);
+        sala2.setarInimigos(3);
         sala3 = new SalaGUI("Sala 3");
         sala3.setarSaida("leste", 2);
         sala4 = new SalaGUI("Sala 4");
