@@ -5,6 +5,14 @@
  */
 package main;
 
+import item.Arma;
+import item.Armadura;
+import item.Chave;
+import item.Item;
+import item.ItemCura;
+import item.ItemEnergia;
+import item.ItemHabilidadeCura;
+import item.ItemHabilidadeDano;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Random;
@@ -74,6 +82,48 @@ public class Main {
 
     private static void Sistema() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public Item ConversorDeItens(byte tipo, byte id, int quantidade){
+        Item item;
+        switch (tipo){
+            case 1:
+                item = new Armadura(id);
+                item.setQuantidade((byte)(quantidade));
+                break;
+            case 2:
+                item = new Arma(id);
+                item.setQuantidade((byte)(quantidade));
+                break;
+            case 3:
+                item = new Chave(id);
+                item.setQuantidade((byte)(quantidade));
+                break;
+            case 4:
+                item = new ItemHabilidadeCura(id);
+                item.setQuantidade((byte)(quantidade));
+                break;
+            case -4:
+                item = new ItemHabilidadeDano(id);
+                item.setQuantidade((byte)(quantidade));
+                break;
+            case 5:
+                item = new ItemCura(id);
+                item.setQuantidade((byte)(quantidade));
+                break;
+            case 6:
+                item = new ItemEnergia(id);
+                item.setQuantidade((byte)(quantidade));
+                break;
+            case 7:
+                HEROI.addMoedas(quantidade);
+                item = null;
+                break;
+           default:
+               item = null;
+               break;
+        }
+        return item;
     }
     
 }
