@@ -23,12 +23,14 @@ public class Heroi extends Persona {
     
     
     //PARAMETROS DEPENDENTES
-    private byte pesoMax;                                                       //FORCA + RESISTENCIA
+    private byte PESOMAX;                                                       //FORCA + RESISTENCIA
+    private final int MOEDASMAX = 1000000;                                      //MAXIMO DE MOEDAS          
     
     //CONSTRUTOR
     public Heroi(String nome, byte forca, byte inteligencia, byte agilidade, byte resistencia) {
         super(nome, forca, inteligencia, agilidade, resistencia);               //CONSTRUTOR PAI
         mochila = new Mochila();                                                //LISTA DE ITENS
+        setMoedas(0);                                                           //MOEDAS
     }
     
     //GETTERS AND SETTERS
@@ -53,7 +55,7 @@ public class Heroi extends Persona {
     
     //SETA PESO E RETORNA VERDADEIRO OU RETORNA FALSO
     public boolean setPeso(byte peso){
-        if (peso <= pesoMax){
+        if (peso <= PESOMAX){
             this.peso = peso;
             return true;
         }
@@ -63,15 +65,15 @@ public class Heroi extends Persona {
     
     //RETORNA PESO MAXIMO
     public byte getPesoMax(){
-        return pesoMax;
+        return PESOMAX;
     }
     
     //SETA PESO MAXIMO PARA
-    private void setPesoMax(byte pesoMax){
-        if (pesoMax < TAMANHOMAXIMO)
-            this.pesoMax = pesoMax;
+    private void setPesoMax(byte PESOMAX){
+        if (PESOMAX < TAMANHOMAXIMO)
+            this.PESOMAX = PESOMAX;
         else
-            this.pesoMax = TAMANHOMAXIMO;
+            this.PESOMAX = TAMANHOMAXIMO;
     }
     
     //GERA PESO MAXIMO
@@ -86,8 +88,8 @@ public class Heroi extends Persona {
     
     //ADICIONA ITEM A LISTA DE ITENS E RETORNA 0, RETORNA 1 CASO MOCHILA CHEIA, RETORNA 2 CASO PESO EXEDE LIMITE
     public byte addMochila(Item item){
-        Byte pesoAux = (byte) ((getArma().getPeso() + getArmadura().getPeso() + mochila.getPeso()));
-        if (pesoAux <= pesoMax){
+        Byte pesoAux = (byte) (peso + item.getPeso());
+        if (pesoAux <= PESOMAX){
             if(mochila.addMochila(item)){
                 setPeso(pesoAux);
                 return 0;
@@ -102,7 +104,7 @@ public class Heroi extends Persona {
     //REMOVE ITEM DA MOCHILA E RETORNA VERDADEIRO OU RETORNA FALSO SE ITEM NAO EXISTE
     public boolean subMochila(Item item){
         if(mochila.subMochila(item)){
-            setPeso((byte) (getArma().getPeso() + getArmadura().getPeso() + mochila.getPeso()) );
+            setPeso((byte) (peso - item.getPeso()) );
             return true;
         }
         else 
@@ -137,6 +139,32 @@ public class Heroi extends Persona {
         if (getArmadura() != null)
             mochila.addMochila(getArmadura());
         setArma(null);
+    }
+    
+    public boolean addMoedas(int moedas){
+        if (getMoedas() + moedas < MOEDASMAX){
+            if(setPeso((byte) (peso - (this.getMoedas()/100) + (getMoedas() + moedas)/100))){
+                setMoedas(getMoedas() + moedas);
+                return true;
+            }
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+    
+    public boolean subMoedas(int moedas){
+        if (getMoedas() - moedas >= 0){
+            if(setPeso((byte) (peso - (moedas/100)) )){
+                setMoedas(getMoedas() - moedas);
+                return true;
+            }
+            else
+                return false;
+        }
+        else
+            return false;
     }
             
 }
