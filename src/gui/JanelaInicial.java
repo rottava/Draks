@@ -338,6 +338,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
     private void carregarSalas () {
         sala1 = new SalaGUI("Saguão Principal");
         sala1.setarSaida("norte", 2);
+        sala1.setarInimigos(2);
         sala2 = new SalaGUI("Sala 2");
         sala2.setarSaida("oeste", 3);
         sala2.setarSaida("sul", 1);
@@ -360,6 +361,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
         sala8.setarSaida("sul", 5);
         sala8.setarSaida("leste", 9);
         sala9 = new SalaGUI("Sala 9");
+        sala9.setarChefe(1);
         sala9.setarSaida("oeste", 8);
         sala9.setarSaida("norte", 10);
         sala10 = new SalaGUI("Sala 10");

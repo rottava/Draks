@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -19,8 +21,11 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
@@ -34,6 +39,8 @@ public class SalaGUI extends JFrame implements ActionListener {
     private int saidaLeste;
     private int saidaOeste;
     private int ordem;
+    private int inimigos;
+    private int chefe;
     private String nomeSala;
     private JButton btnNorte;
     private JButton btnSul;
@@ -53,6 +60,26 @@ public class SalaGUI extends JFrame implements ActionListener {
         this.saidaNorte = 0;
         this.saidaOeste = 0;
         this.saidaSul = 0;
+    }
+    
+    /**
+     * Configura a quantidade de inimigos que terão na sala
+     * São inimigos fracos ou médios
+     * Deve ser chamada antes da initGUI
+     * @param inimigos = quantidade de inimigos na Sala
+     */
+    public void setarInimigos (int inimigos) {
+        this.inimigos = inimigos;
+    }
+    
+    /**
+     * Configura a quantidade de chefes que terão na sala
+     * Chefes são inimigos mais fortes, mais difíceis de serem derrotados
+     * Deve ser chamada antes da initGUI
+     * @param chefe = quantidade de chefes na Sala
+     */
+    public void setarChefe (int chefe) {
+        this.chefe = chefe;
     }
     
     /**
@@ -114,7 +141,59 @@ public class SalaGUI extends JFrame implements ActionListener {
         titulo.setFont(new Font("Dialog", Font.BOLD, 20));
         titulo.setForeground(Color.YELLOW);
         titulo.setBounds(430, 40, 350, 50);
-        add(titulo);
+        add(titulo);        
+        
+        for (int i = 0; i < inimigos; i++) {
+            Random gerador = new Random();
+            int posicaoX = gerador.nextInt(850)+30;
+            int posicaoY = gerador.nextInt(400)+100;
+            JButton inimigo = new JButton ("Inimigo "+i);
+            inimigo.setBounds(posicaoX, posicaoY, 100, 100);
+            add(inimigo);
+            inimigo.addActionListener(new ActionListener()
+            {
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    JPopupMenu pop = new JPopupMenu ();
+                    JMenuItem menuItem = new JMenuItem ("Lutar");
+                    pop.add(menuItem);
+                    pop.show(inimigo, 100, 100);
+                    menuItem.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            JOptionPane.showMessageDialog(null, "Matando...");
+                        }
+                    });
+                }
+            });      
+        }
+        
+        for (int i = 0; i < chefe; i++) {
+            Random gerador = new Random();
+            int posicaoX = gerador.nextInt(850)+30;
+            int posicaoY = gerador.nextInt(400)+100;
+            JButton chefe = new JButton ("Chefe "+i);
+            chefe.setBounds(posicaoX, posicaoY, 100, 100);
+            add(chefe);
+            chefe.addActionListener(new ActionListener()
+            {
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    JPopupMenu pop = new JPopupMenu ();
+                    JMenuItem menuItem = new JMenuItem ("Lutar");
+                    pop.add(menuItem);
+                    pop.show(chefe, 100, 100);
+                    menuItem.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            JOptionPane.showMessageDialog(null, "Matando...");
+                        }
+                    });
+                }
+            });      
+        }
         
         btnNorte = new JButton ("Norte");
         btnNorte.setBounds(480,10,80,30); //x, y, largura, altura
