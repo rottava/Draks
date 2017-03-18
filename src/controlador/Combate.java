@@ -6,10 +6,15 @@
 package controlador;
 
 import habilidade.Habilidade;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import static main.Main.HEROI;
+import static main.Main.INIMIGOS;
 import static main.Main.TAMANHOMAXIMO;
 import static main.Main.aleatorio;
-import personagem.Heroi;
-import personagem.InimigoComum;
+import mapa.Porta;
+import personagem.InimigoChefe;
+import personagem.Inimigo;
 import personagem.Persona;
 
 /**
@@ -18,30 +23,167 @@ import personagem.Persona;
  */
 public class Combate {
     private boolean fuga = false;                                               //FLAG DE FUGA
-    private InimigoComum inimigo1, inimigo2, inimigo3;                               //MAXIMO DE 3 INIMIGOS POR BATALHA
-    private Heroi heroi;                                                        //
+    private Inimigo inimigo;                                                    //MAXIMO DE 3 INIMIGOS POR BATALHA
     
     //TURNO DE BATALHA
-    public void combate(Heroi heroi, byte[] sala){
+    public void combate(Porta porta){
+        setaInimigos(porta);
+        while(!fuga && inimigo.getVida() > 0 && HEROI.getVida() > 0){
+            byte comandoHeroi, habilidadeHeroi; 
+            byte comandoInimigo, habilidadeInimigo;
+            byte[] auxiliar = new byte[2];
+            auxiliar = getComandoHeroi();
+            comandoHeroi = auxiliar[0];
+            habilidadeHeroi = auxiliar[1];
+            auxiliar = testaComando(inimigo);
+            comandoInimigo = (byte) (auxiliar[0]+2);
+            habilidadeInimigo = auxiliar[1];
+            if(HEROI.getAgilidade() > inimigo.getAgilidade()){
+                ataqueHeroi(comandoHeroi, habilidadeHeroi);
+                ataqueInimigo(comandoInimigo, habilidadeInimigo);
+            }
+            else{
+                ataqueInimigo(comandoInimigo, habilidadeInimigo);
+                ataqueHeroi(comandoHeroi, habilidadeHeroi);
+            }      
+        }
+    }
+    
+    private void ataqueHeroi(byte comando, byte habilidade){
+        switch (comando){
+            case 1:
+                causarDanoEspecial(HEROI, inimigo, HEROI.getTalentosDano().getHabilidades().get(habilidade));
+                break;
+            case 2:
+                causarDano(HEROI, inimigo);
+                break;
+            case 3:
+                HEROI.regenVida(HEROI.getTalentosCura().getHabilidades().get(habilidade).getEfeito());
+                break;
+            default:
+                if(calculaFuga(HEROI))
+                    fuga = true;
+                break;
+        }
+    }
+    
+    private void ataqueInimigo(byte comando, byte habilidade){
+        switch (comando){
+            case 1:
+                causarDanoEspecial(inimigo, HEROI, inimigo.getTalentosDano().getHabilidades().get(habilidade));
+                break;
+            case 2:
+                causarDano(inimigo, HEROI);
+                break;
+            case 3:
+                inimigo.regenVida(inimigo.getTalentosCura().getHabilidades().get(habilidade).getEfeito());
+                break;
+            default:
+                break;
+        }
+    }
+    
+    //VERIFICA COMANDO
+    private byte[] testaComando(Inimigo inimigo){
+        byte[] comando = new byte[2];
+        byte auxiliar;
+        if((auxiliar = testaHabilidade(inimigo)) > 0){
+            if(inimigo.reduzEnergia( (byte) (inimigo.getEnergia() - 
+                (inimigo.getTalentosCura().getHabilidades().get(auxiliar).getConsumo())))){
+                comando[0] = 1;
+                comando[1] = auxiliar;
+            }
+                else{
+                    comando[0] = 0;
+                    comando[1] = 0;
+                }
+            }
+            else 
+                if((auxiliar = testaHabilidade(inimigo)) < 0){
+                    if(inimigo.reduzEnergia( (byte) (inimigo.getEnergia() - 
+                        (inimigo.getTalentosDano().getHabilidades().get(-auxiliar).getConsumo())))){
+                    comando[0] = 2;
+                    comando[1] = (byte) -auxiliar;
+                    }
+                    else{
+                        comando[0] = 0;
+                        comando[1] = 0;
+                    }
+                }
+                else {
+                    comando[0] = 0;
+                    comando[1] = 0;
+                }
+        return comando;
+    }
+    
+    
+    //VERIFICA HABILIDADE
+    private byte testaHabilidade(Inimigo inimigo){
+        byte comando, habilidade;
+            if (inimigo.getTalentosCura().getTamanho() > 0){
+                if(inimigo.getTalentosDano().getTamanho() > 0){
+                    comando= (byte) aleatorio.nextInt(2);
+                    switch (comando) {
+                        case 1:
+                            habilidade = (byte) aleatorio.nextInt(inimigo.getTalentosCura().getTamanho());
+                            break;
+                        case 2:
+                            habilidade = (byte) -(aleatorio.nextInt(inimigo.getTalentosDano().getTamanho()));
+                            break;
+                        default:
+                            habilidade = (byte) 0;
+                            break;
+                    }
+                }
+                else{
+                    comando = (byte) aleatorio.nextInt(1);
+                    switch (comando) {
+                        case 1:
+                            habilidade = (byte) aleatorio.nextInt(inimigo.getTalentosCura().getTamanho());
+                            break;
+                        default:
+                            habilidade = (byte) 0;
+                            break;
+                    }
+                }
+            }else
+                habilidade = (byte) 0;
+        return habilidade;
+    }
         
+    //VERIFICA VALIDADE
+    private boolean testaItem(byte id){
+        try {
+            Scanner scanner = new Scanner(INIMIGOS);
+            byte loop = 1;
+            while((scanner.hasNext()) && (loop < id)){
+                String nextLine = scanner.nextLine();
+                loop++;
+            }
+            if (scanner.hasNext()){
+                String[] parametros;
+                parametros = scanner.nextLine().split("/");                     //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
+                byte tipo = (byte) Integer.parseInt(parametros[8]);             //TIPO DO ITEM PORTADO
+                return tipo > 0;
+            }
+        } catch (FileNotFoundException ex) {
+            throw new UnsupportedOperationException("ID de inimigo não encontrado.");
+        }
+        return false;
     }
     
     //DEFININE INIMIGOS NO COMBATE
-    private void setaInimigo(byte[] sala){
-        if (sala[2] == 0)
-            inimigo1 = null;
+    private void setaInimigos(Porta porta){
+        if (porta.getInimigo((byte)0) != 0)                                     //INIMIGO0 E VALIDO
+            if(testaItem(porta.getInimigo((byte)(0))))                          //INIMIGO0 POSSUI ITEM 
+                inimigo = new InimigoChefe(porta.getInimigo((byte)0));          //SETA SE ID DO ITEM E VALIDO
+            else
+                inimigo = new Inimigo(porta.getInimigo((byte)0));               //SETA SE ID DO ITEM E VALIDO
         else
-            inimigo1 = new InimigoComum(sala[2]);
-        if (sala[3] == 0)
-            inimigo2 = null;
-        else
-            inimigo2 = new InimigoComum(sala[2]);
-        if (sala[4] == 0)
-            inimigo3 = null;
-        else
-            inimigo3 = new InimigoComum(sala[2]);
+            inimigo = null;                                                     //INIMIGO INVALIDO
     }
-    
+
     //REDUZ VIDA DO ALVO E RETORNA VERDADEIRO OU RETORNA FALSO
     private boolean causarDano(Persona atacante, Persona alvo){
         if (calcularEvasao(alvo) > calcularEvasao(atacante))                    //VERIFICA SE EVADIU ATAQUE
@@ -112,9 +254,9 @@ public class Combate {
     }
     
     //CALCULO DE FUGA
-    private void calculaFuga(Persona persona){
+    private boolean calculaFuga(Persona persona){
         int agilidade = persona.getAgilidade() + persona.getSorte();
         fuga = agilidade > aleatorio.nextInt(TAMANHOMAXIMO);
+        return fuga;
     }
-    
 }

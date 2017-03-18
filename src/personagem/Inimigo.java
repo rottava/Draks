@@ -23,19 +23,19 @@ import static main.Main.aleatorio;
  *
  * @author Junior
  */
-public final class InimigoComum extends Persona{
+public class Inimigo extends Persona{
     //PARAMETRO DE CONFIGURACAO
     private final byte id;                                                      //-1 = FRACO, -2 = MEDIO, -3 = FORTE, -4 = SUBCHEFE, -5 = CHEFE, -6 = CHEFE FINAL, OTHERS = RND
     private byte pontos;                                                        //PONTOS PARA PARAMETROS
     
     //CONSTRUTOR POR PASSAGEM DE PARAMETRO
-    public InimigoComum(String nome, byte forca, byte inteligencia, byte agilidade, byte resistencia) {
+    public Inimigo(String nome, byte forca, byte inteligencia, byte agilidade, byte resistencia) {
         super(nome, forca, inteligencia, agilidade, resistencia);               //CONSTRUTOR PAI
         id = 0;                                                                 //0 = ID NULO
     }
     
     //CONSTRUTOR
-    public InimigoComum(byte id){
+    public Inimigo(byte id){
         super();                                                                //CONSTRUTOR PAI
         this.id = id;                                                           //LINHA DO ARQUIVO
         seletor();                                                              //SELETOR DE GERADOR
@@ -150,8 +150,8 @@ public final class InimigoComum extends Persona{
             Habilidade habilidade;
             do{
                 habilidade = new HabilidadeCura((byte) aleatorio.nextInt(TAMANHOHABILIDADESCURA));
-                if(!verificaHabilidade(habilidade)){
-                    addTalentos(habilidade);
+                if(!verificaHabilidadeCura(habilidade)){
+                    addTalentosCura(habilidade);
                     quantidade--;
                 }
             }
@@ -170,9 +170,9 @@ public final class InimigoComum extends Persona{
                 quantidade = (byte) (aleatorio.nextInt((TAMANHOHABILIDADESDANO-1)/2)+1);
             Habilidade habilidade;
             do{
-                habilidade = new HabilidadeCura((byte) aleatorio.nextInt(TAMANHOHABILIDADESDANO));
-                if(!verificaHabilidade(habilidade)){
-                    addTalentos(habilidade);
+                habilidade = new HabilidadeDano((byte) aleatorio.nextInt(TAMANHOHABILIDADESDANO));
+                if(!verificaHabilidadeDano(habilidade)){
+                    addTalentosDano(habilidade);
                     quantidade--;
                 }
             }
@@ -180,11 +180,21 @@ public final class InimigoComum extends Persona{
         }
     }
     
-    //VERIFICA SE HABILIDADE JA EXISTE NA LISTA DE HABILIDADES
-    public boolean verificaHabilidade(Habilidade habilidade){
+    //VERIFICA SE HABILIDADE JA EXISTE NA LISTA DE HABILIDADES DE CURA
+    public boolean verificaHabilidadeCura(Habilidade habilidade){
         boolean auxiliar = false;
-        for(int contador = 0; contador < getTalentos().getTamanho(); contador++){
-            if(getTalentos().getHabilidades().get(contador).getId() == habilidade.getId())
+        for(int contador = 0; contador < getTalentosCura().getTamanho(); contador++){
+            if(getTalentosCura().getHabilidades().get(contador).getId() == habilidade.getId())
+                auxiliar = true;
+        }
+        return auxiliar;
+    }
+    
+    //VERIFICA SE HABILIDADE JA EXISTE NA LISTA DE HABILIDADES DE DANO
+    public boolean verificaHabilidadeDano(Habilidade habilidade){
+        boolean auxiliar = false;
+        for(int contador = 0; contador < getTalentosDano().getTamanho(); contador++){
+            if(getTalentosDano().getHabilidades().get(contador).getId() == habilidade.getId())
                 auxiliar = true;
         }
         return auxiliar;
@@ -216,17 +226,18 @@ public final class InimigoComum extends Persona{
                     setArmadura(armadura);                                      //ARMADURA
                 }
                 setMoedas(Integer.parseInt(parametros[7]));                     //MOEDAS
-                for(int contador = 8; !parametros[contador].equals("0"); contador++){//VERIFICA HABILIDADES
+                //PARAMETROS 8 E 9 NÃO SAO VALIDOS PARA INIMIGOS COMUNS E POR ISSO DEVEM SER 0
+                for(int contador = 10; !parametros[contador].equals("0"); contador++){//VERIFICA HABILIDADES
                     byte auxiliar = (byte) Integer.parseInt(parametros[contador]);
                     if (auxiliar > 0){                                          //POSITIVOS
                         HabilidadeCura habilidade = new HabilidadeCura(auxiliar);
-                        if(!verificaHabilidade(habilidade))                     //TESTA SE HABILIDADE JA ESTA NA LISTA
-                            addTalentos(habilidade);                            //ADICIONA HABILIDADES
+                        if(!verificaHabilidadeCura(habilidade))                 //TESTA SE HABILIDADE JA ESTA NA LISTA
+                            addTalentosCura(habilidade);                        //ADICIONA HABILIDADES
                     }
                     else{                                                       //NEGATIVOS
                         HabilidadeDano habilidade = new HabilidadeDano(auxiliar);
-                        if(!verificaHabilidade(habilidade))                     //TESTA SE HABILIDADE JA ESTA NA LISTA
-                            addTalentos(habilidade);                            //ADICIONA HABILIDADES
+                        if(!verificaHabilidadeDano(habilidade))                 //TESTA SE HABILIDADE JA ESTA NA LISTA
+                            addTalentosDano(habilidade);                        //ADICIONA HABILIDADES
                     }
                 }
             }
@@ -235,6 +246,21 @@ public final class InimigoComum extends Persona{
         } catch (FileNotFoundException ex) {
             throw new UnsupportedOperationException("ID de inimigo não encontrado.");
         }
+    }
+    
+    //RETORNA ID DO INIMIGO
+    public byte getId(){
+        return id;
+    }
+    
+    //RETORNA PONTOS(){
+    public byte getPontos(){
+        return pontos;
+    }
+    
+    //SETA PONTOS
+    public void setPontos(byte pontos){
+        this.pontos = pontos;
     }
     
 }

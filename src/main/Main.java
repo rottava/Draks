@@ -9,13 +9,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.Scanner;
+import mapa.Mapa;
+import mapa.Sala;
+import personagem.Heroi;
 
 /**
  *
  * @author Junior
  */
 public class Main {
-    public static Random aleatorio;    
+    public static final Heroi HEROI = new Heroi("Cecil",(byte) 1,(byte) 1,(byte) 1 ,(byte)1);//  HEROI 
+    public static final Mapa MAPA = new Mapa();                                 //MAPA DO JOGO
+    public static Sala SALA;                                                    //SALA ATUAL
+    public static Random aleatorio;                                             //NUMERO ALEATORIO
     public static final File ITENSCURA = new File("/config/itenscura.txt");     //ARQUIVO: NOME/EFEITO/PESO
     public static final File ITENSENERGIA = new File("/config/itensenergia.txt");//ARQUIVO: NOME/EFEITO/PESO
     public static final File CHAVES = new File("/config/chaves.txt");           //ARQUIVO: NOME/EFEITO/PESO
@@ -39,15 +45,14 @@ public class Main {
     public static final byte TAMANHOSALAS = getTamanhoArquivo(SALAS);           //TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS
     public static final byte TAMANHOTOTEM = getTamanhoArquivo(TOTEM);           //TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS
     public static final byte TAMANHOMAXIMO = 127;                               //TAMANHO MAXIMO DE ARQUIVOS
+                                 //HEROI
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
         aleatorio = new Random();
-        
-        
-       
+        Sistema();
     }
     
     private static byte getTamanhoArquivo(File arquivo) {
@@ -65,6 +70,10 @@ public class Main {
             throw new UnsupportedOperationException("Arquivo em " + arquivo + " não foi encontrado.");
         }
         return contador;
+    }
+
+    private static void Sistema() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

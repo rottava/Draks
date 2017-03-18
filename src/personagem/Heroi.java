@@ -30,10 +30,17 @@ public class Heroi extends Persona {
     public Heroi(String nome, byte forca, byte inteligencia, byte agilidade, byte resistencia) {
         super(nome, forca, inteligencia, agilidade, resistencia);               //CONSTRUTOR PAI
         mochila = new Mochila();                                                //LISTA DE ITENS
-        setMoedas(0);                                                           //MOEDAS
+        ini();                                                                  //INICIALIZA VALORES
     }
     
     //GETTERS AND SETTERS
+    
+    //INICIALIZACAO DE VALORES
+    private void ini(){
+        pontos = 50;                                                            //PONTOS INICIAIS
+        peso = 0;                                                               //PESO INICIAL
+        setMoedas(0);                                                           //MOEDAS INICIAL
+    }
     
     //RETORNA PONTOS
     public byte getPontos(){

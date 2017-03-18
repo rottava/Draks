@@ -9,7 +9,6 @@ import habilidade.Habilidade;
 import habilidade.Talentos;
 import item.Arma;
 import item.Armadura;
-import item.Item;
 import static main.Main.TAMANHOMAXIMO;
 import static main.Main.aleatorio;
 
@@ -17,7 +16,7 @@ import static main.Main.aleatorio;
  *
  * @author Junior
  */
-public abstract class Persona {
+public abstract class Persona implements Comparable<Persona>{
     //PARAMETROS DE SISTEMA
     private String nome;                                                        //NOME DO PERSONAGEM
     
@@ -26,7 +25,8 @@ public abstract class Persona {
     private byte energia;                                                       //ENERGIA
     private Arma arma;                                                          //EQUIPAMENTO DE ATAQUE
     private Armadura armadura;                                                  //EQUIPAMENTO DE DEFESA
-    private final Talentos talentos;                                            //TALENTOS DO PERSONAGEM
+    private final Talentos talentosCura;                                        //TALENTOS DO PERSONAGEM
+    private final Talentos talentosDano;                                        //TALENTOS DO PERSONAGEM
     private int moedas;                                                         //MOEDAS DO PERSONAGEM
     
     //PARAMETROS DEPENDENTES
@@ -54,13 +54,15 @@ public abstract class Persona {
         this.vida = vidaMax;                                                    //PARAMETRO VIDA
         geraEnergiaMax();                                                       //PARAMETRO ENERGIA MAXIMA INICIAL
         this.energia = energiaMax;                                              //PARAMETRO ENERGIA
-        this.talentos = new Talentos();                                         //LISTA DE TALENTOS
+        this.talentosCura = new Talentos();                                     //LISTA DE TALENTOS
+        this.talentosDano = new Talentos();                                     //LISTA DE TALENTOS
     }
     
     //CONSTRUTOR VAZIO
     Persona(){
         sorte = (byte) aleatorio.nextInt(10);                                   //PARAMETRO SORTE
-        talentos = new Talentos();                                              //LISTA DE TALENTOS
+        talentosCura = new Talentos();                                          //LISTA DE TALENTOS DE CURA
+        talentosDano = new Talentos();                                          //LISTA DE TALENTOS DE DANO
     }
     
     //GETTERS AND SETTERS
@@ -224,7 +226,7 @@ public abstract class Persona {
     }
     
     //REGENERA VIDA
-    public boolean regenVIDA(byte regen){
+    public boolean regenVida(byte regen){
         return setVida((byte) (getVida() + regen));
     }
     
@@ -243,14 +245,24 @@ public abstract class Persona {
         return setVida((byte) (getVida() - damage));
     }
     
-    //RETORNA LISTA DE HABILIDADES
-    public Talentos getTalentos(){
-        return talentos;
+    //RETORNA LISTA DE HABILIDADES DE CURA
+    public Talentos getTalentosCura(){
+        return talentosCura;
     }
     
-    //ADICIONA HABILIDADE A LISTA DE HABILIDADES
-    public boolean addTalentos(Habilidade habilidade){
-        return (talentos.addTalentos(habilidade));
+    //ADICIONA HABILIDADE A LISTA DE HABILIDADES DE CURA
+    public boolean addTalentosCura(Habilidade habilidade){
+        return (talentosCura.addTalentos(habilidade));
+    }
+    
+    //RETORNA LISTA DE HABILIDADES DE DANO
+    public Talentos getTalentosDano(){
+        return talentosDano;
+    }
+    
+    //ADICIONA HABILIDADE A LISTA DE HABILIDADES DE DANO
+    public boolean addTalentosDano(Habilidade habilidade){
+        return (talentosDano.addTalentos(habilidade));
     }
     
     //RETORNA MOEDAS
@@ -262,5 +274,17 @@ public abstract class Persona {
     protected void setMoedas(int moedas){
         this.moedas = moedas;
     }
+    
+    //COMPARADOR DE AGILIDADE
+    @Override
+    public int compareTo(Persona outroPersona) {
+         if (this.agilidade > outroPersona.getAgilidade()) {
+              return -1;
+         }
+         if (this.agilidade < outroPersona.getAgilidade()) {
+              return 1;
+         }
+         return 0;
+}
 
 }

@@ -22,8 +22,8 @@ public class Talentos {
     }
 
     ///GETTERS AND SETTERS
-    public int getTamanho(){
-        return talentos.size();
+    public byte getTamanho(){
+        return (byte) talentos.size();
     }
     
     public List<Habilidade> getHabilidades(){

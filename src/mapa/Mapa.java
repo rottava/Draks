@@ -80,5 +80,10 @@ public class Mapa {
             throw new UnsupportedOperationException("Arquivo itens.txt não foi encontrado.");
         }
     }
+    
+    //RETORNA LISTA DE SALAS
+    public List<Sala> getSalas(){
+        return salas;
+    }
  
 }
