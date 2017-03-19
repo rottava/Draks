@@ -9,6 +9,7 @@ import item.Arma;
 import item.Armadura;
 import item.Item;
 import item.Mochila;
+import java.util.List;
 import static main.Main.TAMANHOMAXIMO;
 
 /**
@@ -91,6 +92,10 @@ public class Heroi extends Persona {
     //RETORNA LISTA DE ITENS
     public Mochila getMochila(){
         return mochila;
+    }
+    
+    public List<Item> getItens(){
+        return mochila.getItens();
     }
     
     //ADICIONA ITEM A LISTA DE ITENS E RETORNA 0, RETORNA 1 CASO MOCHILA CHEIA, RETORNA 2 CASO PESO EXEDE LIMITE

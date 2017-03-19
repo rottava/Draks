@@ -17,6 +17,7 @@ public final class InimigoChefe extends Inimigo{
     //PARAMETRO DE CONFIGURACAO
     private byte itemId;                                                        //ID DO ITEM PORTADO
     private byte tipo;                                                          //TIPO DO ITEM PORTADO
+    private byte quantidade;                                                    //QUANTIDADE
     
     //CONSTRUTOR POR PASSAGEM DE PARAMETRO
     public InimigoChefe(String nome, byte forca, byte inteligencia, byte agilidade, byte resistencia) {
@@ -45,11 +46,19 @@ public final class InimigoChefe extends Inimigo{
                 if(tipo != 0 && !parametros[9].equals("0"))                     
                     itemId = (byte) Integer.parseInt(parametros[9]);            //ID DO ITEM PORTADO
                 else
-                    itemId = (byte) Integer.parseInt(parametros[9]);            //SEM ITEM
+                    itemId = (byte) 0;                                          //SEM ITEM
+                quantidade = (byte) Integer.parseInt(parametros[10]);
             }
         } catch (FileNotFoundException ex) {
             throw new UnsupportedOperationException("ID de inimigo não encontrado.");
         }
+    }
+    
+    public byte getItemTipo(){
+        return tipo;
+    }
+    public byte getItemId(){
+        return itemId;
     }
     
 }

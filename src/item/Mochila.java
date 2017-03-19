@@ -34,8 +34,20 @@ public class Mochila {
     //GETTERS AND SETTERS
     
     //RETORNA LISTA DE ITENS
-    public List<Item> getMochila(){
+    public List<Item> getItens(){
         return mochila;
+    }
+    
+    //RETORNA INDEX DO ITEM
+    public byte getItemIndex(byte id){
+        byte index = 0;
+        while(mochila.get(index).getId() != id && index <= mochila.size())
+            index++;
+        return index;
+    }
+    
+    public byte getEfeitoId(byte id){
+        return mochila.get(getItemIndex(id)).getEfeito();
     }
     
     //RETORNA TAMANHO

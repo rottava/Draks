@@ -1,5 +1,14 @@
 package gui;
 
+import habilidade.HabilidadeCura;
+import habilidade.HabilidadeDano;
+import item.Arma;
+import item.Armadura;
+import item.Chave;
+import item.ItemCura;
+import item.ItemEnergia;
+import item.ItemHabilidadeCura;
+import item.ItemHabilidadeDano;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -19,6 +28,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import main.Main;
+import static main.Main.HEROI;
+import mapa.Sala;
 
 /**
  * Criação das salas com seus ítens e inimigos
@@ -240,10 +252,6 @@ public class SalaGUI extends JFrame implements ActionListener {
             inimigo.addMouseListener(new MouseListener(){
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    CombateGUI combate = new CombateGUI("Nome Heroi", "Nome Vilao");
-                    if (inimigos == 0) {                        
-                        adicionarItens();
-                    }
                 }
                 @Override
                 public void mousePressed(MouseEvent e) {}
@@ -383,16 +391,15 @@ public class SalaGUI extends JFrame implements ActionListener {
      */
     private void carregarInventario() {
         ((DefaultListModel) inventario.getModel()).removeAllElements();
-        ((DefaultListModel) inventario.getModel()).addElement("Espada");
+        for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
+            ((DefaultListModel) inventario.getModel()).addElement(HEROI.getItens().get(loop).getNome());
+        }
     }
     
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == btnNorte) {
-            System.out.println ("Norte");
-            JanelaInicial ji = new JanelaInicial();
-            if (ji.irSala (ordem, saidaNorte))
-                this.dispose();          
+            testaNorte();         
 	} else if (ae.getSource() == btnSul) {
             System.out.println ("Sul");
             JanelaInicial ji = new JanelaInicial();
@@ -408,6 +415,108 @@ public class SalaGUI extends JFrame implements ActionListener {
             JanelaInicial ji = new JanelaInicial();
             if (ji.irSala (ordem, saidaOeste))
                 this.dispose();
+        }
+    }
+    
+    private void testaNorte(){
+        if(btnNorte.getIcon().toString().equals("resources/inimigo.png")){
+            CombateGUI combate = new CombateGUI(sala.getNorte(), ordem);
+        }
+        else{
+            if(btnNorte.getIcon().toString().equals("resources/item.png")){
+                switch (sala.getNorte().getTipo()){
+                    case 1:
+                        Armadura armadura = new Armadura(sala.getNorte().getId());
+                        armadura.setQuantidade(sala.getNorte().getQuantidade());
+                        HEROI.addMochila(armadura);
+                        break;
+                    case 2:
+                        Arma arma = new Arma(sala.getNorte().getId());
+                        arma.setQuantidade(sala.getNorte().getQuantidade());
+                        HEROI.addMochila(arma);
+                        break;
+                    case 3:
+                        Chave chave = new Chave(sala.getNorte().getId());
+                        chave.setQuantidade(sala.getNorte().getQuantidade());
+                        HEROI.addMochila(chave);
+                        break;
+                    case 4:
+                        HabilidadeCura cura = new HabilidadeCura(sala.getNorte().getId());
+                        HEROI.addTalentosCura(cura);
+                        break;
+                    case -4:
+                        HabilidadeDano dano = new HabilidadeDano(sala.getNorte().getId());
+                        HEROI.addTalentosDano(dano);
+                        break;
+                    case 5:
+                        ItemCura itemCura = new ItemCura(sala.getNorte().getId());
+                        itemCura.setQuantidade(sala.getNorte().getQuantidade());
+                        HEROI.addMochila(itemCura);
+                        break;
+                    case 6:
+                        ItemEnergia itemEnergia = new ItemEnergia(sala.getNorte().getId());
+                        itemEnergia.setQuantidade(sala.getNorte().getQuantidade());
+                        HEROI.addMochila(itemEnergia);
+                    case 7:
+                        HEROI.addMoedas(quantidade);
+                        break;
+                   default:
+                       break;
+                }
+                sala.setItem();
+            }
+            else{
+                if(btnNorte.getIcon().toString().equals("resources/cadeado.png")){
+                    for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
+                        if(HEROI.getItens().get(loop).getClass() == Chave.class)
+                            if(HEROI.getItens().get(loop).getEfeito() == sala.getNorte.getChave()){
+                                sala.getNorte.setSala();
+                                HEROI.subMochila(HEROI.getItens().get(loop));
+                            }
+                            /*else{
+                              //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
+                            }*/
+                        }
+                    else{
+                        System.out.println ("Norte");
+                        JanelaInicial ji = new JanelaInicial();
+                        if (ji.irSala (ordem, saidaNorte))
+                            this.dispose();  
+                    }
+                }
+            }
+        }
+    }
+    
+    private void setNorte(){
+        if(sala.getNorte().getInimigo() != 0){
+            btnNorte.setVisible(true);
+            ImageIcon img = new ImageIcon("resources/inimigo.png");
+            btnNorte.setIcon(img);
+        }
+        else{
+            if(sala.getNorte().getItem() != 0){
+                btnNorte.setVisible(true);
+                ImageIcon img = new ImageIcon("resources/item.png");
+            btnNorte.setIcon(img);
+            }
+            else{
+                if(sala.getNorte().getChave() != 0){
+                    btnNorte.setVisible(true);
+                    ImageIcon img = new ImageIcon("resources/cadeado.png");
+            btnNorte.setIcon(img);
+                }
+                else{
+                    if(sala.getNorte().getSala() != 0){
+                        btnNorte.setVisible(true);
+                        ImageIcon img = new ImageIcon("resources/norte.png");
+            btnNorte.setIcon(img);
+                    }
+                    else{
+                        btnNorte.setVisible(false);
+                    }
+                }
+            }
         }
     }
     

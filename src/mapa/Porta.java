@@ -43,7 +43,7 @@ public final class Porta {
     }
     
     //RETORNA ID DA PROXIMA SALA
-    private byte getSala(){
+    public byte getSala(){
         return proximaSala;
     }
     
@@ -68,7 +68,7 @@ public final class Porta {
     }
     
     //RETORNA ID DO ITEM NA POSICAO NAVEGADOR
-    public byte getItem(byte navegador){
+    public byte getItem(){
         return item;
     }
     
