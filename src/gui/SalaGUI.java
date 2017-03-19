@@ -217,9 +217,24 @@ public class SalaGUI extends JFrame implements ActionListener {
      */
     private void adicionarInimigos() {
         for (int i = 0; i < inimigos; i++) {
-            Random gerador = new Random();
-            int posicaoX = gerador.nextInt(850)+30;
-            int posicaoY = gerador.nextInt(350)+100;
+            int posicaoX = 0;
+            int posicaoY = 0;
+            if (saidaNorte != 0) {
+                posicaoX = 480;
+                posicaoY = 10;
+            }
+            if (saidaSul != 0) {
+                posicaoX = 480;
+                posicaoY = 650;
+            }
+            if (saidaLeste != 0) {
+                posicaoX = 930;
+                posicaoY = 300;
+            }
+            if (saidaOeste != 0) {
+                posicaoX = 10;
+                posicaoY = 300;
+            }
             JLabel inimigo = new JLabel (new ImageIcon("resources/inimigo.png"));
             inimigo.setBounds(posicaoX, posicaoY, 100, 100);
             add(inimigo);
@@ -283,8 +298,24 @@ public class SalaGUI extends JFrame implements ActionListener {
     private void adicionarItens() {
         for (int i = 0; i < itens; i++) {
             Random gerador = new Random();
-            int posicaoX = gerador.nextInt(650)+50;
-            int posicaoY = gerador.nextInt(200)+100;
+            int posicaoX = 0;
+            int posicaoY = 0;
+            if (saidaNorte != 0) {
+                posicaoX = 480;
+                posicaoY = 10;
+            }
+            if (saidaSul != 0) {
+                posicaoX = 480;
+                posicaoY = 650;
+            }
+            if (saidaLeste != 0) {
+                posicaoX = 930;
+                posicaoY = 300;
+            }
+            if (saidaOeste != 0) {
+                posicaoX = 10;
+                posicaoY = 300;
+            }
             int itemAleatorio = gerador.nextInt(10);
             if (itemAleatorio == 0 || itemAleatorio == 1 || itemAleatorio == 2 || itemAleatorio == 3 || itemAleatorio == 4 || itemAleatorio == 5) {
                     JLabel ouro = new JLabel (new ImageIcon("resources/ouro.png"));
