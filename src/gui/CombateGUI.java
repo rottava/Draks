@@ -8,15 +8,17 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -117,6 +119,15 @@ public class CombateGUI extends JFrame implements ActionListener{
         pMagia.setBounds(300, 500, 350, 150);
         pMagia.setVisible(false);
 	add(pMagia);
+        listaMagia.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList listaMagia = (JList)evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    int index = listaMagia.locationToIndex(evt.getPoint());
+                    JOptionPane.showMessageDialog(null, "Dois Cliques indice: "+index);
+                }       
+            }
+        });
         
         listaItem = new JList();
 	listaItem.setModel(new DefaultListModel());
@@ -127,6 +138,15 @@ public class CombateGUI extends JFrame implements ActionListener{
         pItem.setBounds(300, 500, 350, 150);
         pItem.setVisible(false);
 	add(pItem);
+        listaItem.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList listaItem = (JList)evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    int index = listaItem.locationToIndex(evt.getPoint());
+                    JOptionPane.showMessageDialog(null, "Dois Cliques indice: "+index);
+                }       
+            }
+        });
     }
     
     private void carregarItem() {
