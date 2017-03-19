@@ -153,28 +153,28 @@ public class SalaGUI extends JFrame implements ActionListener {
         btnNorte = new JButton ("Norte");
         btnNorte.setBounds(480,10,80,30); //x, y, largura, altura
         btnNorte.addActionListener(this);
-        if (saidaNorte == 0 || inimigos != 0) {
+        if (saidaNorte == 0 || inimigos != 0 || itens != 0) {
             btnNorte.setVisible(false);
         }
         add(btnNorte);
         btnOeste = new JButton ("Oeste");
         btnOeste.setBounds(10,300,80,30); //x, y, largura, altura
         btnOeste.addActionListener(this);
-        if (saidaOeste == 0 || inimigos != 0) {
+        if (saidaOeste == 0 || inimigos != 0 || itens != 0) {
             btnOeste.setVisible(false);
         }
         add (btnOeste);
         btnLeste = new JButton ("Leste");
         btnLeste.setBounds(930,300,80,30); //x, y, largura, altura
         btnLeste.addActionListener(this);
-        if (saidaLeste == 0 || inimigos != 0) {
+        if (saidaLeste == 0 || inimigos != 0 || itens != 0) {
             btnLeste.setVisible(false);
         }
         add(btnLeste);
         btnSul = new JButton ("Sul");
         btnSul.setBounds(480,650,80,30); //x, y, largura, altura
         btnSul.addActionListener(this);
-        if (saidaSul == 0 || inimigos != 0) {
+        if (saidaSul == 0 || inimigos != 0 || itens != 0) {
             btnSul.setVisible(false);
         }
         add(btnSul);
