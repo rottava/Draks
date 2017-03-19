@@ -144,12 +144,11 @@ public class SalaGUI extends JFrame implements ActionListener {
         JLabel titulo = new JLabel(nomeSala.toUpperCase());
         titulo.setFont(new Font("Dialog", Font.BOLD, 20));
         titulo.setForeground(Color.YELLOW);
-        titulo.setBounds(430, 40, 350, 50);
+        titulo.setBounds(10, 40, 350, 50);
         add(titulo);
         
         adicionarInimigos();
         adicionarChefes();
-        adicionarItens();
         
         btnNorte = new JButton ("Norte");
         btnNorte.setBounds(480,10,80,30); //x, y, largura, altura
@@ -242,6 +241,9 @@ public class SalaGUI extends JFrame implements ActionListener {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     CombateGUI combate = new CombateGUI("Nome Heroi", "Nome Vilao");
+                    if (inimigos == 0) {                        
+                        adicionarItens();
+                    }
                 }
                 @Override
                 public void mousePressed(MouseEvent e) {}
