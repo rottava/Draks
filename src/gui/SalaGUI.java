@@ -226,7 +226,7 @@ public class SalaGUI extends JFrame implements ActionListener {
             inimigo.addMouseListener(new MouseListener(){
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    CombateGUI combate = new CombateGUI();
+                    CombateGUI combate = new CombateGUI("Nome Heroi", "Nome Vilao");
                 }
                 @Override
                 public void mousePressed(MouseEvent e) {}
@@ -296,7 +296,7 @@ public class SalaGUI extends JFrame implements ActionListener {
                         JPopupMenu pop = new JPopupMenu ();
                         JMenuItem menuItem = new JMenuItem ("Pegar");
                         pop.add(menuItem);
-                        pop.show(ouro, 100, 100);
+                        pop.show(ouro, 5, 5);
                         menuItem.addActionListener((ActionEvent e1) -> {
                             JOptionPane.showMessageDialog(null, "Pegando...");
                         });
@@ -324,7 +324,7 @@ public class SalaGUI extends JFrame implements ActionListener {
                     JPopupMenu pop = new JPopupMenu ();
                     JMenuItem menuItem = new JMenuItem ("Pegar");
                     pop.add(menuItem);
-                    pop.show(pocaoCura, 100, 100);
+                    pop.show(pocaoCura, 5, 5);
                     menuItem.addActionListener((ActionEvent e1) -> {
                         JOptionPane.showMessageDialog(null, "Pegando...");
                     });

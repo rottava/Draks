@@ -6,15 +6,17 @@
  */
 package gui;
 
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -31,8 +33,28 @@ public class CombateGUI extends JFrame implements ActionListener{
     private JList listaItem;
     private JScrollPane pMagia;
     private JScrollPane pItem;
+    private JLabel jLabelNomeHeroi;
+    private JLabel jLabelNomeVilao;
+    private String nomeHeroi;
+    private String nomeVilao;
+    private String informacoesHeroi;
+    private String informacoesVilao;
+    private JTextArea jTextAreaHeroi;
+    private JTextArea jTextAreaVilao;
     
-    public CombateGUI() {
+    public CombateGUI(String nomeHeroi, String nomeVilao) {
+        this.nomeHeroi = nomeHeroi;
+        this.nomeVilao = nomeVilao;
+        this.informacoesHeroi = "Saúde: "+
+                //pegarInformacoesHeroi()+
+                "\n\n"+"Energia: "+
+                //pegarInformacoesHeroi()+;
+                "\n";
+        this.informacoesVilao = "Saúde: "+
+                //pegarInformacoesVilao()+
+                "\n\n"+"Energia: "+
+                //pegarInformacoesVilao()+;
+                "\n";
         initGUI();
     }
     
@@ -45,6 +67,26 @@ public class CombateGUI extends JFrame implements ActionListener{
         setLayout(null);
         setResizable(false);
         setVisible(true);
+        
+        jLabelNomeHeroi = new JLabel (nomeHeroi);
+        jLabelNomeHeroi.setBounds(20, 50, 200, 30);
+        add(jLabelNomeHeroi);
+        
+        jTextAreaHeroi = new JTextArea (informacoesHeroi);
+        jTextAreaHeroi.setLineWrap(true);
+        jTextAreaHeroi.setEditable(false);
+        jTextAreaHeroi.setBounds(20, 90, 300, 100);
+        add(jTextAreaHeroi);
+        
+        jLabelNomeVilao = new JLabel (nomeVilao);
+        jLabelNomeVilao.setBounds (400, 50, 200, 30);
+        add(jLabelNomeVilao);
+        
+        jTextAreaVilao = new JTextArea (informacoesVilao);
+        jTextAreaVilao.setLineWrap(true);
+        jTextAreaVilao.setEditable(false);
+        jTextAreaVilao.setBounds(400, 90, 300, 100);
+        add(jTextAreaVilao);
         
         btnAtacar = new JButton ("Atacar");
         btnAtacar.setBounds(30,500,200,50); //x, y, largura, altura

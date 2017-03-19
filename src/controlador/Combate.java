@@ -32,7 +32,7 @@ public class Combate {
             byte comandoHeroi, habilidadeHeroi; 
             byte comandoInimigo, habilidadeInimigo;
             byte[] auxiliar = new byte[2];
-            auxiliar = getComandoHeroi();
+            //auxiliar = getComandoHeroi();
             comandoHeroi = auxiliar[0];
             habilidadeHeroi = auxiliar[1];
             auxiliar = testaComando(inimigo);
