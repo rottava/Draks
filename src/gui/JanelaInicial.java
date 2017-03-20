@@ -130,7 +130,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala2.initGUI(2);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala1.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala1.pegarSaidas());
         }
         if (atual == 2) {
             if (destino == 3) {
@@ -145,14 +145,14 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala4.initGUI(4);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala2.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala2.pegarSaidas());
         }
         if (atual == 3) {
             if (destino == 2) {
                 sala2.initGUI(2);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala3.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala3.pegarSaidas());
         }
         if (atual == 4) {
             if (destino == 2) {
@@ -163,14 +163,14 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala6.initGUI(6);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala4.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala4.pegarSaidas());
         }
         if (atual == 5) {
             if (destino == 8) {
                 sala8.initGUI(8);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala5.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala5.pegarSaidas());
         }
         if (atual == 6) {
             if (destino == 7) {
@@ -185,14 +185,14 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala8.initGUI(8);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala6.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala6.pegarSaidas());
         }
         if (atual == 7) {
             if (destino == 6) {
                 sala6.initGUI(6);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala7.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala7.pegarSaidas());
         }
         if (atual == 8) {
             if (destino == 6) {
@@ -207,7 +207,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala9.initGUI(9);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala8.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala8.pegarSaidas());
         }
         if (atual == 9) {
             if (destino == 8) {
@@ -218,7 +218,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala10.initGUI(10);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala9.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala9.pegarSaidas());
         }
         if (atual == 10) {
             if (destino == 9) {
@@ -233,14 +233,14 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala12.initGUI(12);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala10.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala10.pegarSaidas());
         }
         if (atual == 11) {
             if (destino == 10) {
                 sala10.initGUI(10);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala11.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala11.pegarSaidas());
         }
         if (atual == 12) {
             if (destino == 10) {
@@ -251,7 +251,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala13.initGUI(13);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala12.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala12.pegarSaidas());
         }
         if (atual == 13) {
             if (destino == 12) {
@@ -262,7 +262,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala14.initGUI(14);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala13.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala13.pegarSaidas());
         }
         if (atual == 14) {
             if (destino == 13) {
@@ -273,7 +273,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala15.initGUI(15);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala14.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala14.pegarSaidas());
         }
         if (atual == 15) {
             if (destino == 14) {
@@ -284,7 +284,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala16.initGUI(16);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala15.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala15.pegarSaidas());
         }
         if (atual == 16) {
             if (destino == 17) {
@@ -295,7 +295,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala15.initGUI(15);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala16.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala16.pegarSaidas());
         }
         if (atual == 17) {
             if (destino == 16) {
@@ -306,7 +306,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala18.initGUI(18);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala17.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala17.pegarSaidas());
         }
         if (atual == 18) {
             if (destino == 17) {
@@ -317,7 +317,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala19.initGUI(19);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala18.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala18.pegarSaidas());
         }
         if (atual == 19) {
             if (destino == 18) {
@@ -328,14 +328,14 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 sala20.initGUI(20);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala19.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala19.pegarSaidas());
         }
         if (atual == 20) {
             if (destino == 19) {
                 sala19.initGUI(19);
                 return true;
             }
-            JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala20.pegarSaidas());
+            //JOptionPane.showMessageDialog(null, "Saídas disponíveis:\n" + sala20.pegarSaidas());
         }
         return false;
     }
@@ -344,7 +344,11 @@ public class JanelaInicial extends JFrame implements ActionListener {
      * Carrega as salas fazendo suas devidas configurações
      */
     private void carregarSalas () {
-        sala1 = new SalaGUI("Pátio Entrada");
+        
+        sala1 = new SalaGUI();
+        
+        
+        /*sala1 = new SalaGUI("Pátio Entrada");
         sala1.setarSaida("norte", 2);
         sala1.setarInimigos(2);
         sala1.setarItens(3);
@@ -405,7 +409,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
         sala19.setarSaida("oeste", 18);
         sala19.setarSaida("sul", 20);
         sala20 = new SalaGUI("Quarto do Drácula");
-        sala20.setarSaida("norte", 19);
+        sala20.setarSaida("norte", 19);*/
     }
     
     /**
