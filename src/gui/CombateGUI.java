@@ -60,10 +60,10 @@ public class CombateGUI extends JFrame implements ActionListener{
     private JTextArea jTextAreaVilao;
     private Inimigo inimigo;
     private boolean fuga = false;
-    private final byte ordem;
+    private final int ordem;
     private final Porta porta;
     
-    public CombateGUI(Porta porta, byte ordem) {
+    public CombateGUI(Porta porta, int ordem) {
         setaInimigo(porta);
         this.porta = porta;
         this.ordem = ordem;

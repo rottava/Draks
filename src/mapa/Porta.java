@@ -12,7 +12,7 @@ package mapa;
 public final class Porta {
     private boolean estado;                                                     //ESTADO DA PORTA. TRUE = ABERTO, FALSE = FECHADO
     private final byte proximaSala;                                             //ID DA PROXIMA SALA
-    private final byte chave;                                                   //ID DO ITEM PARA ABRIR A PORTA, 0 = NENHUM
+    private byte chave;                                                         //ID DO ITEM PARA ABRIR A PORTA, 0 = NENHUM
     private byte tipo;                                                          //TIPO DO ITEM TiposDeItens: 1 = Armadura, 2 = Arma, 3 = Chave, 4 = Habilidades, 5 = Itens de Cura, 6 = Itens de Energia, 7 = Totem
     private byte item;                                                          //ID DO ITEM NA PORTA, 0 = NENHUM
     private int quantidade;                                                     //QUANTIDADE DE ITENS
@@ -53,8 +53,8 @@ public final class Porta {
     }
     
     //SETA PARA CHAVE PARA 0
-    public void setChave(byte chave){
-            chave = 0;
+    public void setChave(){
+            chave = (byte) 0;
     }
     
     //RETORNA ID DO INIMIGO
@@ -67,7 +67,7 @@ public final class Porta {
         inimigo = 0;
     }
     
-    //RETORNA ID DO ITEM NA POSICAO NAVEGADOR
+    //RETORNA ID DO ITEM
     public byte getItem(){
         return item;
     }
@@ -75,6 +75,26 @@ public final class Porta {
     //SETA ITENS PARA 0 (NAO EXISTE)
     public void setItem(){
         item = 0;
+    }
+    
+    //RETORNA TIPO DO ITEM
+    public byte getTipo(){
+        return tipo;
+    }
+    
+    //SETA TIPO PARA 0 (NAO EXISTE)
+    public void setTipo(){
+        tipo = 0;
+    }
+    
+    //RETORNA QUANTIDADE DO ITEM
+    public int getQuantidade(){
+        return quantidade;
+    }
+    
+    //SETA QUANTIDADE PARA 0 (NAO EXISTE)
+    public void setQuantidade(){
+        quantidade = 0;
     }
             
     
