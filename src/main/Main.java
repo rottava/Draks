@@ -76,7 +76,7 @@ public class Main {
     TAMANHOINIMIGOS = tamanho("config/inimigos.txt");
     TAMANHOSALAS = tamanho("config/salas.txt");
     ALEATORIO = new Random();
-    HEROI = new Heroi("Cecil",(byte) 1,(byte) 1,(byte) 1 ,(byte)1);
+    HEROI = new Heroi("Cecil",(byte) 10,(byte) 10,(byte) 10 ,(byte)10);
     MAPA = new Mapa();
     SALA = MAPA.getSalas().get(0);
     HEROI.addMochila(new Arma((byte)1));

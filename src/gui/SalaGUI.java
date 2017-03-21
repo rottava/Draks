@@ -49,6 +49,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
     private JButton btnSul;
     private JButton btnLeste;
     private JButton btnOeste;
+    private JButton btnPontos;
     private JList inventario;
     
     /**
@@ -142,6 +143,19 @@ public final class SalaGUI extends JFrame implements ActionListener {
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 1) {
                     testaSul();
+                }       
+            }
+        });
+        
+        btnPontos = new JButton ("Pontos");
+        btnPontos.setBounds(930,650,80,30); //x, y, largura, altura
+        btnPontos.addActionListener(this);
+        add(btnPontos);
+        btnPontos.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 1) {
+                    PontosGUI pontos = new PontosGUI();
+                    pontos.setVisible(true);
                 }       
             }
         });
