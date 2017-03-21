@@ -38,7 +38,7 @@ public class Heroi extends Persona {
     
     //INICIALIZACAO DE VALORES
     private void ini(){
-        pontos = 50;                                                            //PONTOS INICIAIS
+        pontos = 10;                                                            //PONTOS INICIAIS
         peso = 0;                                                               //PESO INICIAL
         setMoedas(0);                                                           //MOEDAS INICIAL
     }

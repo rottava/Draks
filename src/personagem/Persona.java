@@ -177,7 +177,7 @@ public abstract class Persona implements Comparable<Persona>{
     }
     
     //SETA INTELIGENCIA PARA
-    protected void setInteligencia(byte inteligencia){
+    public void setInteligencia(byte inteligencia){
         if (inteligencia < TAMANHOMAXIMO)
             this.inteligencia = inteligencia;
         else
@@ -190,7 +190,7 @@ public abstract class Persona implements Comparable<Persona>{
     }
     
     //SETA AGILIDADE PARA
-    protected void setAgilidade(byte agilidade){
+    public void setAgilidade(byte agilidade){
         if (agilidade < TAMANHOMAXIMO)
             this.agilidade = agilidade;
         else
@@ -203,7 +203,7 @@ public abstract class Persona implements Comparable<Persona>{
     }
     
     //SETA RESISTENCIA PARA
-    protected void setResistencia(byte resistencia){
+    public void setResistencia(byte resistencia){
         if (resistencia < TAMANHOMAXIMO)
             this.resistencia = resistencia;
         else
