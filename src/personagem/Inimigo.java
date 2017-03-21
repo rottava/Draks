@@ -11,12 +11,9 @@ import habilidade.HabilidadeDano;
 import item.Arma;
 import item.Armadura;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
-import static main.Main.INIMIGOS;
-import static main.Main.NOMES;
+import static main.Main.CAMINHONOMES;
 import static main.Main.TAMANHOHABILIDADESCURA;
 import static main.Main.TAMANHOHABILIDADESDANO;
 import static main.Main.TAMANHOMAXIMO;
@@ -67,17 +64,22 @@ public class Inimigo extends Persona{
     //GERA NOME APARTIR DE ARQUIVO
     private String geraNome(){
         try {
+            FileReader arq = new FileReader (CAMINHONOMES);
+            BufferedReader lerArq = new BufferedReader (arq);
+            String linha = lerArq.readLine();
             String resultado = null;
-            int contador = 0;
-            for(Scanner scanner = new Scanner(NOMES); scanner.hasNext(); contador++){
-                String linha = scanner.nextLine();
-                if(ALEATORIO.nextInt(contador) == 0)
+            int loop = 0;
+            while(linha != null){
+                linha = lerArq.readLine();
+                if(ALEATORIO.nextInt(loop) == 0)
                     resultado = linha;
             }
             return resultado;
-        } catch (FileNotFoundException ex) {
-            throw new UnsupportedOperationException("Arquivo nomes.txt não foi encontrado.");
+        } catch (IOException e) {
+            System.err.printf ("Erro na abertura do arquivo %s!\n", CAMINHONOMES);
+            e.getMessage();
         }
+        return"";
     }
     
     //GERA PARAMETRO NO INTERVALO DE 1 A 255

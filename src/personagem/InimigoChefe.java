@@ -5,9 +5,10 @@
  */
 package personagem;
 
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import static main.Main.INIMIGOS;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import static main.Main.CAMINHOINIMIGOS;
 
 /**
  *
@@ -33,15 +34,17 @@ public final class InimigoChefe extends Inimigo{
     //LE INIMIGO DO ARQUIVO DE CONFIGURACOES
     private void setaItem(){
         try {
-            Scanner scanner = new Scanner(INIMIGOS);
+            FileReader arq = new FileReader (CAMINHOINIMIGOS);
+            BufferedReader lerArq = new BufferedReader (arq);
+            String linha = lerArq.readLine();
             byte loop = 1;
-            while((scanner.hasNext()) && (loop < getId())){
-                String nextLine = scanner.nextLine();
+            while (linha != null && loop < getId()) {
+                linha = lerArq.readLine();
                 loop++;
             }
-            if (scanner.hasNext()){
+            if (linha != null){
                 String[] parametros;
-                parametros = scanner.nextLine().split("/");                     //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
+                parametros = linha.split("/");                                  //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
                 tipo = (byte) Integer.parseInt(parametros[8]);                  //TIPO DO ITEM PORTADO
                 if(tipo != 0 && !parametros[9].equals("0"))                     
                     itemId = (byte) Integer.parseInt(parametros[9]);            //ID DO ITEM PORTADO
@@ -49,8 +52,10 @@ public final class InimigoChefe extends Inimigo{
                     itemId = (byte) 0;                                          //SEM ITEM
                 quantidade = (byte) Integer.parseInt(parametros[10]);
             }
-        } catch (FileNotFoundException ex) {
-            throw new UnsupportedOperationException("ID de inimigo não encontrado.");
+            arq.close();
+        } catch (IOException e) {
+            System.err.printf ("Erro na abertura do arquivo %s!\n", CAMINHOINIMIGOS);
+            e.getMessage();
         }
     }
     

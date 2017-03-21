@@ -6,14 +6,10 @@
 package mapa;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import static main.Main.SALAS;
-import static main.Main.TAMANHOSALAS;
 import static main.Main.CAMINHOSALAS;
 
 /**

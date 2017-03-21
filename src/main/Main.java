@@ -9,11 +9,9 @@ import gui.JanelaInicial;
 import item.Arma;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
-import java.util.Scanner;
 import mapa.Mapa;
 import mapa.Sala;
 import personagem.Heroi;
@@ -67,16 +65,6 @@ public class Main {
      * Configura os parâmetros
      */
     private static void setParam(){
-    ITENSCURA = new File("config/itenscura.txt");
-    ITENSENERGIA = new File("config/itensenergia.txt");
-    CHAVES = new File("config/chaves.txt");
-    ARMAS = new File("config/armas.txt");
-    ARMADURAS = new File("config/armaduras.txt");
-    NOMES = new File("config/nomes.txt");
-    HABILIDADESCURA = new File("config/habilidadescura.txt");
-    HABILIDADESDANO = new File("config/habilidadesdano.txt");
-    INIMIGOS = new File("config/inimigos.txt");
-    SALAS = new File("config/salas.txt");
     TAMANHOITENSCURA = tamanho("config/itenscura.txt");
     TAMANHOITENSENERGIA = tamanho("config/itensenergia.txt");
     TAMANHOCHAVES = tamanho("config/chaves.txt");
