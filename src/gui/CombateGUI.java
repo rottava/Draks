@@ -292,13 +292,13 @@ public class CombateGUI extends JFrame implements ActionListener{
     //
     private void ataqueInimigo(byte comando, byte habilidade){
         switch (comando){
-            case 1:
+            case 2:
                 causarDanoEspecial(inimigo, HEROI, inimigo.getTalentosDano().getHabilidades().get(habilidade));
                 break;
-            case 2:
+            case 0:
                 causarDano(inimigo, HEROI);
                 break;
-            case 3:
+            case 1:
                 inimigo.regenVida(inimigo.getTalentosCura().getHabilidades().get(habilidade).getEfeito());
                 break;
             default:
