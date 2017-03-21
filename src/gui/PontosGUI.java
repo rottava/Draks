@@ -160,7 +160,7 @@ public class PontosGUI extends JFrame implements ActionListener{
         if (HEROI.getPontos() > 0) {
             HEROI.setResistencia((byte) (HEROI.getResistencia()+1));
             HEROI.setPontos((byte) (HEROI.getPontos()-1));
-            jLabelResistencia.setText("Força: "+HEROI.getResistencia());
+            jLabelResistencia.setText("Resistencia: "+HEROI.getResistencia());
             jLabelPontos.setText("Pontos: "+HEROI.getPontos());
             HEROI.geraVidaMax();
             HEROI.geraEnergiaMax();
@@ -168,12 +168,14 @@ public class PontosGUI extends JFrame implements ActionListener{
     }
     
     private void decrementarResistencia() {
+        if(HEROI.getResistencia() > 1) {
             HEROI.setResistencia((byte) (HEROI.getResistencia()-1));
             HEROI.setPontos((byte) (HEROI.getPontos()+1));
-            jLabelResistencia.setText("Força: "+HEROI.getResistencia());
+            jLabelResistencia.setText("Resistencia: "+HEROI.getResistencia());
             jLabelPontos.setText("Pontos: "+HEROI.getPontos());
             HEROI.geraVidaMax();
             HEROI.geraEnergiaMax();
+        }
     }
     
     private void incrementarForca() {
@@ -188,12 +190,14 @@ public class PontosGUI extends JFrame implements ActionListener{
     }
     
     private void decrementarForca() {
+        if (HEROI.getForca() > 1) {
             HEROI.setForca((byte) (HEROI.getForca()-1));
             HEROI.setPontos((byte) (HEROI.getPontos()+1));
             jLabelForca.setText("Força: "+HEROI.getForca());
             jLabelPontos.setText("Pontos: "+HEROI.getPontos());
             HEROI.geraVidaMax();
             HEROI.geraEnergiaMax();
+        }
     }
     
     private void incrementarAgilidade() {
@@ -208,12 +212,14 @@ public class PontosGUI extends JFrame implements ActionListener{
     }
     
     private void decrementarAgilidade() {
+        if (HEROI.getAgilidade() > 1) {
             HEROI.setAgilidade((byte) (HEROI.getAgilidade()-1));
             HEROI.setPontos((byte) (HEROI.getPontos()+1));
             jLabelAgilidade.setText("Agilidade: "+HEROI.getAgilidade());
             jLabelPontos.setText("Pontos: "+HEROI.getPontos());
             HEROI.geraVidaMax();
             HEROI.geraEnergiaMax();
+        }
     }
     
     private void incrementarInteligencia() {
@@ -228,12 +234,14 @@ public class PontosGUI extends JFrame implements ActionListener{
     }
     
     private void decrementarInteligencia() {
+        if (HEROI.getInteligencia() > 1) {
             HEROI.setInteligencia((byte) (HEROI.getInteligencia()-1));
             HEROI.setPontos((byte) (HEROI.getPontos()+1));
             jLabelInteligencia.setText("Inteligencia: "+HEROI.getInteligencia());
             jLabelPontos.setText("Pontos: "+HEROI.getPontos());
             HEROI.geraVidaMax();
             HEROI.geraEnergiaMax();
+        }
     }
     
   
