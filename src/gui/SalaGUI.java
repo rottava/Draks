@@ -366,6 +366,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
         if(btnNorte.getIcon() != null){
             if(btnNorte.getIcon().toString().equals("resources/inimigo.png")){
                 CombateGUI combate = new CombateGUI(SALA.getNorte());
+                this.dispose();
             }
             else{
                 if(btnNorte.getIcon().toString().equals("resources/item.png")){

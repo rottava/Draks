@@ -28,6 +28,7 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
@@ -35,6 +36,7 @@ import static main.Main.HEROI;
 import static main.Main.CAMINHOINIMIGOS;
 import static main.Main.TAMANHOMAXIMO;
 import static main.Main.ALEATORIO;
+import static main.Main.SALA;
 import personagem.Inimigo;
 import mapa.Porta;
 import personagem.InimigoChefe;
@@ -72,13 +74,13 @@ public class CombateGUI extends JFrame implements ActionListener{
     private void initGUI() {
         //Características da Janela
         setTitle("Combate");
-        setSize(720, 720);
+        setSize(1024, 720);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
         setResizable(false);
         setVisible(true);
-        JLabel background = new JLabel (new ImageIcon("resources/batalha.jpg"));
+        JLabel background = new JLabel (new ImageIcon("resources/"+SALA.getId()+".jpg"));
         background.setBounds(0, 0, 1024, 720);
         
         jLabelNomeHeroi = new JLabel (HEROI.getNome());
@@ -204,16 +206,16 @@ public class CombateGUI extends JFrame implements ActionListener{
             comando = testaComando(inimigo);
             if(HEROI.getAgilidade() > inimigo.getAgilidade()){
                 ataqueHeroi(ataque, id);
-                atualizaDados();
                 if(inimigo.getVida() == 0){
                     recompensa();
                     porta.setInimigo();
-                    //POPUP VOCÊ VENCEU
-                    //FECHA JANELA
+                    JOptionPane.showMessageDialog(null, "Você venceu a batalha!");
+                    JanelaInicial ji = new JanelaInicial();
+                    if (ji.irSala (SALA.getId()))
+                        this.dispose();
                 }
                 else{
                     ataqueInimigo(comando[0], comando[1]);
-                    atualizaDados();
                     if(HEROI.getVida() == 0){
                         //POPUP VOCÊ PERDEU
                         //VOLTA PRA TELA INICIAL
