@@ -5,6 +5,7 @@
  */
 package main;
 
+import gui.JanelaInicial;
 import item.Arma;
 import item.Armadura;
 import item.Chave;
@@ -28,7 +29,7 @@ import personagem.Heroi;
 public class Main {
     public static final Heroi HEROI = new Heroi("Cecil",(byte) 1,(byte) 1,(byte) 1 ,(byte)1);//  HEROI 
     public static final Mapa MAPA = new Mapa();                                 //MAPA DO JOGO
-    public static Sala SALA;                                                    //SALA ATUAL
+    public static Sala SALA = MAPA.getSalas().get(0);                                                    //SALA ATUAL
     public static Random aleatorio;                                             //NUMERO ALEATORIO
     public static final File ITENSCURA = new File("/config/itenscura.txt");     //ARQUIVO: NOME/EFEITO/PESO
     public static final File ITENSENERGIA = new File("/config/itensenergia.txt");//ARQUIVO: NOME/EFEITO/PESO
@@ -60,6 +61,7 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         aleatorio = new Random();
+        JanelaInicial janela = new JanelaInicial();
         Sistema();
     }
     

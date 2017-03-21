@@ -415,7 +415,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
     /**
      * Início, chama a tela principal
      * @param args 
-     */
+     
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -424,6 +424,6 @@ public class JanelaInicial extends JFrame implements ActionListener {
                 jp.setVisible(true);
             }
         });
-    }
+    }*/
     
 }

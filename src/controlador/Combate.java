@@ -26,6 +26,10 @@ public class Combate {
     private Inimigo inimigo;                                                    //MAXIMO DE 3 INIMIGOS POR BATALHA
     
     //TURNO DE BATALHA
+    /**
+     * Combate entre Herói e Inimigo
+     * @param porta Porta que está sendo protegida pelo inimigo
+     */
     public void combate(Porta porta){
         setaInimigos(porta);
         while(!fuga && inimigo.getVida() > 0 && HEROI.getVida() > 0){
@@ -51,6 +55,11 @@ public class Combate {
             HEROI.setPontos((byte)(HEROI.getPontos() + 5));
     }
     
+    /**
+     * Realiza um ataque do Herói
+     * @param comando Tipo 1: Dano Especial; 2: Dano; 3: Regenerar Vida
+     * @param habilidade Habilidade do Herói
+     */
     private void ataqueHeroi(byte comando, byte habilidade){
         switch (comando){
             case 1:
@@ -69,6 +78,11 @@ public class Combate {
         }
     }
     
+    /**
+     * Realiza o ataque do Inimigo
+     * @param comando Tipo 1: Dano Especial; 2: Dano; 3: Regenerar Vida
+     * @param habilidade Habilidade do Inimigo
+     */
     private void ataqueInimigo(byte comando, byte habilidade){
         switch (comando){
             case 1:
@@ -86,6 +100,11 @@ public class Combate {
     }
     
     //VERIFICA COMANDO
+    /**
+     * Verifica comando
+     * @param inimigo Inimigo para a verificação
+     * @return Vetor com os comandos
+     */
     private byte[] testaComando(Inimigo inimigo){
         byte[] comando = new byte[2];
         byte auxiliar;
@@ -121,6 +140,11 @@ public class Combate {
     
     
     //VERIFICA HABILIDADE
+    /**
+     * Verifica a Habilidade do Inimigo
+     * @param inimigo Inimigo para a verificação da habilidade
+     * @return Habilidade do Inimigo
+     */
     private byte testaHabilidade(Inimigo inimigo){
         byte comando, habilidade;
             if (inimigo.getTalentosCura().getTamanho() > 0){
@@ -155,6 +179,11 @@ public class Combate {
     }
         
     //VERIFICA VALIDADE
+    /**
+     * Verifica a validade de um item
+     * @param id ID do item
+     * @return true se válido ou false caso contrário
+     */
     private boolean testaItem(byte id){
         try {
             Scanner scanner = new Scanner(INIMIGOS);
@@ -176,6 +205,10 @@ public class Combate {
     }
     
     //DEFININE INIMIGOS NO COMBATE
+    /**
+     * Define a posição do Inimigo
+     * @param porta posição do Inimigo no Mapa
+     */
     private void setaInimigos(Porta porta){
         if (porta.getInimigo() != 0)                                            //INIMIGO E VALIDO
             if(testaItem(porta.getInimigo()))                                   //INIMIGO POSSUI ITEM 
@@ -187,6 +220,12 @@ public class Combate {
     }
 
     //REDUZ VIDA DO ALVO E RETORNA VERDADEIRO OU RETORNA FALSO
+    /**
+     * Realiza o ataque
+     * @param atacante Personagem que fará o ataque
+     * @param alvo Alvo que será atacado
+     * @return Se o ataque foi realizado retorna true, false caso contrário
+     */
     private boolean causarDano(Persona atacante, Persona alvo){
         if (calcularEvasao(alvo) > calcularEvasao(atacante))                    //VERIFICA SE EVADIU ATAQUE
             return false;
@@ -199,6 +238,11 @@ public class Combate {
     }
     
     //CALCULO DE ATAQUE = FORCA / 2 + INTELIGENCIA / 5 + EFEITO ARM) + ATAQUE%SORTE
+    /**
+     * Faz o Cálculo de Ataque
+     * @param atacante Personagem que está realizando o ataque
+     * @return Retorna o ataque que o personagem realizará
+     */
     private int calcularAtaque(Persona atacante){
         int ataque;
         ataque = (byte) (atacante.getForca() / 2 + atacante.getInteligencia() / 5); //FORCA / 2 + INTELIGENCIA / 5
@@ -208,6 +252,11 @@ public class Combate {
     }
     
     //CALCULO DE DEFESA = RESISTENCIA / 2 + AGILIDADE / 5 + EFEITO ARMADURA + DEFESA%SORTE
+    /**
+     * Faz o cálculo da defesa
+     * @param alvo Personagem que está sendo atacado
+     * @return Retorna a defesa do personagem atacado
+     */
     private int calcularDefesa(Persona alvo){
         int defesa;
         defesa = (byte) (alvo.getResistencia() / 2 + alvo.getAgilidade() / 5);  //RESISTENCIA / 2 + VELOCIDADE / 5
@@ -217,6 +266,11 @@ public class Combate {
     }
     
     //CALCULO DE EVASAO
+    /**
+     * Cálculo da evasão de um personagem
+     * @param persona Personagem para o cálculo da evasão
+     * @return Evasão do Personagem
+     */
     private int calcularEvasao(Persona persona){
         int evasao;
         evasao = (persona.getAgilidade() + persona.getInteligencia() / 2);      //AGILIDADE + INTELIGENCIA / 2
@@ -226,6 +280,13 @@ public class Combate {
     }
     
     //REDUZ VIDA DO ALVO E RETORNA VERDADEIRO OU RETORNA FALSO
+    /**
+     * 
+     * @param atacante
+     * @param alvo
+     * @param habilidade
+     * @return 
+     */
     private boolean causarDanoEspecial(Persona atacante, Persona alvo, Habilidade habilidade){
         if ((calcularEvasao(alvo) * 1.2) > calcularEvasao(atacante))            //VERIFICA SE EVADIU ATAQUE
             return false;
