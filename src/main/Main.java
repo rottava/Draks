@@ -27,33 +27,33 @@ import personagem.Heroi;
  * @author Junior
  */
 public class Main {
-    public static final Heroi HEROI = new Heroi("Cecil",(byte) 1,(byte) 1,(byte) 1 ,(byte)1);//  HEROI 
-    public static final Mapa MAPA = new Mapa();                                 //MAPA DO JOGO
-    public static Sala SALA = MAPA.getSalas().get(0);                                                    //SALA ATUAL
+    public static Heroi HEROI;//  HEROI 
+    public static Mapa MAPA;                                 //MAPA DO JOGO
+    public static Sala SALA;                                                   //SALA ATUAL
     public static Random aleatorio;                                             //NUMERO ALEATORIO
-    public static final File ITENSCURA = new File("/config/itenscura.txt");     //ARQUIVO: NOME/EFEITO/PESO
-    public static final File ITENSENERGIA = new File("/config/itensenergia.txt");//ARQUIVO: NOME/EFEITO/PESO
-    public static final File CHAVES = new File("/config/chaves.txt");           //ARQUIVO: NOME/EFEITO/PESO
-    public static final File ARMAS = new File("/config/armas.txt");             //ARQUIVO: NOME/EFEITO/PESO
-    public static final File ARMADURAS = new File("/config/armaduras.txt");     //ARQUIVO: NOME/EFEITO/PESO
-    public static final File NOMES = new File("/config/nomes.txt");             //ARQUIVO: NOME
-    public static final File HABILIDADESCURA = new File("/config/habilidadescura.txt"); //ARQUIVO: NOME/EFEITO/CUSTO
-    public static final File HABILIDADESDANO = new File("/config/habilidadesdano.txt"); //ARQUIVO: NOME/EFEITO/CUSTO
-    public static final File INIMIGOS = new File("/config/inimigos.txt");       //ARQUIVO: NOME/TIPO/EFEITO/PESO
-    public static final File SALAS = new File("/config/salas.txt");             //ARQUIVO: NOME/TIPO/EFEITO/PESO
-    public static final File TOTEM = new File("/config/totem.txt");             //ARQUIVO: NOME/TIPO/EFEITO/PESO
-    public static final byte TAMANHOITENSCURA = getTamanhoArquivo(ITENSCURA);   //TAMANHO DO ARQUIVO DE ITENS DE CURA (EM LINHAS)
-    public static final byte TAMANHOITENSENERGIA = getTamanhoArquivo(ITENSENERGIA);//TAMANHO DO ARQUIVO DE ITENS DE ENERGIA (EM LINHAS)
-    public static final byte TAMANHOCHAVES = getTamanhoArquivo(CHAVES);         //TAMANHO DO ARQUIVO DE CHAVES (EM LINHAS)
-    public static final byte TAMANHOARMAS = getTamanhoArquivo(ARMAS);           //TAMANHO DO ARQUIVO DE ARMAS (EM LINHAS)
-    public static final byte TAMANHOARMADURAS = getTamanhoArquivo(ARMADURAS);   //TAMANHO DO ARQUIVO DE ARMADURAS (EM LINHAS)
-    public static final byte TAMANHONOMES = getTamanhoArquivo(NOMES);           //TAMANHO DO ARQUIVO DE NOMES (EM LINHAS)
-    public static final byte TAMANHOHABILIDADESCURA = getTamanhoArquivo(HABILIDADESCURA);//TAMANHO DO ARQUIVO DE HABILIDADES DE CURA(EM LINHAS)
-    public static final byte TAMANHOHABILIDADESDANO = getTamanhoArquivo(HABILIDADESDANO);//TAMANHO DO ARQUIVO DE HABILIDADES DE DANO(EM LINHAS)
-    public static final byte TAMANHOINIMIGOS = getTamanhoArquivo(INIMIGOS);     //TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS)
-    public static final byte TAMANHOSALAS = getTamanhoArquivo(SALAS);           //TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS
-    public static final byte TAMANHOTOTEM = getTamanhoArquivo(TOTEM);           //TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS
-    public static final byte TAMANHOMAXIMO = 127;                               //TAMANHO MAXIMO DE ARQUIVOS
+    public static File ITENSCURA;     //ARQUIVO: NOME/EFEITO/PESO
+    public static File ITENSENERGIA;//ARQUIVO: NOME/EFEITO/PESO
+    public static File CHAVES;           //ARQUIVO: NOME/EFEITO/PESO
+    public static File ARMAS;            //ARQUIVO: NOME/EFEITO/PESO
+    public static File ARMADURAS;    //ARQUIVO: NOME/EFEITO/PESO
+    public static File NOMES;             //ARQUIVO: NOME
+    public static File HABILIDADESCURA; //ARQUIVO: NOME/EFEITO/CUSTO
+    public static File HABILIDADESDANO; //ARQUIVO: NOME/EFEITO/CUSTO
+    public static File INIMIGOS;       //ARQUIVO: NOME/TIPO/EFEITO/PESO
+    public static File SALAS;             //ARQUIVO: NOME/TIPO/EFEITO/PESO
+    public static File TOTEM;             //ARQUIVO: NOME/TIPO/EFEITO/PESO
+    public static byte TAMANHOITENSCURA;   //TAMANHO DO ARQUIVO DE ITENS DE CURA (EM LINHAS)
+    public static byte TAMANHOITENSENERGIA;//TAMANHO DO ARQUIVO DE ITENS DE ENERGIA (EM LINHAS)
+    public static byte TAMANHOCHAVES;        //TAMANHO DO ARQUIVO DE CHAVES (EM LINHAS)
+    public static byte TAMANHOARMAS;           //TAMANHO DO ARQUIVO DE ARMAS (EM LINHAS)
+    public static byte TAMANHOARMADURAS;   //TAMANHO DO ARQUIVO DE ARMADURAS (EM LINHAS)
+    public static byte TAMANHONOMES;          //TAMANHO DO ARQUIVO DE NOMES (EM LINHAS)
+    public static byte TAMANHOHABILIDADESCURA;//TAMANHO DO ARQUIVO DE HABILIDADES DE CURA(EM LINHAS)
+    public static byte TAMANHOHABILIDADESDANO;//TAMANHO DO ARQUIVO DE HABILIDADES DE DANO(EM LINHAS)
+    public static byte TAMANHOINIMIGOS;     //TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS)
+    public static byte TAMANHOSALAS;           //TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS
+    public static byte TAMANHOTOTEM;           //TAMANHO DO ARQUIVO DE INIMIGOS (EM LINHAS
+    public static byte TAMANHOMAXIMO;                               //TAMANHO MAXIMO DE ARQUIVOS
                                  //HEROI
     /**
      * @param args the command line arguments
@@ -61,6 +61,35 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         aleatorio = new Random();
+        HEROI = new Heroi("Cecil",(byte) 1,(byte) 1,(byte) 1 ,(byte)1);
+        MAPA = new Mapa();
+        SALA = MAPA.getSalas().get(0);
+        ITENSCURA = new File("/config/itenscura.txt");
+        ITENSENERGIA = new File("/config/itensenergia.txt");
+        CHAVES = new File("/config/chaves.txt");
+        ARMAS = new File("/config/armas.txt");
+        ARMADURAS = new File("/config/armaduras.txt");
+        NOMES = new File("/config/nomes.txt"); 
+        HABILIDADESCURA = new File("/config/habilidadescura.txt");
+        HABILIDADESDANO = new File("/config/habilidadesdano.txt");
+        INIMIGOS = new File("/config/inimigos.txt");
+        SALAS = new File("/config/salas.txt");
+        TOTEM = new File("/config/totem.txt");
+        TAMANHOITENSCURA = getTamanhoArquivo(ITENSCURA);
+        TAMANHOITENSENERGIA = getTamanhoArquivo(ITENSENERGIA);
+        TAMANHOCHAVES = getTamanhoArquivo(CHAVES);
+        TAMANHOARMAS = getTamanhoArquivo(ARMAS);
+        TAMANHOARMADURAS = getTamanhoArquivo(ARMADURAS);
+        TAMANHONOMES = getTamanhoArquivo(NOMES);
+        TAMANHOHABILIDADESCURA = getTamanhoArquivo(HABILIDADESCURA);
+        TAMANHOHABILIDADESDANO = getTamanhoArquivo(HABILIDADESDANO);
+        TAMANHOINIMIGOS = getTamanhoArquivo(INIMIGOS);
+        TAMANHOSALAS = getTamanhoArquivo(SALAS); 
+        TAMANHOTOTEM = getTamanhoArquivo(TOTEM);
+        TAMANHOMAXIMO = 127;
+        
+        
+        
         JanelaInicial janela = new JanelaInicial();
         Sistema();
     }
