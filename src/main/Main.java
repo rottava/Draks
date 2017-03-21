@@ -60,21 +60,19 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        TAMANHOMAXIMO = 127;
         aleatorio = new Random();
-        HEROI = new Heroi("Cecil",(byte) 1,(byte) 1,(byte) 1 ,(byte)1);
-        MAPA = new Mapa();
-        SALA = MAPA.getSalas().get(0);
-        ITENSCURA = new File("/config/itenscura.txt");
-        ITENSENERGIA = new File("/config/itensenergia.txt");
-        CHAVES = new File("/config/chaves.txt");
-        ARMAS = new File("/config/armas.txt");
-        ARMADURAS = new File("/config/armaduras.txt");
-        NOMES = new File("/config/nomes.txt"); 
-        HABILIDADESCURA = new File("/config/habilidadescura.txt");
-        HABILIDADESDANO = new File("/config/habilidadesdano.txt");
-        INIMIGOS = new File("/config/inimigos.txt");
-        SALAS = new File("/config/salas.txt");
-        TOTEM = new File("/config/totem.txt");
+        ITENSCURA = new File("config/itenscura.txt");
+        ITENSENERGIA = new File("config/itensenergia.txt");
+        CHAVES = new File("config/chaves.txt");
+        ARMAS = new File("config/armas.txt");
+        ARMADURAS = new File("config/armaduras.txt");
+        NOMES = new File("config/nomes.txt"); 
+        HABILIDADESCURA = new File("config/habilidadescura.txt");
+        HABILIDADESDANO = new File("config/habilidadesdano.txt");
+        INIMIGOS = new File("config/inimigos.txt");
+        SALAS = new File("config/salas.txt");
+        //TOTEM = new File("config/totem.txt");
         TAMANHOITENSCURA = getTamanhoArquivo(ITENSCURA);
         TAMANHOITENSENERGIA = getTamanhoArquivo(ITENSENERGIA);
         TAMANHOCHAVES = getTamanhoArquivo(CHAVES);
@@ -85,10 +83,11 @@ public class Main {
         TAMANHOHABILIDADESDANO = getTamanhoArquivo(HABILIDADESDANO);
         TAMANHOINIMIGOS = getTamanhoArquivo(INIMIGOS);
         TAMANHOSALAS = getTamanhoArquivo(SALAS); 
-        TAMANHOTOTEM = getTamanhoArquivo(TOTEM);
-        TAMANHOMAXIMO = 127;
+        //TAMANHOTOTEM = getTamanhoArquivo(TOTEM);
         
-        
+        HEROI = new Heroi("Cecil",(byte) 1,(byte) 1,(byte) 1 ,(byte)1);
+        MAPA = new Mapa();
+        SALA = MAPA.getSalas().get(0);      
         
         JanelaInicial janela = new JanelaInicial();
         Sistema();
