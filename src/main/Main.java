@@ -6,6 +6,7 @@
 package main;
 
 import gui.JanelaInicial;
+import item.Arma;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -57,6 +58,7 @@ public class Main {
     public static String CAMINHOHABILIDADESCURA = "config/habilidadescura.txt";
     public static String CAMINHOHABILIDADESDANO = "config/habilidadesdano.txt";
     public static String CAMINHOINIMIGOS = "config/inimigos.txt";
+    public static boolean FLAG = false;
     
 
     
@@ -96,6 +98,7 @@ public class Main {
     HEROI = new Heroi("Cecil",(byte) 1,(byte) 1,(byte) 1 ,(byte)1);
     MAPA = new Mapa();
     SALA = MAPA.getSalas().get(0);
+    HEROI.addMochila(new Arma((byte)1));
     }
     
     private static byte tamanho (String caminho) {

@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
@@ -30,6 +31,7 @@ import javax.swing.ListSelectionModel;
 import static main.Main.HEROI;
 import static main.Main.INIMIGOS;
 import static main.Main.SALA;
+import static main.Main.FLAG;
 
 /**
  * Criação das salas com seus ítens e inimigos
@@ -45,7 +47,6 @@ public final class SalaGUI extends JFrame implements ActionListener {
     private JButton btnLeste;
     private JButton btnOeste;
     private JList inventario;
-    private boolean flag = false;
     
     /**
      * Construtor da interface gráfica da sala
@@ -80,6 +81,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
         add(titulo);
         
         adicionarInimigos();
+        adicionarItens();
         
         btnNorte = new JButton ("Norte");
         btnNorte.setBounds(480,10,80,30); //x, y, largura, altura
@@ -88,6 +90,15 @@ public final class SalaGUI extends JFrame implements ActionListener {
             btnNorte.setVisible(false);
         }
         add(btnNorte);
+        
+        btnNorte.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 1) {
+                    testaNorte();
+                }       
+            }
+        });
+        
         btnOeste = new JButton ("Oeste");
         btnOeste.setBounds(10,300,80,30); //x, y, largura, altura
         btnOeste.addActionListener(this);
@@ -95,6 +106,13 @@ public final class SalaGUI extends JFrame implements ActionListener {
             btnOeste.setVisible(false);
         }
         add (btnOeste);
+        btnOeste.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 1) {
+                    testaOeste();
+                }       
+            }
+        });
         btnLeste = new JButton ("Leste");
         btnLeste.setBounds(930,300,80,30); //x, y, largura, altura
         btnLeste.addActionListener(this);
@@ -102,6 +120,13 @@ public final class SalaGUI extends JFrame implements ActionListener {
             btnLeste.setVisible(false);
         }
         add(btnLeste);
+        btnLeste.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 1) {
+                    testaLeste();
+                }       
+            }
+        });
         btnSul = new JButton ("Sul");
         btnSul.setBounds(480,650,80,30); //x, y, largura, altura
         btnSul.addActionListener(this);
@@ -109,6 +134,13 @@ public final class SalaGUI extends JFrame implements ActionListener {
             btnSul.setVisible(false);
         }
         add(btnSul);
+        btnSul.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 1) {
+                    testaSul();
+                }       
+            }
+        });
         
         /**
          * ALTERAR AQUI PARA ATUALIZAR
@@ -131,13 +163,13 @@ public final class SalaGUI extends JFrame implements ActionListener {
 	add(pItens);
         carregarInventario();
         add(background);        
-        if (ordem == 1 && !flag) {
+        if (ordem == 1 && !FLAG) {
             JOptionPane.showMessageDialog(null, "Você está no Castelo do Drácula\n\n"+
                                         "Drácula matou sua esposa e você está aqui para se vingar!\n\n"+
                                         "Ele se preparou e contratou vários capangas\n\n"+
                                         "Você tem apenas uma espada, use os ítens que encontrar pelo mapa "+
                                         "para ajudar em sua vingança!\n\nBoa sorte! Você irá precisa!");
-            flag = true;
+            FLAG = true;
         }
     }
     
@@ -285,7 +317,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
      */
     private void carregarInventario() {
         ((DefaultListModel) inventario.getModel()).removeAllElements();
-        for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
+        for(byte loop = 0; loop < HEROI.getItens().size(); loop++){
             ((DefaultListModel) inventario.getModel()).addElement(HEROI.getItens().get(loop).getNome());
         }
     }
@@ -293,93 +325,87 @@ public final class SalaGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == btnNorte) {
+            System.out.println("BOTAO NORTE");
             testaNorte();         
 	} else if (ae.getSource() == btnSul) {
-            System.out.println ("Sul");
-            JanelaInicial ji = new JanelaInicial();
-            if (ji.irSala (ordem, SALA.getSul().getSala()))
-                this.dispose();
+            testaSul();;
 	} else if (ae.getSource() == btnLeste) {
-            System.out.println ("Leste");
-            JanelaInicial ji = new JanelaInicial();
-            if (ji.irSala (ordem, SALA.getLeste().getSala()))
-                this.dispose();
+            testaLeste();
         } else if (ae.getSource() == btnOeste) {
-            System.out.println ("Oeste");
-            JanelaInicial ji = new JanelaInicial();
-            if (ji.irSala (ordem, SALA.getOeste().getSala()))
-                this.dispose();
+            testaOeste();
         }
     }
     
     private void testaNorte(){
-        if(btnNorte.getIcon().toString().equals("resources/inimigo.png")){
-            CombateGUI combate = new CombateGUI(SALA.getNorte(), ordem);
-        }
-        else{
-            if(btnNorte.getIcon().toString().equals("resources/item.png")){
-                switch (SALA.getNorte().getTipo()){
-                    case 1:
-                        Armadura armadura = new Armadura(SALA.getNorte().getItem());
-                        armadura.setQuantidade((byte) SALA.getNorte().getQuantidade());
-                        HEROI.addMochila(armadura);
-                        break;
-                    case 2:
-                        Arma arma = new Arma(SALA.getNorte().getItem());
-                        arma.setQuantidade((byte) SALA.getNorte().getQuantidade());
-                        HEROI.addMochila(arma);
-                        break;
-                    case 3:
-                        Chave chave = new Chave(SALA.getNorte().getItem());
-                        chave.setQuantidade((byte) SALA.getNorte().getQuantidade());
-                        HEROI.addMochila(chave);
-                        break;
-                    case 4:
-                        HabilidadeCura cura = new HabilidadeCura(SALA.getNorte().getItem());
-                        HEROI.addTalentosCura(cura);
-                        break;
-                    case -4:
-                        HabilidadeDano dano = new HabilidadeDano(SALA.getNorte().getItem());
-                        HEROI.addTalentosDano(dano);
-                        break;
-                    case 5:
-                        ItemCura itemCura = new ItemCura(SALA.getNorte().getItem());
-                        itemCura.setQuantidade((byte) SALA.getNorte().getQuantidade());
-                        HEROI.addMochila(itemCura);
-                        break;
-                    case 6:
-                        ItemEnergia itemEnergia = new ItemEnergia(SALA.getNorte().getItem());
-                        itemEnergia.setQuantidade((byte) SALA.getNorte().getQuantidade());
-                        HEROI.addMochila(itemEnergia);
-                    case 7:
-                        HEROI.addMoedas(SALA.getNorte().getQuantidade());
-                        break;
-                   default:
-                       break;
-                }
-                SALA.getNorte().setItem();
+        if(btnNorte.getIcon() != null){
+            if(btnNorte.getIcon().toString().equals("resources/inimigo.png")){
+                CombateGUI combate = new CombateGUI(SALA.getNorte(), ordem);
             }
             else{
-                if(btnNorte.getIcon().toString().equals("resources/cadeado.png")){
-                    for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
-                        if(HEROI.getItens().get(loop).getClass() == Chave.class){
-                            if(HEROI.getItens().get(loop).getEfeito() == SALA.getNorte().getChave()){
-                                SALA.getNorte().setChave();
-                                HEROI.subMochila(HEROI.getItens().get(loop));
+                if(btnNorte.getIcon().toString().equals("resources/item.png")){
+                    switch (SALA.getNorte().getTipo()){
+                        case 1:
+                            Armadura armadura = new Armadura(SALA.getNorte().getItem());
+                            armadura.setQuantidade((byte) SALA.getNorte().getQuantidade());
+                            HEROI.addMochila(armadura);
+                            break;
+                        case 2:
+                            Arma arma = new Arma(SALA.getNorte().getItem());
+                            arma.setQuantidade((byte) SALA.getNorte().getQuantidade());
+                            HEROI.addMochila(arma);
+                            break;
+                        case 3:
+                            Chave chave = new Chave(SALA.getNorte().getItem());
+                            chave.setQuantidade((byte) SALA.getNorte().getQuantidade());
+                            HEROI.addMochila(chave);
+                            break;
+                        case 4:
+                            HabilidadeCura cura = new HabilidadeCura(SALA.getNorte().getItem());
+                            HEROI.addTalentosCura(cura);
+                            break;
+                        case -4:
+                            HabilidadeDano dano = new HabilidadeDano(SALA.getNorte().getItem());
+                            HEROI.addTalentosDano(dano);
+                            break;
+                        case 5:
+                            ItemCura itemCura = new ItemCura(SALA.getNorte().getItem());
+                            itemCura.setQuantidade((byte) SALA.getNorte().getQuantidade());
+                            HEROI.addMochila(itemCura);
+                            break;
+                        case 6:
+                            ItemEnergia itemEnergia = new ItemEnergia(SALA.getNorte().getItem());
+                            itemEnergia.setQuantidade((byte) SALA.getNorte().getQuantidade());
+                            HEROI.addMochila(itemEnergia);
+                        case 7:
+                            HEROI.addMoedas(SALA.getNorte().getQuantidade());
+                            break;
+                       default:
+                           break;
+                    }
+                    SALA.getNorte().setItem();
+                }
+                else{
+                    if(btnNorte.getIcon().toString().equals("resources/cadeado.png")){
+                        for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
+                            if(HEROI.getItens().get(loop).getClass() == Chave.class){
+                                if(HEROI.getItens().get(loop).getEfeito() == SALA.getNorte().getChave()){
+                                    SALA.getNorte().setChave();
+                                    HEROI.subMochila(HEROI.getItens().get(loop));
+                                }
+                                /*else{
+                                  //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
+                                }*/
                             }
-                            /*else{
-                              //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
-                            }*/
-                        }
-                        else{
-                            System.out.println ("Norte");
-                            JanelaInicial ji = new JanelaInicial();
-                            if (ji.irSala (ordem, SALA.getNorte().getSala()))
-                                this.dispose();  
                         }
                     }
+
                 }
             }
+        }
+        else{
+            JanelaInicial ji = new JanelaInicial();
+            if (ji.irSala (SALA.getNorte().getSala()))
+               this.dispose();  
         }
         setNorte();
     }
@@ -417,73 +443,75 @@ public final class SalaGUI extends JFrame implements ActionListener {
     }
     
     private void testaSul(){
-        if(btnSul.getIcon().toString().equals("resources/inimigo.png")){
-            CombateGUI combate = new CombateGUI(SALA.getSul(), ordem);
-        }
-        else{
-            if(btnSul.getIcon().toString().equals("resources/item.png")){
-                switch (SALA.getSul().getTipo()){
-                    case 1:
-                        Armadura armadura = new Armadura(SALA.getSul().getItem());
-                        armadura.setQuantidade((byte) SALA.getSul().getQuantidade());
-                        HEROI.addMochila(armadura);
-                        break;
-                    case 2:
-                        Arma arma = new Arma(SALA.getSul().getItem());
-                        arma.setQuantidade((byte) SALA.getSul().getQuantidade());
-                        HEROI.addMochila(arma);
-                        break;
-                    case 3:
-                        Chave chave = new Chave(SALA.getSul().getItem());
-                        chave.setQuantidade((byte) SALA.getSul().getQuantidade());
-                        HEROI.addMochila(chave);
-                        break;
-                    case 4:
-                        HabilidadeCura cura = new HabilidadeCura(SALA.getSul().getItem());
-                        HEROI.addTalentosCura(cura);
-                        break;
-                    case -4:
-                        HabilidadeDano dano = new HabilidadeDano(SALA.getSul().getItem());
-                        HEROI.addTalentosDano(dano);
-                        break;
-                    case 5:
-                        ItemCura itemCura = new ItemCura(SALA.getSul().getItem());
-                        itemCura.setQuantidade((byte) SALA.getSul().getQuantidade());
-                        HEROI.addMochila(itemCura);
-                        break;
-                    case 6:
-                        ItemEnergia itemEnergia = new ItemEnergia(SALA.getSul().getItem());
-                        itemEnergia.setQuantidade((byte) SALA.getSul().getQuantidade());
-                        HEROI.addMochila(itemEnergia);
-                    case 7:
-                        HEROI.addMoedas(SALA.getSul().getQuantidade());
-                        break;
-                   default:
-                       break;
-                }
-                SALA.getSul().setItem();
+        if(btnSul.getIcon() != null){
+            if(btnSul.getIcon().toString().equals("resources/inimigo.png")){
+                CombateGUI combate = new CombateGUI(SALA.getSul(), ordem);
             }
             else{
-                if(btnSul.getIcon().toString().equals("resources/cadeado.png")){
-                    for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
-                        if(HEROI.getItens().get(loop).getClass() == Chave.class){
-                            if(HEROI.getItens().get(loop).getEfeito() == SALA.getSul().getChave()){
-                                SALA.getSul().setChave();
-                                HEROI.subMochila(HEROI.getItens().get(loop));
+                if(btnSul.getIcon().toString().equals("resources/item.png")){
+                    switch (SALA.getSul().getTipo()){
+                        case 1:
+                            Armadura armadura = new Armadura(SALA.getSul().getItem());
+                            armadura.setQuantidade((byte) SALA.getSul().getQuantidade());
+                            HEROI.addMochila(armadura);
+                            break;
+                        case 2:
+                            Arma arma = new Arma(SALA.getSul().getItem());
+                            arma.setQuantidade((byte) SALA.getSul().getQuantidade());
+                            HEROI.addMochila(arma);
+                            break;
+                        case 3:
+                            Chave chave = new Chave(SALA.getSul().getItem());
+                            chave.setQuantidade((byte) SALA.getSul().getQuantidade());
+                            HEROI.addMochila(chave);
+                            break;
+                        case 4:
+                            HabilidadeCura cura = new HabilidadeCura(SALA.getSul().getItem());
+                            HEROI.addTalentosCura(cura);
+                            break;
+                        case -4:
+                            HabilidadeDano dano = new HabilidadeDano(SALA.getSul().getItem());
+                            HEROI.addTalentosDano(dano);
+                            break;
+                        case 5:
+                            ItemCura itemCura = new ItemCura(SALA.getSul().getItem());
+                            itemCura.setQuantidade((byte) SALA.getSul().getQuantidade());
+                            HEROI.addMochila(itemCura);
+                            break;
+                        case 6:
+                            ItemEnergia itemEnergia = new ItemEnergia(SALA.getSul().getItem());
+                            itemEnergia.setQuantidade((byte) SALA.getSul().getQuantidade());
+                            HEROI.addMochila(itemEnergia);
+                        case 7:
+                            HEROI.addMoedas(SALA.getSul().getQuantidade());
+                            break;
+                       default:
+                           break;
+                    }
+                    SALA.getSul().setItem();
+                }
+                else{
+                    if(btnSul.getIcon().toString().equals("resources/cadeado.png")){
+                        for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
+                            if(HEROI.getItens().get(loop).getClass() == Chave.class){
+                                if(HEROI.getItens().get(loop).getEfeito() == SALA.getSul().getChave()){
+                                    SALA.getSul().setChave();
+                                    HEROI.subMochila(HEROI.getItens().get(loop));
+                                }
+                                /*else{
+                                  //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
+                                }*/
                             }
-                            /*else{
-                              //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
-                            }*/
-                        }
-                        else{
-                            System.out.println ("Sul");
-                            JanelaInicial ji = new JanelaInicial();
-                            if (ji.irSala (ordem, SALA.getSul().getSala()))
-                                this.dispose();  
                         }
                     }
+
                 }
             }
+        }
+        else{
+            JanelaInicial ji = new JanelaInicial();
+            if (ji.irSala (SALA.getSul().getSala()))
+               this.dispose();  
         }
         setSul();
     }
@@ -521,73 +549,75 @@ public final class SalaGUI extends JFrame implements ActionListener {
     }
     
     private void testaLeste(){
-        if(btnLeste.getIcon().toString().equals("resources/inimigo.png")){
-            CombateGUI combate = new CombateGUI(SALA.getLeste(), ordem);
-        }
-        else{
-            if(btnLeste.getIcon().toString().equals("resources/item.png")){
-                switch (SALA.getLeste().getTipo()){
-                    case 1:
-                        Armadura armadura = new Armadura(SALA.getLeste().getItem());
-                        armadura.setQuantidade((byte) SALA.getLeste().getQuantidade());
-                        HEROI.addMochila(armadura);
-                        break;
-                    case 2:
-                        Arma arma = new Arma(SALA.getLeste().getItem());
-                        arma.setQuantidade((byte) SALA.getLeste().getQuantidade());
-                        HEROI.addMochila(arma);
-                        break;
-                    case 3:
-                        Chave chave = new Chave(SALA.getLeste().getItem());
-                        chave.setQuantidade((byte) SALA.getLeste().getQuantidade());
-                        HEROI.addMochila(chave);
-                        break;
-                    case 4:
-                        HabilidadeCura cura = new HabilidadeCura(SALA.getLeste().getItem());
-                        HEROI.addTalentosCura(cura);
-                        break;
-                    case -4:
-                        HabilidadeDano dano = new HabilidadeDano(SALA.getLeste().getItem());
-                        HEROI.addTalentosDano(dano);
-                        break;
-                    case 5:
-                        ItemCura itemCura = new ItemCura(SALA.getLeste().getItem());
-                        itemCura.setQuantidade((byte) SALA.getLeste().getQuantidade());
-                        HEROI.addMochila(itemCura);
-                        break;
-                    case 6:
-                        ItemEnergia itemEnergia = new ItemEnergia(SALA.getLeste().getItem());
-                        itemEnergia.setQuantidade((byte) SALA.getLeste().getQuantidade());
-                        HEROI.addMochila(itemEnergia);
-                    case 7:
-                        HEROI.addMoedas(SALA.getLeste().getQuantidade());
-                        break;
-                   default:
-                       break;
-                }
-                SALA.getLeste().setItem();
+        if(btnLeste.getIcon() != null){
+            if(btnLeste.getIcon().toString().equals("resources/inimigo.png")){
+                CombateGUI combate = new CombateGUI(SALA.getLeste(), ordem);
             }
             else{
-                if(btnLeste.getIcon().toString().equals("resources/cadeado.png")){
-                    for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
-                        if(HEROI.getItens().get(loop).getClass() == Chave.class){
-                            if(HEROI.getItens().get(loop).getEfeito() == SALA.getLeste().getChave()){
-                                SALA.getLeste().setChave();
-                                HEROI.subMochila(HEROI.getItens().get(loop));
+                if(btnLeste.getIcon().toString().equals("resources/item.png")){
+                    switch (SALA.getLeste().getTipo()){
+                        case 1:
+                            Armadura armadura = new Armadura(SALA.getLeste().getItem());
+                            armadura.setQuantidade((byte) SALA.getLeste().getQuantidade());
+                            HEROI.addMochila(armadura);
+                            break;
+                        case 2:
+                            Arma arma = new Arma(SALA.getLeste().getItem());
+                            arma.setQuantidade((byte) SALA.getLeste().getQuantidade());
+                            HEROI.addMochila(arma);
+                            break;
+                        case 3:
+                            Chave chave = new Chave(SALA.getLeste().getItem());
+                            chave.setQuantidade((byte) SALA.getLeste().getQuantidade());
+                            HEROI.addMochila(chave);
+                            break;
+                        case 4:
+                            HabilidadeCura cura = new HabilidadeCura(SALA.getLeste().getItem());
+                            HEROI.addTalentosCura(cura);
+                            break;
+                        case -4:
+                            HabilidadeDano dano = new HabilidadeDano(SALA.getLeste().getItem());
+                            HEROI.addTalentosDano(dano);
+                            break;
+                        case 5:
+                            ItemCura itemCura = new ItemCura(SALA.getLeste().getItem());
+                            itemCura.setQuantidade((byte) SALA.getLeste().getQuantidade());
+                            HEROI.addMochila(itemCura);
+                            break;
+                        case 6:
+                            ItemEnergia itemEnergia = new ItemEnergia(SALA.getLeste().getItem());
+                            itemEnergia.setQuantidade((byte) SALA.getLeste().getQuantidade());
+                            HEROI.addMochila(itemEnergia);
+                        case 7:
+                            HEROI.addMoedas(SALA.getLeste().getQuantidade());
+                            break;
+                       default:
+                           break;
+                    }
+                    SALA.getLeste().setItem();
+                }
+                else{
+                    if(btnLeste.getIcon().toString().equals("resources/cadeado.png")){
+                        for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
+                            if(HEROI.getItens().get(loop).getClass() == Chave.class){
+                                if(HEROI.getItens().get(loop).getEfeito() == SALA.getLeste().getChave()){
+                                    SALA.getLeste().setChave();
+                                    HEROI.subMochila(HEROI.getItens().get(loop));
+                                }
+                                /*else{
+                                  //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
+                                }*/
                             }
-                            /*else{
-                              //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
-                            }*/
-                        }
-                        else{
-                            System.out.println ("Leste");
-                            JanelaInicial ji = new JanelaInicial();
-                            if (ji.irSala (ordem, SALA.getLeste().getSala()))
-                                this.dispose();  
                         }
                     }
+
                 }
             }
+        }
+        else{
+            JanelaInicial ji = new JanelaInicial();
+            if (ji.irSala (SALA.getLeste().getSala()))
+               this.dispose();  
         }
         setLeste();
     }
@@ -625,73 +655,75 @@ public final class SalaGUI extends JFrame implements ActionListener {
     }
     
     private void testaOeste(){
-        if(btnOeste.getIcon().toString().equals("resources/inimigo.png")){
-            CombateGUI combate = new CombateGUI(SALA.getOeste(), ordem);
-        }
-        else{
-            if(btnOeste.getIcon().toString().equals("resources/item.png")){
-                switch (SALA.getOeste().getTipo()){
-                    case 1:
-                        Armadura armadura = new Armadura(SALA.getOeste().getItem());
-                        armadura.setQuantidade((byte) SALA.getOeste().getQuantidade());
-                        HEROI.addMochila(armadura);
-                        break;
-                    case 2:
-                        Arma arma = new Arma(SALA.getOeste().getItem());
-                        arma.setQuantidade((byte) SALA.getOeste().getQuantidade());
-                        HEROI.addMochila(arma);
-                        break;
-                    case 3:
-                        Chave chave = new Chave(SALA.getOeste().getItem());
-                        chave.setQuantidade((byte) SALA.getOeste().getQuantidade());
-                        HEROI.addMochila(chave);
-                        break;
-                    case 4:
-                        HabilidadeCura cura = new HabilidadeCura(SALA.getOeste().getItem());
-                        HEROI.addTalentosCura(cura);
-                        break;
-                    case -4:
-                        HabilidadeDano dano = new HabilidadeDano(SALA.getOeste().getItem());
-                        HEROI.addTalentosDano(dano);
-                        break;
-                    case 5:
-                        ItemCura itemCura = new ItemCura(SALA.getOeste().getItem());
-                        itemCura.setQuantidade((byte) SALA.getOeste().getQuantidade());
-                        HEROI.addMochila(itemCura);
-                        break;
-                    case 6:
-                        ItemEnergia itemEnergia = new ItemEnergia(SALA.getOeste().getItem());
-                        itemEnergia.setQuantidade((byte) SALA.getOeste().getQuantidade());
-                        HEROI.addMochila(itemEnergia);
-                    case 7:
-                        HEROI.addMoedas(SALA.getOeste().getQuantidade());
-                        break;
-                   default:
-                       break;
-                }
-                SALA.getOeste().setItem();
+        if(btnOeste.getIcon() != null){
+            if(btnOeste.getIcon().toString().equals("resources/inimigo.png")){
+                CombateGUI combate = new CombateGUI(SALA.getOeste(), ordem);
             }
             else{
-                if(btnOeste.getIcon().toString().equals("resources/cadeado.png")){
-                    for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
-                        if(HEROI.getItens().get(loop).getClass() == Chave.class){
-                            if(HEROI.getItens().get(loop).getEfeito() == SALA.getOeste().getChave()){
-                                SALA.getOeste().setChave();
-                                HEROI.subMochila(HEROI.getItens().get(loop));
+                if(btnOeste.getIcon().toString().equals("resources/item.png")){
+                    switch (SALA.getOeste().getTipo()){
+                        case 1:
+                            Armadura armadura = new Armadura(SALA.getOeste().getItem());
+                            armadura.setQuantidade((byte) SALA.getOeste().getQuantidade());
+                            HEROI.addMochila(armadura);
+                            break;
+                        case 2:
+                            Arma arma = new Arma(SALA.getOeste().getItem());
+                            arma.setQuantidade((byte) SALA.getOeste().getQuantidade());
+                            HEROI.addMochila(arma);
+                            break;
+                        case 3:
+                            Chave chave = new Chave(SALA.getOeste().getItem());
+                            chave.setQuantidade((byte) SALA.getOeste().getQuantidade());
+                            HEROI.addMochila(chave);
+                            break;
+                        case 4:
+                            HabilidadeCura cura = new HabilidadeCura(SALA.getOeste().getItem());
+                            HEROI.addTalentosCura(cura);
+                            break;
+                        case -4:
+                            HabilidadeDano dano = new HabilidadeDano(SALA.getOeste().getItem());
+                            HEROI.addTalentosDano(dano);
+                            break;
+                        case 5:
+                            ItemCura itemCura = new ItemCura(SALA.getOeste().getItem());
+                            itemCura.setQuantidade((byte) SALA.getOeste().getQuantidade());
+                            HEROI.addMochila(itemCura);
+                            break;
+                        case 6:
+                            ItemEnergia itemEnergia = new ItemEnergia(SALA.getOeste().getItem());
+                            itemEnergia.setQuantidade((byte) SALA.getOeste().getQuantidade());
+                            HEROI.addMochila(itemEnergia);
+                        case 7:
+                            HEROI.addMoedas(SALA.getOeste().getQuantidade());
+                            break;
+                       default:
+                           break;
+                    }
+                    SALA.getOeste().setItem();
+                }
+                else{
+                    if(btnOeste.getIcon().toString().equals("resources/cadeado.png")){
+                        for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
+                            if(HEROI.getItens().get(loop).getClass() == Chave.class){
+                                if(HEROI.getItens().get(loop).getEfeito() == SALA.getOeste().getChave()){
+                                    SALA.getOeste().setChave();
+                                    HEROI.subMochila(HEROI.getItens().get(loop));
+                                }
+                                /*else{
+                                  //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
+                                }*/
                             }
-                            /*else{
-                              //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
-                            }*/
-                        }
-                        else{
-                            System.out.println ("Oeste");
-                            JanelaInicial ji = new JanelaInicial();
-                            if (ji.irSala (ordem, SALA.getOeste().getSala()))
-                                this.dispose();  
                         }
                     }
+
                 }
             }
+        }
+        else{
+            JanelaInicial ji = new JanelaInicial();
+            if (ji.irSala (SALA.getOeste().getSala()))
+               this.dispose();  
         }
         setOeste();
     }
