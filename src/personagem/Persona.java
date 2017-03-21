@@ -164,7 +164,7 @@ public abstract class Persona implements Comparable<Persona>{
     }
     
     //SETA FORÇA PARA
-    protected void setForca(byte forca){
+    public void setForca(byte forca){
         if (forca < TAMANHOMAXIMO)
             this.forca = forca;
         else
@@ -216,12 +216,12 @@ public abstract class Persona implements Comparable<Persona>{
     }
     
     //GERA VIDA MAXIMA
-    protected final void geraVidaMax(){
+    public final void geraVidaMax(){
         setVidaMax((byte) (resistencia + (forca / 2)));
     }
     
     //GERA ENERGIA MAXIMA
-    protected final void geraEnergiaMax(){
+    public final void geraEnergiaMax(){
         setEnergiaMax((byte) (resistencia  + (inteligencia / 2)));
     }
     
