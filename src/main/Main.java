@@ -23,16 +23,6 @@ import personagem.Heroi;
  * @author Junior
  */
 public class Main {
-    public static File ITENSCURA;                                               //ARQUIVO: NOME/EFEITO/PESO
-    public static File ITENSENERGIA;                                            //ARQUIVO: NOME/EFEITO/PESO
-    public static File CHAVES;                                                  //ARQUIVO: NOME/EFEITO/PESO
-    public static File ARMAS;                                                   //ARQUIVO: NOME/EFEITO/PESO
-    public static File ARMADURAS;                                               //ARQUIVO: NOME/EFEITO/PESO
-    public static File NOMES;                                                   //ARQUIVO: NOME
-    public static File HABILIDADESCURA;                                         //ARQUIVO: NOME/EFEITO/CUSTO
-    public static File HABILIDADESDANO;                                         //ARQUIVO: NOME/EFEITO/CUSTO
-    public static File INIMIGOS;                                                //ARQUIVO: NOME/TIPO/EFEITO/PESO
-    public static File SALAS;                                                   //ARQUIVO: NOME/TIPO/EFEITO/PESO
     public static byte TAMANHOITENSCURA;                                        //TAMANHO DO ARQUIVO DE ITENS DE CURA (EM LINHAS)
     public static byte TAMANHOITENSENERGIA;                                     //TAMANHO DO ARQUIVO DE ITENS DE ENERGIA (EM LINHAS)
     public static byte TAMANHOCHAVES;                                           //TAMANHO DO ARQUIVO DE CHAVES (EM LINHAS)
