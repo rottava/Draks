@@ -5,9 +5,13 @@
  */
 package habilidade;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
-import static main.Main.HABILIDADESDANO;
+import static main.Main.CAMINHOHABILIDADESDANO;
+import static main.Main.CAMINHOINIMIGOS;
 import static main.Main.TAMANHOHABILIDADESDANO;
 
 /**
@@ -31,26 +35,26 @@ public class HabilidadeDano extends Habilidade{
      */
     private void setParam(byte id){
         setId(id);
-        Scanner scanner;
-        byte loop = 1;
         try {
-            scanner = new Scanner(HABILIDADESDANO);
-            while(loop < TAMANHOHABILIDADESDANO && (loop < id)){
-                String nextLine = scanner.nextLine();
+            FileReader arq = new FileReader (CAMINHOHABILIDADESDANO);
+            BufferedReader lerArq = new BufferedReader (arq);
+            String linha = lerArq.readLine();
+            byte loop = 1;
+            while (linha != null && loop < id) {
+                linha = lerArq.readLine();
                 loop++;
             }
-            if (loop == id && loop <= TAMANHOHABILIDADESDANO){
+            if (linha != null){
                 String[] parametros;                        
-                parametros = scanner.nextLine().split("/");                     //DIVIDE A LINHA EM NOME/EFEITO/CONSUMO
+                parametros = linha.split("/");                                  //DIVIDE A LINHA EM NOME/EFEITO/CONSUMO
                 setNome(parametros[0]);                                         //NOME
                 setEfeito((byte) Integer.parseInt(parametros[1]));              //EFEITO
                 setConsumo((byte) Integer.parseInt(parametros[2]));             //CONSUMO
             }
-            else
-                throw new UnsupportedOperationException("ID de habilidade não encontrado.");
-        } 
-        catch (FileNotFoundException ex) {
-            throw new UnsupportedOperationException("Arquivo HabilidadeDano.txt não foi encontrado.");
+            arq.close();
+        } catch (IOException e) {
+            System.err.printf ("Erro na abertura do arquivo %s!\n", CAMINHOHABILIDADESDANO);
+            e.getMessage();
         }
     }
     

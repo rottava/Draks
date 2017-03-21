@@ -18,7 +18,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -32,7 +35,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import static main.Main.HEROI;
-import static main.Main.INIMIGOS;
+import static main.Main.CAMINHOINIMIGOS;
 import static main.Main.TAMANHOMAXIMO;
 import static main.Main.ALEATORIO;
 import personagem.Inimigo;
@@ -62,6 +65,7 @@ public class CombateGUI extends JFrame implements ActionListener{
     private boolean fuga = false;
     private final int ordem;
     private final Porta porta;
+    private byte[] comando;
     
     public CombateGUI(Porta porta, int ordem) {
         setaInimigo(porta);
@@ -138,7 +142,7 @@ public class CombateGUI extends JFrame implements ActionListener{
                 JList listaMagia = (JList)evt.getSource();
                 if (evt.getClickCount() == 2) {
                     int index = listaMagia.locationToIndex(evt.getPoint());
-                    JOptionPane.showMessageDialog(null, "Dois Cliques indice: "+index);
+                    magia(index);
                 }       
             }
         });
@@ -157,7 +161,7 @@ public class CombateGUI extends JFrame implements ActionListener{
                 JList listaItem = (JList)evt.getSource();
                 if (evt.getClickCount() == 2) {
                     int index = listaItem.locationToIndex(evt.getPoint());
-                    JOptionPane.showMessageDialog(null, "Dois Cliques indice: "+index);
+                    item(index);
                 }       
             }
         });
@@ -193,10 +197,18 @@ public class CombateGUI extends JFrame implements ActionListener{
              carregarItem();
 	}
         if (ae.getSource() == btnAtacar) {
-            byte[] comando;
+            ataque((byte)2, (byte) 0);
+        }
+        if (ae.getSource() == btnFugir) {
+            if (calculaFuga(HEROI))
+                this.dispose();
+        }
+    }
+    
+    private void ataque(byte ataque, byte id){
             comando = testaComando(inimigo);
             if(HEROI.getAgilidade() > inimigo.getAgilidade()){
-                ataqueHeroi((byte)2, (byte) 0);
+                ataqueHeroi(ataque, id);
                 if(inimigo.getVida() == 0){
                     recompensa();
                     porta.setInimigo();
@@ -213,12 +225,34 @@ public class CombateGUI extends JFrame implements ActionListener{
             }
             else{
                 ataqueInimigo(comando[0], comando[1]);
-                ataqueHeroi((byte) 2, (byte) 0);
+                ataqueHeroi(ataque, id);
             }
+    }
+    
+    private void item(int index){
+        int id = 0;
+                    int loop = 0;
+                    while(loop < HEROI.getItens().size() && id != index){
+                        if(HEROI.getItens().get(loop).getClass() == ItemCura.class || 
+                            HEROI.getItens().get(loop).getClass() == ItemEnergia.class){
+                            id++;
+                        }
+                        loop++;
+                    }
+                    loop--;
+                    if(HEROI.getItens().get(loop).getClass() == ItemCura.class)
+                        ataque((byte) 4, HEROI.getItens().get(loop).getId());
+                    else
+                        ataque((byte) 5, HEROI.getItens().get(loop).getId());
+    }
+    
+    private void magia(int index){
+        if( index > HEROI.getTalentosCura().getTamanho()){
+            index -= HEROI.getTalentosCura().getTamanho();
+            ataque((byte) 1, HEROI.getTalentosDano().getHabilidades().get(index).getId());
         }
-        if (ae.getSource() == btnFugir) {
-            this.dispose();
-        }
+        else
+            ataque((byte) 3, HEROI.getTalentosDano().getHabilidades().get(index).getId());
     }
     
     private void ataqueHeroi(byte comando, byte habilidade){
@@ -299,7 +333,6 @@ public class CombateGUI extends JFrame implements ActionListener{
         return comando;
     }
     
-    
     //VERIFICA HABILIDADE
     private byte testaHabilidade(Inimigo inimigo){
         byte comando, habilidade;
@@ -335,22 +368,32 @@ public class CombateGUI extends JFrame implements ActionListener{
     }
         
     //VERIFICA VALIDADE
+    /**
+     * Verifica a validade de um item
+     * @param id ID do item
+     * @return true se válido ou false caso contrário
+     */
     private boolean testaItem(byte id){
         try {
-            Scanner scanner = new Scanner(INIMIGOS);
+            FileReader arq = new FileReader (CAMINHOINIMIGOS);
+            BufferedReader lerArq = new BufferedReader (arq);
+            String linha = lerArq.readLine();
             byte loop = 1;
-            while((scanner.hasNext()) && (loop < id)){
-                String nextLine = scanner.nextLine();
+            while (linha != null && loop < id) {
+                linha = lerArq.readLine();
                 loop++;
             }
-            if (scanner.hasNext()){
+            if (linha != null){
                 String[] parametros;
-                parametros = scanner.nextLine().split("/");                     //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
+                linha = lerArq.readLine();
+                parametros = linha.split("/");                     //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
                 byte tipo = (byte) Integer.parseInt(parametros[8]);             //TIPO DO ITEM PORTADO
                 return tipo > 0;
             }
-        } catch (FileNotFoundException ex) {
-            throw new UnsupportedOperationException("ID de inimigo não encontrado.");
+            arq.close();
+        } catch (IOException e) {
+            System.err.printf ("Erro na abertura do arquivo %s!\n", CAMINHOINIMIGOS);
+            e.getMessage();
         }
         return false;
     }

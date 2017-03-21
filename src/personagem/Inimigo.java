@@ -10,7 +10,10 @@ import habilidade.HabilidadeCura;
 import habilidade.HabilidadeDano;
 import item.Arma;
 import item.Armadura;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 import static main.Main.INIMIGOS;
 import static main.Main.NOMES;
@@ -18,6 +21,7 @@ import static main.Main.TAMANHOHABILIDADESCURA;
 import static main.Main.TAMANHOHABILIDADESDANO;
 import static main.Main.TAMANHOMAXIMO;
 import static main.Main.ALEATORIO;
+import static main.Main.CAMINHOINIMIGOS;
 
 /**
  *
@@ -203,15 +207,17 @@ public class Inimigo extends Persona{
     //LE INIMIGO DO ARQUIVO DE CONFIGURACOES
     private void lerArquivo(){
         try {
-            Scanner scanner = new Scanner(INIMIGOS);
+            FileReader arq = new FileReader (CAMINHOINIMIGOS);
+            BufferedReader lerArq = new BufferedReader (arq);
+            String linha = lerArq.readLine();
             byte loop = 1;
-            while((scanner.hasNext()) && (loop < id)){
-                String nextLine = scanner.nextLine();
+            while (linha != null && loop < id) {
+                linha = lerArq.readLine();
                 loop++;
             }
-            if (scanner.hasNext()){
+            if(linha != null){
                 String[] parametros;
-                parametros = scanner.nextLine().split("/");                     //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
+                parametros = linha.split("/");                                  //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
                 setNome(parametros[0]);                                         //NOME
                 setForca((byte) Integer.parseInt(parametros[1]));               //FORCA
                 setInteligencia((byte) Integer.parseInt(parametros[2]));        //INTELIGENCIA
@@ -243,9 +249,12 @@ public class Inimigo extends Persona{
             }
             else
                 throw new UnsupportedOperationException("ID de inimigo não encontrado.");
-        } catch (FileNotFoundException ex) {
-            throw new UnsupportedOperationException("ID de inimigo não encontrado.");
+            arq.close();
+        } catch (IOException e) {
+            System.err.printf ("Erro na abertura do arquivo %s!\n", CAMINHOINIMIGOS);
+            e.getMessage();
         }
+       
     }
     
     //RETORNA ID DO INIMIGO
