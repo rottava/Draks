@@ -82,16 +82,18 @@ public abstract class Persona implements Comparable<Persona>{
     }
     
     //SETA VIDA E RETORNA VERDADEIRO OU RETORNA FALSO
-    private boolean setVida(byte vida){
-        if (vida != vidaMax && vida > 0){
+    protected boolean setVida(byte vida){
+        if (vida <= vidaMax && vida > 0){
             if (vida < vidaMax)
                 this.vida = vida;
             else
                 this.vida = vidaMax;
             return true;
         }
-        else
+        else{
+            this.vida = 0;
             return false;
+        }
     }
     
     //RETONA VIDA MAXIMA
@@ -113,8 +115,8 @@ public abstract class Persona implements Comparable<Persona>{
     }
 
     //SETA ENERGIA E RETORNA VERDADEIRO OU RETORNA FALSO
-    private boolean setEnergia(byte energia){
-        if (energia != energiaMax && energia > 0){
+    protected boolean setEnergia(byte energia){
+        if (energia <= energiaMax && energia >= 0){
             if (energia < energiaMax)
                 this.energia = energia;
             else

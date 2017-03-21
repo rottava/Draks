@@ -204,6 +204,7 @@ public class CombateGUI extends JFrame implements ActionListener{
             comando = testaComando(inimigo);
             if(HEROI.getAgilidade() > inimigo.getAgilidade()){
                 ataqueHeroi(ataque, id);
+                atualizaDados();
                 if(inimigo.getVida() == 0){
                     recompensa();
                     porta.setInimigo();
@@ -212,6 +213,7 @@ public class CombateGUI extends JFrame implements ActionListener{
                 }
                 else{
                     ataqueInimigo(comando[0], comando[1]);
+                    atualizaDados();
                     if(HEROI.getVida() == 0){
                         //POPUP VOCÊ PERDEU
                         //VOLTA PRA TELA INICIAL
@@ -222,6 +224,14 @@ public class CombateGUI extends JFrame implements ActionListener{
                 ataqueInimigo(comando[0], comando[1]);
                 ataqueHeroi(ataque, id);
             }
+            atualizaDados();
+    }
+    
+    private void atualizaDados(){
+        jTextAreaHeroi.setText("Vida: " + HEROI.getVida() + "/ " + HEROI.getVidaMax() +
+                "\n\nEnergia: " + HEROI.getEnergia() + "/ " + HEROI.getEnergiaMax() + "\n");
+        jTextAreaVilao.setText("Vida: " + inimigo.getVida() + "/ " + inimigo.getVidaMax() +
+                "\n\nEnergia: " + inimigo.getEnergia() + "/ " + inimigo.getEnergiaMax() + "\n");
     }
     
     private void item(int index){
@@ -420,7 +430,8 @@ public class CombateGUI extends JFrame implements ActionListener{
     private int calcularAtaque(Persona atacante){
         int ataque;
         ataque = (byte) (atacante.getForca() / 2 + atacante.getInteligencia() / 5); //FORCA / 2 + INTELIGENCIA / 5
-        ataque += (byte) (atacante.getArma().getEfeito());                      //EFEITO DE ARMADURA;
+        if(atacante.getArma() != null)
+            ataque += (byte) (atacante.getArma().getEfeito());                  //EFEITO DE ARMA
         ataque += (byte) (ataque * (atacante.getSorte() / 100));                //DEFESA DE SORTE EM %
         return ataque;
     }
@@ -429,7 +440,8 @@ public class CombateGUI extends JFrame implements ActionListener{
     private int calcularDefesa(Persona alvo){
         int defesa;
         defesa = (byte) (alvo.getResistencia() / 2 + alvo.getAgilidade() / 5);  //RESISTENCIA / 2 + VELOCIDADE / 5
-        defesa += (byte) (alvo.getArmadura().getEfeito());                      //EFEITO DE ARMADURA;
+        if(alvo.getArmadura() != null)
+            defesa += (byte) (alvo.getArmadura().getEfeito());                  //EFEITO DE ARMADURA;
         defesa += (byte) (defesa * (alvo.getSorte() / 100));                    //DEFESA DE SORTE EM %
         return defesa;
     }
