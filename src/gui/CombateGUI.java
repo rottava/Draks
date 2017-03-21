@@ -60,14 +60,12 @@ public class CombateGUI extends JFrame implements ActionListener{
     private JTextArea jTextAreaVilao;
     private Inimigo inimigo;
     private boolean fuga = false;
-    private final int ordem;
     private final Porta porta;
     private byte[] comando;
     
-    public CombateGUI(Porta porta, int ordem) {
-        setaInimigo(porta);
+    public CombateGUI(Porta porta) {
         this.porta = porta;
-        this.ordem = ordem;
+        setaInimigo(porta);
         initGUI();
     }
     
@@ -80,7 +78,7 @@ public class CombateGUI extends JFrame implements ActionListener{
         setLayout(null);
         setResizable(false);
         setVisible(true);
-        JLabel background = new JLabel (new ImageIcon("resources/"+ordem+".jpg"));
+        JLabel background = new JLabel (new ImageIcon("resources/batalha.jpg"));
         background.setBounds(0, 0, 1024, 720);
         
         jLabelNomeHeroi = new JLabel (HEROI.getNome());
@@ -298,7 +296,7 @@ public class CombateGUI extends JFrame implements ActionListener{
     
     //VERIFICA COMANDO
     private byte[] testaComando(Inimigo inimigo){
-        byte[] comando = new byte[2];
+        comando = new byte[2];
         byte auxiliar;
         if((auxiliar = testaHabilidade(inimigo)) > 0){
             if(inimigo.reduzEnergia( (byte) (inimigo.getEnergia() - 
@@ -332,11 +330,11 @@ public class CombateGUI extends JFrame implements ActionListener{
     
     //VERIFICA HABILIDADE
     private byte testaHabilidade(Inimigo inimigo){
-        byte comando, habilidade;
+        byte ataque, habilidade;
             if (inimigo.getTalentosCura().getTamanho() > 0){
                 if(inimigo.getTalentosDano().getTamanho() > 0){
-                    comando= (byte) ALEATORIO.nextInt(2);
-                    switch (comando) {
+                    ataque = (byte) ALEATORIO.nextInt(2);
+                    switch (ataque) {
                         case 1:
                             habilidade = (byte) ALEATORIO.nextInt(inimigo.getTalentosCura().getTamanho());
                             break;
@@ -349,8 +347,8 @@ public class CombateGUI extends JFrame implements ActionListener{
                     }
                 }
                 else{
-                    comando = (byte) ALEATORIO.nextInt(1);
-                    switch (comando) {
+                    ataque = (byte) ALEATORIO.nextInt(1);
+                    switch (ataque) {
                         case 1:
                             habilidade = (byte) ALEATORIO.nextInt(inimigo.getTalentosCura().getTamanho());
                             break;
@@ -383,7 +381,7 @@ public class CombateGUI extends JFrame implements ActionListener{
             if (linha != null){
                 String[] parametros;
                 linha = lerArq.readLine();
-                parametros = linha.split("/");                     //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
+                parametros = linha.split("/");                                  //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
                 byte tipo = (byte) Integer.parseInt(parametros[8]);             //TIPO DO ITEM PORTADO
                 return tipo > 0;
             }

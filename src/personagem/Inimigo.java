@@ -44,8 +44,11 @@ public class Inimigo extends Persona{
     
     //SELETOR
     private void seletor(){
-        if (id >= 0)                                                            //POSITIVO LE DE ARQUIVO
+        if (id >= 0){                                                           //POSITIVO LE DE ARQUIVO
             lerArquivo();
+            geraVidaMax();
+            geraEnergiaMax();
+        }
         else                                                                    //NEGATIVO GERA ALEATORIO
             randomizer();  
     }

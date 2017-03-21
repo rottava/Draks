@@ -15,10 +15,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -367,7 +365,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
     private void testaNorte(){
         if(btnNorte.getIcon() != null){
             if(btnNorte.getIcon().toString().equals("resources/inimigo.png")){
-                CombateGUI combate = new CombateGUI(SALA.getNorte(), ordem);
+                CombateGUI combate = new CombateGUI(SALA.getNorte());
             }
             else{
                 if(btnNorte.getIcon().toString().equals("resources/item.png")){
@@ -480,7 +478,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
     private void testaSul(){
         if(btnSul.getIcon() != null){
             if(btnSul.getIcon().toString().equals("resources/inimigo.png")){
-                CombateGUI combate = new CombateGUI(SALA.getSul(), ordem);
+                CombateGUI combate = new CombateGUI(SALA.getSul());
             }
             else{
                 if(btnSul.getIcon().toString().equals("resources/item.png")){
@@ -592,7 +590,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
     private void testaLeste(){
         if(btnLeste.getIcon() != null){
             if(btnLeste.getIcon().toString().equals("resources/inimigo.png")){
-                CombateGUI combate = new CombateGUI(SALA.getLeste(), ordem);
+                CombateGUI combate = new CombateGUI(SALA.getLeste());
             }
             else{
                 if(btnLeste.getIcon().toString().equals("resources/item.png")){
@@ -704,7 +702,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
     private void testaOeste(){
         if(btnOeste.getIcon() != null){
             if(btnOeste.getIcon().toString().equals("resources/inimigo.png")){
-                CombateGUI combate = new CombateGUI(SALA.getOeste(), ordem);
+                CombateGUI combate = new CombateGUI(SALA.getOeste());
             }
             else{
                 if(btnOeste.getIcon().toString().equals("resources/item.png")){
