@@ -11,7 +11,7 @@ import java.util.Scanner;
 import static main.Main.HEROI;
 import static main.Main.INIMIGOS;
 import static main.Main.TAMANHOMAXIMO;
-import static main.Main.aleatorio;
+import static main.Main.ALEATORIO;
 import mapa.Porta;
 import personagem.InimigoChefe;
 import personagem.Inimigo;
@@ -149,13 +149,13 @@ public class Combate {
         byte comando, habilidade;
             if (inimigo.getTalentosCura().getTamanho() > 0){
                 if(inimigo.getTalentosDano().getTamanho() > 0){
-                    comando= (byte) aleatorio.nextInt(2);
+                    comando= (byte) ALEATORIO.nextInt(2);
                     switch (comando) {
                         case 1:
-                            habilidade = (byte) aleatorio.nextInt(inimigo.getTalentosCura().getTamanho());
+                            habilidade = (byte) ALEATORIO.nextInt(inimigo.getTalentosCura().getTamanho());
                             break;
                         case 2:
-                            habilidade = (byte) -(aleatorio.nextInt(inimigo.getTalentosDano().getTamanho()));
+                            habilidade = (byte) -(ALEATORIO.nextInt(inimigo.getTalentosDano().getTamanho()));
                             break;
                         default:
                             habilidade = (byte) 0;
@@ -163,10 +163,10 @@ public class Combate {
                     }
                 }
                 else{
-                    comando = (byte) aleatorio.nextInt(1);
+                    comando = (byte) ALEATORIO.nextInt(1);
                     switch (comando) {
                         case 1:
-                            habilidade = (byte) aleatorio.nextInt(inimigo.getTalentosCura().getTamanho());
+                            habilidade = (byte) ALEATORIO.nextInt(inimigo.getTalentosCura().getTamanho());
                             break;
                         default:
                             habilidade = (byte) 0;
@@ -275,7 +275,7 @@ public class Combate {
         int evasao;
         evasao = (persona.getAgilidade() + persona.getInteligencia() / 2);      //AGILIDADE + INTELIGENCIA / 2
         evasao += (byte) (evasao * persona.getSorte() / 100);                   //EVASAO DE SORTE EM %
-        evasao += persona.getSorte() + aleatorio.nextInt(persona.getAgilidade());//SORTE + VALOR ALEATORIO ATE AGILIDADE
+        evasao += persona.getSorte() + ALEATORIO.nextInt(persona.getAgilidade());//SORTE + VALOR ALEATORIO ATE AGILIDADE
         return evasao;
     }
     
@@ -319,7 +319,7 @@ public class Combate {
     //CALCULO DE FUGA
     private boolean calculaFuga(Persona persona){
         int agilidade = persona.getAgilidade() + persona.getSorte();
-        fuga = agilidade > aleatorio.nextInt(TAMANHOMAXIMO);
+        fuga = agilidade > ALEATORIO.nextInt(TAMANHOMAXIMO);
         return fuga;
     }
 }

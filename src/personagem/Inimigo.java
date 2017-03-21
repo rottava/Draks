@@ -17,7 +17,7 @@ import static main.Main.NOMES;
 import static main.Main.TAMANHOHABILIDADESCURA;
 import static main.Main.TAMANHOHABILIDADESDANO;
 import static main.Main.TAMANHOMAXIMO;
-import static main.Main.aleatorio;
+import static main.Main.ALEATORIO;
 
 /**
  *
@@ -67,7 +67,7 @@ public class Inimigo extends Persona{
             int contador = 0;
             for(Scanner scanner = new Scanner(NOMES); scanner.hasNext(); contador++){
                 String linha = scanner.nextLine();
-                if(aleatorio.nextInt(contador) == 0)
+                if(ALEATORIO.nextInt(contador) == 0)
                     resultado = linha;
             }
             return resultado;
@@ -81,11 +81,11 @@ public class Inimigo extends Persona{
         byte resultado;
         byte auxiliar;
         if( pontos <= (TAMANHOMAXIMO - parametro) ){
-            auxiliar = (byte) aleatorio.nextInt(pontos);
+            auxiliar = (byte) ALEATORIO.nextInt(pontos);
             resultado = (byte) (auxiliar + parametro);
         }
         else{
-            auxiliar = (byte) aleatorio.nextInt(TAMANHOMAXIMO - parametro);
+            auxiliar = (byte) ALEATORIO.nextInt(TAMANHOMAXIMO - parametro);
             resultado = (byte) (auxiliar + parametro);
         }
         pontos -= auxiliar;
@@ -115,25 +115,25 @@ public class Inimigo extends Persona{
     private void geraPontos(){
         switch (id){
             case -1:
-                pontos = (byte) (aleatorio.nextInt(50)+50);
+                pontos = (byte) (ALEATORIO.nextInt(50)+50);
                 break;
             case -2:
-                pontos = (byte) (aleatorio.nextInt(50)+100);
+                pontos = (byte) (ALEATORIO.nextInt(50)+100);
                 break;
             case -3:
-                pontos = (byte) (aleatorio.nextInt(50)+150);
+                pontos = (byte) (ALEATORIO.nextInt(50)+150);
                 break;
             case -4:
-                pontos = (byte) (aleatorio.nextInt(50)+200);
+                pontos = (byte) (ALEATORIO.nextInt(50)+200);
                 break;
             case -5:
-                pontos = (byte) (aleatorio.nextInt(50)+250);
+                pontos = (byte) (ALEATORIO.nextInt(50)+250);
                 break;
             case -6:
-                pontos = (byte) (aleatorio.nextInt(50)+300);
+                pontos = (byte) (ALEATORIO.nextInt(50)+300);
                 break;
            default:
-                pontos = (byte) (aleatorio.nextInt(TAMANHOMAXIMO * 4));
+                pontos = (byte) (ALEATORIO.nextInt(TAMANHOMAXIMO * 4));
                 break;
         }
     }
@@ -144,12 +144,12 @@ public class Inimigo extends Persona{
         if(TAMANHOHABILIDADESCURA > 0){
             byte quantidade;
             if(TAMANHOHABILIDADESCURA > idInv)
-                quantidade = (byte) ((aleatorio.nextInt(idInv) + 2) /2);
+                quantidade = (byte) ((ALEATORIO.nextInt(idInv) + 2) /2);
             else
-                quantidade = (byte) (aleatorio.nextInt((TAMANHOHABILIDADESCURA-1)/2)+1);
+                quantidade = (byte) (ALEATORIO.nextInt((TAMANHOHABILIDADESCURA-1)/2)+1);
             Habilidade habilidade;
             do{
-                habilidade = new HabilidadeCura((byte) aleatorio.nextInt(TAMANHOHABILIDADESCURA));
+                habilidade = new HabilidadeCura((byte) ALEATORIO.nextInt(TAMANHOHABILIDADESCURA));
                 if(!verificaHabilidadeCura(habilidade)){
                     addTalentosCura(habilidade);
                     quantidade--;
@@ -165,12 +165,12 @@ public class Inimigo extends Persona{
         if(TAMANHOHABILIDADESDANO > 0){
             byte quantidade;
             if(TAMANHOHABILIDADESDANO > idInv)
-                quantidade = (byte) ((aleatorio.nextInt(idInv) + 2) /2);
+                quantidade = (byte) ((ALEATORIO.nextInt(idInv) + 2) /2);
             else
-                quantidade = (byte) (aleatorio.nextInt((TAMANHOHABILIDADESDANO-1)/2)+1);
+                quantidade = (byte) (ALEATORIO.nextInt((TAMANHOHABILIDADESDANO-1)/2)+1);
             Habilidade habilidade;
             do{
-                habilidade = new HabilidadeDano((byte) aleatorio.nextInt(TAMANHOHABILIDADESDANO));
+                habilidade = new HabilidadeDano((byte) ALEATORIO.nextInt(TAMANHOHABILIDADESDANO));
                 if(!verificaHabilidadeDano(habilidade)){
                     addTalentosDano(habilidade);
                     quantidade--;

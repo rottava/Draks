@@ -10,7 +10,7 @@ import habilidade.Talentos;
 import item.Arma;
 import item.Armadura;
 import static main.Main.TAMANHOMAXIMO;
-import static main.Main.aleatorio;
+import static main.Main.ALEATORIO;
 
 /**
  *
@@ -49,7 +49,7 @@ public abstract class Persona implements Comparable<Persona>{
         this.inteligencia = inteligencia;                                       //PARAMETRO INTELIGENCIA
         this.agilidade = agilidade;                                             //PARAMETRO VELOCIDADE
         this.resistencia = resistencia;                                         //PARAMETRO RESISTENCIA
-        sorte = (byte) aleatorio.nextInt(10);                                   //PARAMETRO SORTE
+        sorte = (byte) ALEATORIO.nextInt(10);                                   //PARAMETRO SORTE
         geraVidaMax();                                                          //PARAMETRO VIDA MAXIMA INICIAL
         this.vida = vidaMax;                                                    //PARAMETRO VIDA
         geraEnergiaMax();                                                       //PARAMETRO ENERGIA MAXIMA INICIAL
@@ -60,7 +60,7 @@ public abstract class Persona implements Comparable<Persona>{
     
     //CONSTRUTOR VAZIO
     Persona(){
-        sorte = (byte) aleatorio.nextInt(10);                                   //PARAMETRO SORTE
+        sorte = (byte) ALEATORIO.nextInt(10);                                   //PARAMETRO SORTE
         talentosCura = new Talentos();                                          //LISTA DE TALENTOS DE CURA
         talentosDano = new Talentos();                                          //LISTA DE TALENTOS DE DANO
     }

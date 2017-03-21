@@ -1,22 +1,22 @@
-Pátio Entrada/2/0//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/0/0/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/0/0/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/0/0/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Saguão Principal/0/IdChave/TipoItemNorte/ItemNorte/IDInimigoNorte/1/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/4/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/3/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Cozinha/0/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/0/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/2/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/0/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Escada/6/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/0/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/0/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/3/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Depósito/8/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/0/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/0/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/0/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Sala/0/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/4/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/8/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/7/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Quarto de Visitas/0/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/0/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/6/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/0/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Biblioteca/0/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/5/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/9/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/6/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Sala Secreta/10/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/0/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/0/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/8/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Sala Grande/12/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/9/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/11/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/0/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Depósito de Armas/0/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/0/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/0/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/10/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Acesso ao Corredor/0/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/10/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/0/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/13/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Corredor/0/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/0/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/12/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/14/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Corredor/0/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/0/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/13/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/15/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Corredor/0/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/0/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/14/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/16/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Corredor/17/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/0/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/15/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/0/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Corredor/18/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/16/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/0/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/0/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Corredor/0/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/17/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/19/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/0/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Acesso ao Quarto do Drácula/0/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/20/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/0/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/18/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
-Quarto do Drácula/19/IdChave//TipoItemNorte/IDItemNorte/QuantidadeItem/IDInimigoNorte/0/IdChave/TipoItemSul/IDItemSul/QuantidadeItem/IDInimigoSul/0/IdChave/TipoItemLeste/IDItemLestel/QuantidadeItem/IDInimigoLeste/0/IdChave/TipoItemOeste/IDItemOestel/QuantidadeItem/IDInimigoOeste
+Pátio Entrada/2/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0
+Saguão Principal/0/0/0/0/0/1/0/0/0/0/0/4/0/0/0/0/0/3/0/0/0/0/0
+Cozinha/0/0/0/0/0/0/0/0/0/0/0/0/2/0/0/0/0/0/0/0/0/0/0/0
+Escada/6/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/3/0/0/0/0/0
+Depósito/8/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0
+Sala/0/0/0/0/0/0/4/0/0/0/0/0/8/0/0/0/0/0/7/0/0/0/0/0
+Quarto de Visitas/0/0/0/0/0/0/0/0/0/0/0/0/6/0/0/0/0/0/0/0/0/0/0/0
+Biblioteca/0/0/0/0/0/0/5/0/0/0/0/0/9/0/0/0/0/0/6/0/0/0/0/0
+Sala Secreta/10/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/8/0/0/0/0/0
+Sala Grande/12/0/0/0/0/0/9/0/0/0/0/0/11/0/0/0/0/0/0/0/0/0/0/0
+Depósito de Armas/0/0//0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/10/0/0/0/0/0
+Acesso ao Corredor/0/0//0/0/0/0/10/0/0/0/0/0/0/0/0/0/0/0/13/0/0/0/0/0
+Corredor/0/0/0/0/0/0/0/0/0/0/0/0/12/0/0/0/0/0/14/0/0/0/0/0
+Corredor/0/0/0/0/0/0/0/0/0/0/0/0/13/0/0/0/0/0/15/0/0/0/0/0
+Corredor/0/0/0/0/0/0/0/0/0/0/0/0/14/0/0/0/0/0/16/0/0/0/0/0
+Corredor/17/0/0/0/0/0/0/0/0/0/0/0/15/0/0/0/0/0/0/0/0/0/0/0
+Corredor/18/0/0/0/0/0/16/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0
+Corredor/0/0/0/0/0/0/17/0/0/0/0/0/19/0/0/0/0/0/0/0/0/0/0/0
+Acesso ao Quarto do Drácula/0/0//0/0/0/0/20/0/0/0/0/0/0/0/0/0/0/0/18/0/0/0/0/0
+Quarto do Drácula/19/0//0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0
 
 

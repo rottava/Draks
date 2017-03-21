@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
-import java.util.Random;
 import java.util.Scanner;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -36,12 +35,11 @@ import static main.Main.SALA;
  * Criação das salas com seus ítens e inimigos
  * @author wagner
  */
-public class SalaGUI extends JFrame implements ActionListener {
+public final class SalaGUI extends JFrame implements ActionListener {
     private int ordem;
     private int inimigos;
-    private int chefe;
     private int itens;
-    private final String nomeSala;
+    private String nomeSala;
     private JButton btnNorte;
     private JButton btnSul;
     private JButton btnLeste;
@@ -53,7 +51,7 @@ public class SalaGUI extends JFrame implements ActionListener {
      * Construtor da interface gráfica da sala
      */
     public SalaGUI () {
-        this.nomeSala = SALA.getNome();
+        initGUI(SALA.getId());
     }
     
     /**
@@ -62,6 +60,7 @@ public class SalaGUI extends JFrame implements ActionListener {
      */
     public void initGUI (int ordem) {
         this.ordem = ordem;
+        this.nomeSala = SALA.getNome();
         //Características da Janela
         setTitle("Castelo do Draks");
         setSize(1024, 720);
