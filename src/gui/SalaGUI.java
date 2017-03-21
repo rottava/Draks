@@ -57,7 +57,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
     
     /**
      * Inicia a janela de Interface Gráfica da Sala
-     * @param ordem = Número da imagem a ser exibida com background
+     * @param ordem = Número da imagem a ser exibida com background e ID da sala
      */
     public void initGUI (int ordem) {
         this.ordem = ordem;
@@ -87,7 +87,8 @@ public final class SalaGUI extends JFrame implements ActionListener {
         btnNorte.setBounds(480,10,80,30); //x, y, largura, altura
         btnNorte.addActionListener(this);
         if (SALA.getNorte().getSala() == 0 || SALA.getNorte().getInimigo() != 0 || SALA.getNorte().getItem() != 0) {
-            btnNorte.setVisible(false);
+            //btnNorte.setVisible(false);
+            setNorte();
         }
         add(btnNorte);
         
@@ -208,6 +209,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
                 inimigo = new JLabel (new ImageIcon("resources/inimigo.png"));
             inimigo.setBounds(posicaoX, posicaoY, 100, 100);
             add(inimigo);
+            inimigo.setVisible(true);
             inimigo.addMouseListener(new MouseListener(){
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -227,6 +229,9 @@ public final class SalaGUI extends JFrame implements ActionListener {
         }
     }
     
+    /**
+     * Adiciona na tela a imagem dos Itens
+     */
     private void adicionarItens() {
         for (int i = 0; i < itens; i++) {
             JLabel item;
@@ -323,12 +328,15 @@ public final class SalaGUI extends JFrame implements ActionListener {
     }
     
     @Override
+    /**
+     * Eventos dos botões de direção
+     */
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == btnNorte) {
             System.out.println("BOTAO NORTE");
             testaNorte();         
 	} else if (ae.getSource() == btnSul) {
-            testaSul();;
+            testaSul();
 	} else if (ae.getSource() == btnLeste) {
             testaLeste();
         } else if (ae.getSource() == btnOeste) {
@@ -336,6 +344,9 @@ public final class SalaGUI extends JFrame implements ActionListener {
         }
     }
     
+    /**
+     * Verifica o que tem na posição Norte
+     */
     private void testaNorte(){
         if(btnNorte.getIcon() != null){
             if(btnNorte.getIcon().toString().equals("resources/inimigo.png")){
@@ -410,11 +421,15 @@ public final class SalaGUI extends JFrame implements ActionListener {
         setNorte();
     }
     
+    /**
+     * Seta o que tem na posição Norte
+     */
     private void setNorte(){
         if(SALA.getNorte().getInimigo() != 0){
             btnNorte.setVisible(true);
             ImageIcon img = new ImageIcon("resources/inimigo.png");
             btnNorte.setIcon(img);
+            btnNorte.setVisible(true);
         }
         else{
             if(SALA.getNorte().getItem() != 0){
@@ -442,6 +457,9 @@ public final class SalaGUI extends JFrame implements ActionListener {
         }
     }
     
+    /**
+     * Verifica o que tem na posição Sul
+     */
     private void testaSul(){
         if(btnSul.getIcon() != null){
             if(btnSul.getIcon().toString().equals("resources/inimigo.png")){
@@ -516,6 +534,9 @@ public final class SalaGUI extends JFrame implements ActionListener {
         setSul();
     }
     
+    /**
+     * Seta o que tem na posição Sul
+     */
     private void setSul(){
         if(SALA.getSul().getInimigo() != 0){
             btnSul.setVisible(true);
@@ -548,6 +569,9 @@ public final class SalaGUI extends JFrame implements ActionListener {
         }
     }
     
+    /**
+     * Verifica o que tem na posição Leste
+     */
     private void testaLeste(){
         if(btnLeste.getIcon() != null){
             if(btnLeste.getIcon().toString().equals("resources/inimigo.png")){
@@ -622,6 +646,9 @@ public final class SalaGUI extends JFrame implements ActionListener {
         setLeste();
     }
     
+    /**
+     * Seta o que tem na posição Leste
+     */
     private void setLeste(){
         if(SALA.getLeste().getInimigo() != 0){
             btnLeste.setVisible(true);
@@ -654,6 +681,9 @@ public final class SalaGUI extends JFrame implements ActionListener {
         }
     }
     
+    /**
+     * Verifica o que tem na posição Oeste
+     */
     private void testaOeste(){
         if(btnOeste.getIcon() != null){
             if(btnOeste.getIcon().toString().equals("resources/inimigo.png")){
@@ -728,6 +758,9 @@ public final class SalaGUI extends JFrame implements ActionListener {
         setOeste();
     }
     
+    /**
+     * Seta o que tem na posição Oeste
+     */
     private void setOeste(){
         if(SALA.getOeste().getInimigo() != 0){
             btnOeste.setVisible(true);
@@ -761,6 +794,11 @@ public final class SalaGUI extends JFrame implements ActionListener {
     }
     
     //VERIFICA VALIDADE
+    /**
+     * Verifica a validade do Item
+     * @param id ID do item
+     * @return true se for válido false caso contrário
+     */
     private boolean testaItem(byte id){
         try {
             Scanner scanner = new Scanner(INIMIGOS);

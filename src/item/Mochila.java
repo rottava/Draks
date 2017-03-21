@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Mochila
  * @author Junior
  */
 public class Mochila {
@@ -25,6 +25,9 @@ public class Mochila {
     private final byte TAMANHOFINAL = 100;                                      //TAMANHO MAXIMO
     
     //CONSTRUTOR
+    /**
+     * Construtor
+     */
     public Mochila(){
         mochila = new ArrayList<>();                                            //LISTA DE ITENS
         tamanho = TAMANHOINICIAL;                                               //TAMANHO INICIAL DA LISTA
@@ -34,11 +37,20 @@ public class Mochila {
     //GETTERS AND SETTERS
     
     //RETORNA LISTA DE ITENS
+    /**
+     * Pega os itens da Mochila
+     * @return lista com todos os ítens da Mochila
+     */
     public List<Item> getItens(){
         return mochila;
     }
     
     //RETORNA INDEX DO ITEM
+    /**
+     * Pega Index do ítem
+     * @param id ID do ítem
+     * @return retorna index do ítem
+     */
     public byte getItemIndex(byte id){
         byte index = 0;
         while(mochila.get(index).getId() != id && index <= mochila.size())
@@ -46,16 +58,29 @@ public class Mochila {
         return index;
     }
     
+    /**
+     * Pega a ID do efeito na Mochila
+     * @param id ID do efeito
+     * @return ID do efeito na Mochila
+     */
     public byte getEfeitoId(byte id){
         return mochila.get(getItemIndex(id)).getEfeito();
     }
     
     //RETORNA TAMANHO
+    /**
+     * Pega o tamanho da Mochila
+     * @return byte com o tamanho da mochila
+     */
     public byte getTamanho(){
         return tamanho;
     }
     
     //SETA TAMANHO ENQUANTO TAMANHO MENO QUE TAMANHOFINAL
+    /**
+     * Configura o tamanho da Mochila
+     * @param tamanho byte com o novo tamanho da Mochila
+     */
     public void setTamanho(byte tamanho){
         if (tamanho < TAMANHOFINAL)
             this.tamanho = tamanho;
@@ -64,11 +89,20 @@ public class Mochila {
     }
     
     //RETORNA PESO
+    /**
+     * Pega o peso atual da Mochila
+     * @return byte com o peso atual da Mochila
+     */
     public byte getPeso(){
         return peso;
     }
     
     //ADICIONA ITEM NA LISTA DE ITENS
+    /**
+     * Adiciona itens na Mochila
+     * @param item id do ítem
+     * @return true se foi adicionado com sucesso, false caso contrário
+     */
     public boolean addMochila(Item item){
         byte loop = 0;
         while ((mochila.get(loop).getId() != item.getId()) && loop < tamanho)   //VERIFICA LISTA PROCURANDO O ITEM
@@ -103,6 +137,11 @@ public class Mochila {
     }
     
     //REMOVE ITEM DA LISTA DE ITENS
+    /**
+     * Remove um ítem da mochila
+     * @param item ID do ítem
+     * @return true se a operação foi bem realizada com sucesso, false caso contrário
+     */
     public boolean subMochila(Item item){
         byte loop = 0;
         byte ultimo = 0;

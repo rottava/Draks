@@ -11,16 +11,24 @@ import static main.Main.HABILIDADESCURA;
 import static main.Main.TAMANHOHABILIDADESCURA;
 
 /**
- *
+ * Item Habilidade de Cura
  * @author Junior
  */
 public class ItemHabilidadeCura extends Item{
     
+    /**
+     * Construto
+     * @param id ID da Habilidade de Cura 
+     */
     public ItemHabilidadeCura(byte id){
         setParam(id);
     }
     
     //CONFIGURA OBJETO ITEM APARTIR DE ARQUIVO
+    /**
+     * Configura objeto item a partir do arquivo
+     * @param id id do ítem
+     */
     private void setParam(byte id){
         setId(id);
         Scanner scanner;

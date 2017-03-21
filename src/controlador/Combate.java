@@ -18,7 +18,7 @@ import personagem.Inimigo;
 import personagem.Persona;
 
 /**
- *
+ * Classe responsável pelo Combate
  * @author Junior
  */
 public class Combate {
@@ -281,11 +281,11 @@ public class Combate {
     
     //REDUZ VIDA DO ALVO E RETORNA VERDADEIRO OU RETORNA FALSO
     /**
-     * 
-     * @param atacante
-     * @param alvo
-     * @param habilidade
-     * @return 
+     * Reduz vida do alvo
+     * @param atacante Personagem que está realizando o ataque
+     * @param alvo Personagem que está sendo atacado
+     * @param habilidade Habilidade utilizada no ataque
+     * @return true se o ataque ocorreu ou false caso contrário
      */
     private boolean causarDanoEspecial(Persona atacante, Persona alvo, Habilidade habilidade){
         if ((calcularEvasao(alvo) * 1.2) > calcularEvasao(atacante))            //VERIFICA SE EVADIU ATAQUE
@@ -299,6 +299,12 @@ public class Combate {
     }
     
     //CALCULO DE ATAQUE = INTELIGENCIA / 2 + FORCA / 5 + EFEITO HABILIDADE + ATAQUE%SORTE
+    /**
+     * Calculo do Ataque especial
+     * @param atacante Personagem que está realizando o ataque
+     * @param habilidade Habilidade utilizada pelo personagem
+     * @return valor do ataque
+     */
     private int calcularAtaqueEspecial(Persona atacante, Habilidade habilidade){
         int ataque;
         ataque = (byte) (atacante.getInteligencia() / 2 + atacante.getForca() / 5); //INTELIGENCIA / 2 + FORCA / 5
@@ -308,6 +314,11 @@ public class Combate {
     }
     
     //CALCULO DE DEFESA = RESISTENCIA / 2 + AGILIDADE / 5 + EFEITO ARMADURA + DEFESA%SORTE
+    /**
+     * Calculo de Defesa Especial
+     * @param alvo Personagem que está sendo atacado
+     * @return defesa do personagem
+     */
     private int calcularDefesaEspecial(Persona alvo){
         int defesa;
         defesa = (byte) (alvo.getResistencia() / 3 + alvo.getAgilidade() / 3);  //RESISTENCIA / 3 + VELOCIDADE / 3
@@ -317,6 +328,11 @@ public class Combate {
     }
     
     //CALCULO DE FUGA
+    /**
+     * Cálculo da fuga dos personagens
+     * @param persona Personagem para o cálculo
+     * @return valor da Fuga
+     */
     private boolean calculaFuga(Persona persona){
         int agilidade = persona.getAgilidade() + persona.getSorte();
         fuga = agilidade > ALEATORIO.nextInt(TAMANHOMAXIMO);

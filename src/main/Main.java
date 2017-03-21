@@ -19,7 +19,7 @@ import mapa.Sala;
 import personagem.Heroi;
 
 /**
- *
+ * Classe principal
  * @author Junior
  */
 public class Main {
@@ -73,6 +73,9 @@ public class Main {
         janela.setVisible(true);
     }
     
+    /**
+     * Configura os parâmetros
+     */
     private static void setParam(){
     ITENSCURA = new File("config/itenscura.txt");
     ITENSENERGIA = new File("config/itensenergia.txt");
@@ -101,6 +104,11 @@ public class Main {
     HEROI.addMochila(new Arma((byte)1));
     }
     
+    /**
+     * Pega o tamanho do arquivo
+     * @param caminho String com o caminho do arquivo para saber o tamanho
+     * @return byte contendo o tamanho em linhas do arquivo
+     */
     private static byte tamanho (String caminho) {
         byte tamanho = 0;
         try {
@@ -117,23 +125,5 @@ public class Main {
             e.getMessage();
         }
         return tamanho;
-    }
-    
-    private static byte getTamanhoArquivo(File arquivo) {
-        byte contador = 0;
-        try{
-            Scanner scanner = new Scanner(arquivo);
-            while(scanner.hasNextLine()){
-                String linha = scanner.nextLine();
-                if (contador == TAMANHOMAXIMO)
-                    throw new UnsupportedOperationException("Arquivo em " + arquivo + " é muito grande!");
-                contador++;
-            }
-        }
-        catch(FileNotFoundException fe) {
-            throw new UnsupportedOperationException("Arquivo em " + arquivo + " não foi encontrado.");
-        }
-        return contador;
-    }
-    
+    }    
 }

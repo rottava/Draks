@@ -11,16 +11,24 @@ import static main.Main.ITENSENERGIA;
 import static main.Main.TAMANHOITENSENERGIA;
 
 /**
- *
+ * Item Energia
  * @author Junior
  */
 public class ItemEnergia extends Item{
     
+    /**
+     * Construtor
+     * @param id ID do ítem
+     */
     public ItemEnergia(byte id){
         setParam(id);
     }
     
     //CONFIGURA OBJETO ITEM APARTIR DE ARQUIVO
+    /**
+     * Configura objeto item a partir do arquivo
+     * @param id ID do ítem
+     */
     private void setParam(byte id){
         setId(id);
         Scanner scanner;

@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -78,6 +77,9 @@ public class JanelaInicial extends JFrame implements ActionListener {
     }    
     
     @Override
+    /**
+     * Pega as ações dos botões
+     */
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == btnNovoJogo) {
             System.out.println ("NOVO JOGO");

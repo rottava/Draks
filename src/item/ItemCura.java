@@ -11,16 +11,24 @@ import static main.Main.ITENSCURA;
 import static main.Main.TAMANHOITENSCURA;
 
 /**
- *
+ * Item Cura
  * @author Junior
  */
 public class ItemCura extends Item{
     
+    /**
+     * Construtor
+     * @param id ID do ítem
+     */
     public ItemCura(byte id){
         setParam(id);
     }
     
     //CONFIGURA OBJETO ITEM APARTIR DE ARQUIVO
+    /**
+     * Configura objeto item a partir do arquivo
+     * @param id ID do ítem
+     */
     private void setParam(byte id){
         setId(id);
         Scanner scanner;

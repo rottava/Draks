@@ -11,16 +11,24 @@ import static main.Main.ARMADURAS;
 import static main.Main.TAMANHOARMADURAS;
 
 /**
- *
+ * Armadura
  * @author Junior
  */
 public class Armadura extends Item{
     
+    /**
+     * Construtor
+     * @param id ID da armadura
+     */
     public Armadura(byte id){
         setParam(id);
     }
     
     //CONFIGURA OBJETO ITEM APARTIR DE ARQUIVO
+    /**
+     * Configura objeto item a partir do arquivo
+     * @param id ID da Armadura
+     */
     private void setParam(byte id){
         setId(id);
         Scanner scanner;

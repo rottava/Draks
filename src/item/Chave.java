@@ -11,16 +11,24 @@ import static main.Main.CHAVES;
 import static main.Main.TAMANHOCHAVES;
 
 /**
- *
+ * Chave
  * @author Junior
  */
 public class Chave extends Item{
     
+    /**
+     * Construtor da chave
+     * @param id ID da chave
+     */
     public Chave(byte id){
         setParam(id);
     }
     
     //CONFIGURA OBJETO ITEM APARTIR DE ARQUIVO
+    /**
+     * Configura objeto item a partir de arquivo
+     * @param id ID da chave
+     */
     private void setParam(byte id){
         setId(id);
         Scanner scanner;

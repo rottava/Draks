@@ -11,16 +11,24 @@ import static main.Main.ARMAS;
 import static main.Main.TAMANHOARMAS;
 
 /**
- *
+ * Arma
  * @author Junior
  */
 public class Arma extends Item{
     
+    /**
+     * Construtor Arma
+     * @param id ID da Arma
+     */
     public Arma(byte id){
         setParam(id);
     }
     
     //CONFIGURA OBJETO ITEM APARTIR DE ARQUIVO
+    /**
+     * Configura objeto item a partir do arquivo
+     * @param id ID da arma
+     */
     private void setParam(byte id){
         setId(id);
         Scanner scanner;

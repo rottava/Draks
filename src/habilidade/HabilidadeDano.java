@@ -11,16 +11,24 @@ import static main.Main.HABILIDADESDANO;
 import static main.Main.TAMANHOHABILIDADESDANO;
 
 /**
- *
+ * Habilidade de Dano
  * @author Junior
  */
 public class HabilidadeDano extends Habilidade{
     
+    /**
+     * Construtor da Habilidade de Dano
+     * @param id ID da Habilidade
+     */
     public HabilidadeDano(byte id){
         setParam(id);
     }
     
     //CONFIGURA HABILDIADE APARTIR DE ARQUIVO
+    /**
+     * Configura a habilidade a partir do arquivo
+     * @param id ID da habilidade
+     */
     private void setParam(byte id){
         setId(id);
         Scanner scanner;
