@@ -21,7 +21,7 @@ import static main.Main.SALA;
 public class JanelaInicial extends JFrame implements ActionListener {
     private JButton btnNovoJogo;
     private JButton btnCarregarJogo;
-    private SalaGUI sala;
+    public static SalaGUI salaGUI;
     
     /**
      * Construtor
@@ -84,8 +84,8 @@ public class JanelaInicial extends JFrame implements ActionListener {
         if (ae.getSource() == btnNovoJogo) {
             System.out.println ("NOVO JOGO");
             this.dispose();
-            sala = new SalaGUI();
-            sala.initGUI(1);
+            salaGUI = new SalaGUI();
+            salaGUI.initGUI(1);
 	} else if (ae.getSource() == btnCarregarJogo) {
             System.out.println ("CARREGAR JOGO");
             JOptionPane.showMessageDialog(null, "Carregar jogo!");
@@ -93,14 +93,14 @@ public class JanelaInicial extends JFrame implements ActionListener {
     }
     
     /**
-     * Faz a movimentação entre as salas
-     * @param destino = sala para qual o usuário deseja se mover
+     * Faz a movimentação entre as salaGUIs
+     * @param destino = salaGUI para qual o usuário deseja se mover
      * @return = true se a movimentação foi bem sucedida ou false caso não foi possível
      */
     public boolean irSala (int destino) {
         SALA = MAPA.getSalas().get(destino-1);
-        sala = new SalaGUI();
-        sala.initGUI(destino);
+        salaGUI = new SalaGUI();
+        salaGUI.initGUI(destino);
         return true;
     }
     

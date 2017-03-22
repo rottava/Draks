@@ -111,7 +111,7 @@ public abstract class Persona implements Comparable<Persona>{
      * @return true se ocorreu com sucesso false caso contrário
      */
     protected boolean setVida(byte vida){
-        if (vida <= vidaMax && vida > 0){
+        if (this.vida < vidaMax && vida > 0){
             if (vida < vidaMax)
                 this.vida = vida;
             else
@@ -161,7 +161,7 @@ public abstract class Persona implements Comparable<Persona>{
      * @return true se tudo ocorreu bem, false caso contrário
      */
     protected boolean setEnergia(byte energia){
-        if (energia <= energiaMax && energia >= 0){
+        if (this.energia < energiaMax && energia >= 0){
             if (energia < energiaMax)
                 this.energia = energia;
             else

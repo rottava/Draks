@@ -201,6 +201,8 @@ public class CombateGUI extends JFrame implements ActionListener{
         if (ae.getSource() == btnFugir) {
             if (calculaFuga(HEROI))
                 this.dispose();
+            else
+                ataque((byte)0, (byte) 0);
         }
     }
     
@@ -208,29 +210,35 @@ public class CombateGUI extends JFrame implements ActionListener{
             comando = testaComando(inimigo);
             if(HEROI.getAgilidade() > inimigo.getAgilidade()){
                 ataqueHeroi(ataque, id);
-                if(inimigo.getVida() == 0){
-                    recompensa();
-                    porta.setInimigo();
-                    JOptionPane.showMessageDialog(null, "Você venceu a batalha!");
-                    JanelaInicial ji = new JanelaInicial();
-                    if (ji.irSala (SALA.getId()))
-                        this.dispose();
-                }
-                else{
-                    ataqueInimigo(comando[0], comando[1]);
-                    if(HEROI.getVida() == 0){
-                        JOptionPane.showMessageDialog(null, "Você morreu!\n\n\nGAME OVER");
-                        System.exit(0);
-                        //POPUP VOCÊ PERDEU
-                        //VOLTA PRA TELA INICIAL
-                    }
-                }
+                testaVidaInimigo();
+                ataqueInimigo(comando[0], comando[1]);
+                testaVidaHeroi();
             }
             else{
                 ataqueInimigo(comando[0], comando[1]);
+                testaVidaHeroi();
                 ataqueHeroi(ataque, id);
+                testaVidaInimigo();
             }
             atualizaDados();
+    }
+    
+    private void testaVidaInimigo(){
+        if(inimigo.getVida() == 0){
+            recompensa();
+            porta.setInimigo();
+            JOptionPane.showMessageDialog(null, "Você venceu a batalha!");
+            JanelaInicial ji = new JanelaInicial();
+            if (ji.irSala (SALA.getId()))
+                this.dispose();
+        }
+    }
+    
+    private void testaVidaHeroi(){
+        if(HEROI.getVida() == 0){
+            JOptionPane.showMessageDialog(null, "Você morreu!\n\n\nGAME OVER");
+            System.exit(0);
+        }
     }
     
     private void atualizaDados(){
@@ -435,7 +443,7 @@ public class CombateGUI extends JFrame implements ActionListener{
         int ataque;
         ataque = (byte) (atacante.getForca() / 2 + atacante.getInteligencia() / 5); //FORCA / 2 + INTELIGENCIA / 5
         if(atacante.getArma() != null)
-            ataque += (byte) (atacante.getArma().getEfeito());                  //EFEITO DE ARMA
+            ataque += (byte) (atacante.getArma().getEfeito()/5);                //EFEITO DE ARMA
         ataque += (byte) (ataque * (atacante.getSorte() / 100));                //DEFESA DE SORTE EM %
         return ataque;
     }
@@ -445,7 +453,7 @@ public class CombateGUI extends JFrame implements ActionListener{
         int defesa;
         defesa = (byte) (alvo.getResistencia() / 2 + alvo.getAgilidade() / 5);  //RESISTENCIA / 2 + VELOCIDADE / 5
         if(alvo.getArmadura() != null)
-            defesa += (byte) (alvo.getArmadura().getEfeito());                  //EFEITO DE ARMADURA;
+            defesa += (byte) (alvo.getArmadura().getEfeito()/5);                //EFEITO DE ARMADURA;
         defesa += (byte) (defesa * (alvo.getSorte() / 100));                    //DEFESA DE SORTE EM %
         return defesa;
     }

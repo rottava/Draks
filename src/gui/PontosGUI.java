@@ -5,6 +5,7 @@
  */
 package gui;
 
+import static gui.JanelaInicial.salaGUI;
 import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import static main.Main.HEROI;
+import static main.Main.SALA;
 
 /**
  *
@@ -37,6 +39,7 @@ public class PontosGUI extends JFrame implements ActionListener{
     private Button btnDecrementarInteligencia;
     private Button btnIncrementarResistencia;
     private Button btnDecrementarResistencia;
+    private Button btnOK;
     
     public PontosGUI () {
         initGUI();
@@ -45,7 +48,7 @@ public class PontosGUI extends JFrame implements ActionListener{
     private void initGUI() {
         //Características da Janela
         setTitle("Pontos");
-        setSize(300, 380);
+        setSize(300, 400);
         setLocationRelativeTo(null);
         setLayout(null);
         setResizable(false);
@@ -186,6 +189,18 @@ public class PontosGUI extends JFrame implements ActionListener{
             jLabelArmadura.setText("Armadura: Não equipado");
         }
         add(jLabelArmadura);
+        
+        btnOK = new Button ("OK");
+        btnOK.setBounds (50, 320, 50, 50);
+        add(btnOK);
+        btnOK.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 1) {
+                    recarregar();
+                   
+                }       
+            }
+        });
     }
     
     private void incrementarResistencia() {
@@ -274,6 +289,13 @@ public class PontosGUI extends JFrame implements ActionListener{
             HEROI.geraVidaMax();
             HEROI.geraEnergiaMax();
         }
+    }
+    
+    private void recarregar(){
+        JanelaInicial ji = new JanelaInicial();
+        salaGUI.dispose();
+        ji.irSala (SALA.getId());
+        this.dispose();
     }
     
   

@@ -106,9 +106,9 @@ public class Mochila {
     public boolean addMochila(Item item){
         byte loop = 0;
         if (mochila.size() > 0){
-            while ((mochila.get(loop).getId() != item.getId()) && loop < mochila.size())   //VERIFICA LISTA PROCURANDO O ITEM
+            while ((mochila.get(loop).getId() != item.getId()) && mochila.get(loop).getClass() == item.getClass() && loop < mochila.size())   //VERIFICA LISTA PROCURANDO O ITEM
                 loop++;
-            if (mochila.get(loop).getId() == item.getId()){                         //SE ITEM JA EXISTE NA LISTA DE ITENS
+            if (mochila.get(loop).getId() == item.getId() && mochila.get(loop).getClass() == item.getClass()){                         //SE ITEM JA EXISTE NA LISTA DE ITENS
                 if ((mochila.get(loop).getQuantidadeMax() - mochila.get(loop).getQuantidade()) >= item.getQuantidade()){ //SE NUMERO DE ITENS NÃO ULTRAPASSA LIMITE DE ITENS POR OBJETO
                     peso = (byte) (peso + item.getPesoTotal());
                     mochila.get(loop).setQuantidade((byte) (mochila.get(loop).getQuantidade() + item.getQuantidade()));
@@ -154,11 +154,11 @@ public class Mochila {
         byte ultimo = 0;
         if(mochila.size() > 0){
             while (loop < mochila.size()){
-                if (mochila.get(loop).getId() == item.getId())                      //VERIFICA LISTA PROCURANDO ITEM
+                if (mochila.get(loop).getId() == item.getId() && mochila.get(loop).getClass() == item.getClass())                      //VERIFICA LISTA PROCURANDO ITEM
                     ultimo = loop;
                 loop++;
             } 
-            if (mochila.get(ultimo).getId() == item.getId()){                       //SE ITEM EXISTE NA LISTA
+            if (mochila.get(ultimo).getId() == item.getId() && mochila.get(ultimo).getClass() == item.getClass() ){                       //SE ITEM EXISTE NA LISTA
                 if ((mochila.get(ultimo).getQuantidade() - item.getQuantidade()) > 0){// SE NOVO NUMERO DE ITENS E MAIOR QUE 0
                     peso = (byte) (peso - (item.getPesoTotal()));
                     mochila.get(ultimo).setQuantidade((byte) (mochila.get(ultimo).getQuantidade() - item.getQuantidade()));

@@ -194,15 +194,15 @@ public final class SalaGUI extends JFrame implements ActionListener {
                 if (evt.getClickCount() == 2) {
                     int index = listaItem.locationToIndex(evt.getPoint());
                     item(index);
-                    carregarInventario();
-                    labelItens.setText("Inventário " + HEROI.getItens().size() + "/ " + HEROI.getMochila().getTamanho());
+                    recarregar();
+                    
                 }       
             }
         });
 	JScrollPane pItens = new JScrollPane(inventario);
         pItens.setBounds(30, 580, 150, 100);
 	add(pItens);
-        carregarInventario();
+        adicionarInventario();
         add(background);        
         if (ordem == 1 && !FLAG) {
             JOptionPane.showMessageDialog(null, "Você está no Castelo do Drácula\n\n"+
@@ -366,15 +366,14 @@ public final class SalaGUI extends JFrame implements ActionListener {
      * Adiciona na tela a imagem dos Itens
      */
     private void adicionarItens() {
-        byte id;
-        if ((id = SALA.getNorte().getItem()) != 0)
-            itens(id, 480, 10);
-        if ((id = SALA.getSul().getItem()) != 0)
-            itens(id, 480, 650);
-        if ((id = SALA.getLeste().getItem()) != 0)
-            itens(id, 930, 300);
-        if ((id = SALA.getOeste().getItem()) != 0)
-            itens(id, 10, 300);
+        if (SALA.getNorte().getItem() != 0)
+            itens(SALA.getNorte().getTipo(), 480, 10);
+        if (SALA.getSul().getItem() != 0)
+            itens(SALA.getSul().getTipo(), 480, 650);
+        if (SALA.getLeste().getItem() != 0)
+            itens(SALA.getLeste().getTipo(), 930, 300);
+        if (SALA.getOeste().getItem() != 0)
+            itens(SALA.getOeste().getTipo(), 10, 300);
     }
     
     private void itens(byte id, int posicaoX, int posicaoY){
@@ -390,16 +389,16 @@ public final class SalaGUI extends JFrame implements ActionListener {
                 item = new JLabel (new ImageIcon("resources/chave.png"));
                 break;
             case 4:
-                item = new JLabel (new ImageIcon("resources/habilidadecura.PNG"));
+                item = new JLabel (new ImageIcon("resources/habilidadecura.png"));
                 break;
            case -4:
-                item = new JLabel (new ImageIcon("resources/habilidadedano.PNG"));
+                item = new JLabel (new ImageIcon("resources/habilidadedano.png"));
                 break;
             case 5:
-                item = new JLabel (new ImageIcon("resources/pocaocura.png"));
+                item = new JLabel (new ImageIcon("resources/itemcura.png"));
                 break;
             case 6:
-                item = new JLabel (new ImageIcon("resources/pocaoenergia.PNG"));
+                item = new JLabel (new ImageIcon("resources/itemenergia.png"));
                 break;
             case 7:
                 item = new JLabel (new ImageIcon("resources/moedas.png"));
@@ -499,7 +498,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
     /**
      * Itens disponíveis no inventário
      */
-    private void carregarInventario() {
+    private void adicionarInventario() {
         ((DefaultListModel) inventario.getModel()).removeAllElements();
         for(byte loop = 0; loop < HEROI.getItens().size(); loop++){
             ((DefaultListModel) inventario.getModel()).addElement(HEROI.getItens().get(loop).getNome() + " x" + HEROI.getItens().get(loop).getQuantidade());

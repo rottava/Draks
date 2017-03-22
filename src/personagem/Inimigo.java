@@ -91,12 +91,12 @@ public class Inimigo extends Persona{
             FileReader arq = new FileReader (CAMINHONOMES);
             BufferedReader lerArq = new BufferedReader (arq);
             String linha = lerArq.readLine();
-            String resultado = null;
-            int loop = 0;
+            String resultado = "";
+            int loop = 1;
             while(linha != null){
-                linha = lerArq.readLine();
                 if(ALEATORIO.nextInt(loop) == 0)
                     resultado = linha;
+                linha = lerArq.readLine();
             }
             return resultado;
         } catch (IOException e) {
@@ -113,15 +113,17 @@ public class Inimigo extends Persona{
      * @return Resultado gerado
      */
     private byte geraParametro(byte parametro){
-        byte resultado;
-        byte auxiliar;
-        if( pontos <= (TAMANHOMAXIMO - parametro) ){
-            auxiliar = (byte) ALEATORIO.nextInt(pontos);
-            resultado = (byte) (auxiliar + parametro);
-        }
-        else{
-            auxiliar = (byte) ALEATORIO.nextInt(TAMANHOMAXIMO - parametro);
-            resultado = (byte) (auxiliar + parametro);
+        byte resultado = 0;
+        byte auxiliar = 0;
+        if (pontos > 0){
+            if( pontos <= (TAMANHOMAXIMO - parametro)){
+                auxiliar = (byte) (ALEATORIO.nextInt(pontos)+1);
+                resultado = auxiliar;
+            }
+            else{
+                auxiliar = (byte) (ALEATORIO.nextInt(TAMANHOMAXIMO - parametro)+1);
+                resultado = auxiliar;
+            }
         }
         pontos -= auxiliar;
         return resultado;
@@ -186,20 +188,15 @@ public class Inimigo extends Persona{
     private void geraTalentosCura(){
         byte idInv = (byte) (id*-1);
         if(TAMANHOHABILIDADESCURA > 0){
-            byte quantidade;
-            if(TAMANHOHABILIDADESCURA > idInv)
-                quantidade = (byte) ((ALEATORIO.nextInt(idInv) + 2) /2);
-            else
-                quantidade = (byte) (ALEATORIO.nextInt((TAMANHOHABILIDADESCURA-1)/2)+1);
+            byte quantidade = (byte) (ALEATORIO.nextInt((TAMANHOHABILIDADESCURA)));
             Habilidade habilidade;
-            do{
+            while(quantidade > 0){
                 habilidade = new HabilidadeCura((byte) ALEATORIO.nextInt(TAMANHOHABILIDADESCURA));
                 if(!verificaHabilidadeCura(habilidade)){
                     addTalentosCura(habilidade);
                     quantidade--;
                 }
             }
-            while (quantidade > 0);
         }
     }
     
@@ -210,20 +207,15 @@ public class Inimigo extends Persona{
     private void geraTalentosDano(){
         byte idInv = (byte) (id*-1);
         if(TAMANHOHABILIDADESDANO > 0){
-            byte quantidade;
-            if(TAMANHOHABILIDADESDANO > idInv)
-                quantidade = (byte) ((ALEATORIO.nextInt(idInv) + 2) /2);
-            else
-                quantidade = (byte) (ALEATORIO.nextInt((TAMANHOHABILIDADESDANO-1)/2)+1);
+            byte quantidade = (byte) (ALEATORIO.nextInt((TAMANHOHABILIDADESDANO)));
             Habilidade habilidade;
-            do{
-                habilidade = new HabilidadeDano((byte) ALEATORIO.nextInt(TAMANHOHABILIDADESDANO));
-                if(!verificaHabilidadeDano(habilidade)){
-                    addTalentosDano(habilidade);
+            while(quantidade > 0){
+                habilidade = new HabilidadeCura((byte) ALEATORIO.nextInt(TAMANHOHABILIDADESDANO));
+                if(!verificaHabilidadeCura(habilidade)){
+                    addTalentosCura(habilidade);
                     quantidade--;
                 }
             }
-            while (quantidade > 0);
         }
     }
     
