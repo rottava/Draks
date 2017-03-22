@@ -19,8 +19,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -36,9 +40,13 @@ import static main.Main.HEROI;
 import static main.Main.CAMINHOINIMIGOS;
 import static main.Main.TAMANHOMAXIMO;
 import static main.Main.ALEATORIO;
+import static main.Main.MAPA;
 import static main.Main.SALA;
+import mapa.Mapa;
 import personagem.Inimigo;
 import mapa.Porta;
+import mapa.Sala;
+import personagem.Heroi;
 import personagem.InimigoChefe;
 import personagem.Persona;
 
@@ -539,5 +547,5 @@ public class CombateGUI extends JFrame implements ActionListener{
             }
         }
     }
-    
+       
 }

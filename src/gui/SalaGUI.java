@@ -15,8 +15,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,6 +35,9 @@ import static main.Main.CAMINHOINIMIGOS;
 import static main.Main.HEROI;
 import static main.Main.SALA;
 import static main.Main.FLAG;
+import static main.Main.HEROI;
+import static main.Main.MAPA;
+import static main.Main.SALA;
 import mapa.Porta;
 
 /**
@@ -556,6 +561,43 @@ public final class SalaGUI extends JFrame implements ActionListener {
             e.getMessage();
         }
         return false;
+    }
+    
+    /*
+    Na função salvar() todo o progresso feito é salvo em um arquivo
+    Esse arquivo pode ser aberto pela função carregar() sempre no início da execução do programa
+    */
+    public static final void salvar () throws IOException{
+            //TRY CATCH
+        try{
+            //SALVA MAPA EM MAPA.SER
+            FileOutputStream arquivo = new FileOutputStream("dados/mapa.ser");
+            ObjectOutputStream saida = new ObjectOutputStream(arquivo);
+            //saida.writeObject(carro);
+            saida.writeObject(MAPA);
+            saida.close();
+            arquivo.close();
+            //System.out.printf("carros salvos em carro.ser");
+           
+            //SALVA HEROI EM HEROI.SER
+            arquivo = new FileOutputStream("dados/heroi.ser");
+            saida = new ObjectOutputStream(arquivo);
+            saida.writeObject(HEROI);
+            saida.close();
+            arquivo.close();
+            //System.out.printf("vagas salvas em vaga.ser");
+            
+             //SALVA SALA EM SALA.SER
+            arquivo = new FileOutputStream("dados/sala.ser");
+            saida = new ObjectOutputStream(arquivo);
+            saida.writeObject(SALA);
+            saida.close();
+            arquivo.close();
+            //System.out.printf("vagas salvas em vaga.ser");
+        }
+        catch(IOException i) {
+            i.printStackTrace();
+        }
     }
     
 }

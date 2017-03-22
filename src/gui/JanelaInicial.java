@@ -5,14 +5,21 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import static main.Main.HEROI;
 import static main.Main.MAPA;
 import static main.Main.SALA;
+import mapa.Mapa;
+import mapa.Sala;
+import personagem.Heroi;
 
 /**
  * Janela Inicial, dando opção de continuar ou iniciar um novo jogo
@@ -87,8 +94,10 @@ public class JanelaInicial extends JFrame implements ActionListener {
             salaGUI = new SalaGUI();
             salaGUI.initGUI(1);
 	} else if (ae.getSource() == btnCarregarJogo) {
-            System.out.println ("CARREGAR JOGO");
-            JOptionPane.showMessageDialog(null, "Carregar jogo!");
+            carregar();
+            this.dispose();
+            salaGUI = new SalaGUI();
+            salaGUI.initGUI(SALA.getId());
 	}
     }
     
@@ -102,6 +111,65 @@ public class JanelaInicial extends JFrame implements ActionListener {
         salaGUI = new SalaGUI();
         salaGUI.initGUI(destino);
         return true;
+    }
+    
+    /*
+    Função carregar() carrega a partir de um arquivo salvo anteriormente
+    Essa função é chamada sempre no início do programa caso o usuário desejar continuar
+    */
+    public static void carregar () {
+            //TRY CATCH
+        try {
+            //CARREGA CARRO DO ARQUIVO MAPA.SER
+            FileInputStream entrada = new FileInputStream("mapa.ser");
+            ObjectInputStream in = new ObjectInputStream(entrada);
+            //carro = (Carro) in.readObject();
+            MAPA = (Mapa) in.readObject();
+            in.close();
+            entrada.close();
+            //NAO ACHOU ARQUIVO MAPA.SER
+        }catch(ClassNotFoundException c) {
+            System.out.println("mapa.ser não encontrado");
+            return;
+        }
+        catch(IOException i) {
+            i.printStackTrace();
+            return;
+        }
+
+        try {
+            //CARREGA CARRO DO ARQUIVO HEROI.SER
+            FileInputStream entrada = new FileInputStream("HEROI.ser");
+            ObjectInputStream in = new ObjectInputStream(entrada);
+            HEROI = (Heroi) in.readObject();
+            in.close();
+            entrada.close();
+            //NAO ACHOU ARQUIVO HEROI.SER
+        }catch(ClassNotFoundException c) {
+                System.out.println("heroi.ser não encontrado");
+                return;
+        }
+        catch(IOException i) {
+            i.printStackTrace();
+            return;
+        }
+        
+        try {
+            //CARREGA CARRO DO ARQUIVO SALA.SER
+            FileInputStream entrada = new FileInputStream("sala.ser");
+            ObjectInputStream in = new ObjectInputStream(entrada);
+            SALA = (Sala) in.readObject();
+            in.close();
+            entrada.close();
+            //NAO ACHOU ARQUIVO SALA.SER
+        }catch(ClassNotFoundException c) {
+                System.out.println("sala.ser não encontrado");
+                return;
+        }
+        catch(IOException i) {
+            i.printStackTrace();
+            return;
+        } 
     }
     
 }
