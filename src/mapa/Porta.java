@@ -137,14 +137,17 @@ public final class Porta {
     
     //RETORNA QUANTIDADE DO ITEM
     /**
-     * 
-     * @return 
+     * Pega quantidade do item
+     * @return quantidade do item
      */
     public int getQuantidade(){
         return quantidade;
     }
     
     //SETA QUANTIDADE PARA 0 (NAO EXISTE)
+    /**
+     * Seta para 0 (Não Existe)
+     */
     public void setQuantidade(){
         quantidade = 0;
     }

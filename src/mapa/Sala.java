@@ -6,7 +6,7 @@
 package mapa;
 
 /**
- *
+ * Sala
  * @author Junior
  */
 public class Sala {
@@ -21,6 +21,15 @@ public class Sala {
     private final Porta oeste;                                                  //
                                                                                 //  
     //CONSTRUTOR
+    /**
+     * Construtor da Sala
+     * @param id ID da Sala
+     * @param nome Nome da Sala
+     * @param norte Porta que está ao norte
+     * @param sul Porta que está ao sul
+     * @param leste Porta que está ao leste
+     * @param oeste Porta que está ao oeste
+     */
     public Sala(byte id, String nome, Porta norte, Porta sul, Porta leste, Porta oeste){
         this.id = id;                                                           //LINHA DO ARQUIVO
         this.nome = nome;                                                       //NOME
@@ -33,31 +42,55 @@ public class Sala {
     //GETTERS AND SETTERS
     
     //RETORNA ID
+    /**
+     * Pega id da sala
+     * @return byte com a id da sala
+     */
     public byte getId(){
         return id;
     }
     
     //RETORNA NOME
+    /**
+     * Pega nome da Sala
+     * @return String com o nome da Sala
+     */
     public String getNome(){
         return nome;
     }
     
     //RETORNA PORTA NORTE
+    /**
+     * Pega a saída que está ao norte
+     * @return Porta norte
+     */
     public Porta getNorte(){
         return norte;
     }
     
     //RETORNA PORTA NORTE
+    /**
+     * Pega a saída que está ao sul
+     * @return Porta sul
+     */
     public Porta getSul(){
         return sul;
     }
     
     //RETORNA PORTA LESTE
+    /**
+     * Pega a saída que está ao leste
+     * @return Porta leste
+     */
     public Porta getLeste(){
         return leste;
     }
     
     //RETORNA PORTA OESTE
+    /**
+     * Pega a saída que está ao oeste
+     * @return Porta oeste
+     */
     public Porta getOeste(){
         return oeste;
     }
