@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Scanner;
 import static main.Main.CAMINHOHABILIDADESCURA;
 import static main.Main.CAMINHOINIMIGOS;
@@ -18,7 +19,7 @@ import static main.Main.TAMANHOHABILIDADESCURA;
  * Habilidade de Cura
  * @author Junior
  */
-public class HabilidadeCura extends Habilidade{
+public class HabilidadeCura extends Habilidade implements Serializable{
     
     /**
      * Construtor da Habilidade de Cura

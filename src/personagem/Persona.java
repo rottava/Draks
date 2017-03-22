@@ -9,6 +9,7 @@ import habilidade.Habilidade;
 import habilidade.Talentos;
 import item.Arma;
 import item.Armadura;
+import java.io.Serializable;
 import static main.Main.TAMANHOMAXIMO;
 import static main.Main.ALEATORIO;
 
@@ -16,7 +17,7 @@ import static main.Main.ALEATORIO;
  * Personagem em Geral
  * @author Junior
  */
-public abstract class Persona implements Comparable<Persona>{
+public abstract class Persona implements Serializable{
     //PARAMETROS DE SISTEMA
     private String nome;                                                        //NOME DO PERSONAGEM
     
@@ -433,22 +434,5 @@ public abstract class Persona implements Comparable<Persona>{
     protected void setMoedas(int moedas){
         this.moedas = moedas;
     }
-    
-    //COMPARADOR DE AGILIDADE
-    /**
-     * Comparação de agilidades
-     * @param outroPersona outro personagem para comparação
-     * @return -1 se a agilidade é melhor, 1 se é pior, 0 se for igual
-     */
-    @Override
-    public int compareTo(Persona outroPersona) {
-         if (this.agilidade > outroPersona.getAgilidade()) {
-              return -1;
-         }
-         if (this.agilidade < outroPersona.getAgilidade()) {
-              return 1;
-         }
-         return 0;
-}
 
 }

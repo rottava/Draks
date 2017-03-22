@@ -5,6 +5,7 @@
  */
 package habilidade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * Talentos
  * @author Junior
  */
-public class Talentos {
+public class Talentos implements Serializable{
     //PARAMETRO VARIAVEL
     private final List<Habilidade> talentos;
     

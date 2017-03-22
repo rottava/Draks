@@ -5,11 +5,13 @@
  */
 package habilidade;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Junior
  */
-public abstract class Habilidade {
+public abstract class Habilidade implements Serializable{
     //PARAMETRO DE CONFIGURACAO
     private byte id;                                                      //LINHA DO ARQUIVO
     
