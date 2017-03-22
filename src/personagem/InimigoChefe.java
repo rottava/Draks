@@ -11,7 +11,7 @@ import java.io.IOException;
 import static main.Main.CAMINHOINIMIGOS;
 
 /**
- *
+ * Inimigo Chefe
  * @author Junior
  */
 public final class InimigoChefe extends Inimigo{
@@ -21,17 +21,32 @@ public final class InimigoChefe extends Inimigo{
     private byte quantidade;                                                    //QUANTIDADE
     
     //CONSTRUTOR POR PASSAGEM DE PARAMETRO
+    /**
+     * Construtor
+     * @param nome Nome do inimigo
+     * @param forca Força do Inimigo
+     * @param inteligencia Inteligencia do inimigo
+     * @param agilidade Agilidade do inimigo
+     * @param resistencia Resistencia do inimigo
+     */
     public InimigoChefe(String nome, byte forca, byte inteligencia, byte agilidade, byte resistencia) {
         super(nome, forca, inteligencia, agilidade, resistencia);               //CONSTRUTOR PAI
     }
     
     //CONSTRUTOR
+    /**
+     * Construtor
+     * @param id ID do Chefe
+     */
     public InimigoChefe(byte id){
         super(id);                                                              //CONSTRUTOR PAI
         setaItem();
     }
     
     //LE INIMIGO DO ARQUIVO DE CONFIGURACOES
+    /**
+     * Lê do arquivo e faz as configurações
+     */
     private void setaItem(){
         try {
             FileReader arq = new FileReader (CAMINHOINIMIGOS);
@@ -59,9 +74,18 @@ public final class InimigoChefe extends Inimigo{
         }
     }
     
+    /**
+     * Pega o tipo do item
+     * @return byte contendo o tipo
+     */
     public byte getItemTipo(){
         return tipo;
     }
+    
+    /**
+     * Pega ID do item
+     * @return byte com a ID do item
+     */
     public byte getItemId(){
         return itemId;
     }

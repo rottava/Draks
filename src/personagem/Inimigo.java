@@ -21,7 +21,7 @@ import static main.Main.ALEATORIO;
 import static main.Main.CAMINHOINIMIGOS;
 
 /**
- *
+ * Inimigo
  * @author Junior
  */
 public class Inimigo extends Persona{
@@ -30,12 +30,24 @@ public class Inimigo extends Persona{
     private byte pontos;                                                        //PONTOS PARA PARAMETROS
     
     //CONSTRUTOR POR PASSAGEM DE PARAMETRO
+    /**
+     * Construtor
+     * @param nome Nome do Inimigo
+     * @param forca Força do Inimigo
+     * @param inteligencia Inteligencia do Inimigo
+     * @param agilidade Agilidade do Inimigo
+     * @param resistencia Resistencia do Inimigo
+     */
     public Inimigo(String nome, byte forca, byte inteligencia, byte agilidade, byte resistencia) {
         super(nome, forca, inteligencia, agilidade, resistencia);               //CONSTRUTOR PAI
         id = 0;                                                                 //0 = ID NULO
     }
     
     //CONSTRUTOR
+    /**
+     * Construtor
+     * @param id ID do inimigo
+     */
     public Inimigo(byte id){
         super();                                                                //CONSTRUTOR PAI
         this.id = id;                                                           //LINHA DO ARQUIVO
@@ -43,6 +55,9 @@ public class Inimigo extends Persona{
     }
     
     //SELETOR
+    /**
+     * Seletor
+     */
     private void seletor(){
         if (id >= 0)                                                            //POSITIVO LE DE ARQUIVO
             lerArquivo();
@@ -55,6 +70,9 @@ public class Inimigo extends Persona{
     }
     
     //RANDOMIZER
+    /**
+     * Randomizer
+     */
     private void randomizer(){                                                  //GERA INIMIGO ALEATORIO
             setNome(geraNome());
             geraPontos();
@@ -64,6 +82,10 @@ public class Inimigo extends Persona{
     }
     
     //GERA NOME APARTIR DE ARQUIVO
+    /**
+     * Gera nomes do arquivo
+     * @return String com o nome
+     */
     private String geraNome(){
         try {
             FileReader arq = new FileReader (CAMINHONOMES);
@@ -85,6 +107,11 @@ public class Inimigo extends Persona{
     }
     
     //GERA PARAMETRO NO INTERVALO DE 1 A 255
+    /**
+     * Gera parametro
+     * @param parametro Parametro
+     * @return Resultado gerado
+     */
     private byte geraParametro(byte parametro){
         byte resultado;
         byte auxiliar;
@@ -101,6 +128,9 @@ public class Inimigo extends Persona{
     }
     
     //GERA ATRIBUTOS NO INTERVALO DE 1 A "PONTOS"
+    /**
+     * Gera atributos
+     */
     private void geraAtributos(){
         byte forca = 1;
         byte inteligencia = 1;
@@ -120,6 +150,9 @@ public class Inimigo extends Persona{
     }
     
     //GERA PONTOS TOTAL DEPENDENDO DO ID
+    /**
+     * Gera os pontos dependendo da ID
+     */
     private void geraPontos(){
         switch (id){
             case -1:
@@ -147,6 +180,9 @@ public class Inimigo extends Persona{
     }
     
     //GERADOR TALENTOS DE CURA
+    /**
+     * Gera talentos de Cura
+     */
     private void geraTalentosCura(){
         byte idInv = (byte) (id*-1);
         if(TAMANHOHABILIDADESCURA > 0){
@@ -168,6 +204,9 @@ public class Inimigo extends Persona{
     }
     
     //GERA TALENTOS DE DANO
+    /**
+     * Gera talentos de dano
+     */
     private void geraTalentosDano(){
         byte idInv = (byte) (id*-1);
         if(TAMANHOHABILIDADESDANO > 0){
@@ -189,6 +228,11 @@ public class Inimigo extends Persona{
     }
     
     //VERIFICA SE HABILIDADE JA EXISTE NA LISTA DE HABILIDADES DE CURA
+    /**
+     * Verifica se a habilidade ja existe na lista de habilidades
+     * @param habilidade habilidade
+     * @return true se já existe, false caso contrário
+     */
     public boolean verificaHabilidadeCura(Habilidade habilidade){
         boolean auxiliar = false;
         for(int contador = 0; contador < getTalentosCura().getTamanho(); contador++){
@@ -199,6 +243,11 @@ public class Inimigo extends Persona{
     }
     
     //VERIFICA SE HABILIDADE JA EXISTE NA LISTA DE HABILIDADES DE DANO
+    /**
+     * Verifica se a habilidade ja existe na lista
+     * @param habilidade Habilidade para verificação
+     * @return true se já existe, false caso contrário
+     */
     public boolean verificaHabilidadeDano(Habilidade habilidade){
         boolean auxiliar = false;
         for(int contador = 0; contador < getTalentosDano().getTamanho(); contador++){
@@ -209,6 +258,9 @@ public class Inimigo extends Persona{
     }
     
     //LE INIMIGO DO ARQUIVO DE CONFIGURACOES
+    /**
+     * Le inimigo do arquivo de configurações
+     */
     private void lerArquivo(){
         try {
             FileReader arq = new FileReader (CAMINHOINIMIGOS);
@@ -262,16 +314,28 @@ public class Inimigo extends Persona{
     }
     
     //RETORNA ID DO INIMIGO
+    /**
+     * Pega ID do inimigo
+     * @return byte com a ID do inimigo
+     */
     public byte getId(){
         return id;
     }
     
     //RETORNA PONTOS(){
+    /**
+     * Pega os pontos do inimigo
+     * @return byte com os pontos do inimigo
+     */
     public byte getPontos(){
         return pontos;
     }
     
     //SETA PONTOS
+    /**
+     * Configura os pontos do Inimigo
+     * @param pontos Byte com os pontos do inimigo
+     */
     public void setPontos(byte pontos){
         this.pontos = pontos;
     }
