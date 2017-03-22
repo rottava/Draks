@@ -178,9 +178,9 @@ public class CombateGUI extends JFrame implements ActionListener{
     private void carregarMagia() {
         ((DefaultListModel) listaMagia.getModel()).removeAllElements();
             for(int loop = 0; loop < HEROI.getTalentosCura().getTamanho(); loop++)
-                ((DefaultListModel) listaMagia.getModel()).addElement(HEROI.getTalentosCura().getHabilidades().get(loop).getNome());     
+                ((DefaultListModel) listaMagia.getModel()).addElement(HEROI.getTalentosCura().getHabilidades().get(loop).getNome() + ". Dano: " + HEROI.getTalentosCura().getHabilidades().get(loop).getEfeito() + ". Energia: " + HEROI.getTalentosCura().getHabilidades().get(loop).getConsumo());     
             for(int loop = 0; loop < HEROI.getTalentosDano().getTamanho(); loop++)
-                ((DefaultListModel) listaMagia.getModel()).addElement(HEROI.getTalentosDano().getHabilidades().get(loop).getNome());     
+                ((DefaultListModel) listaMagia.getModel()).addElement(HEROI.getTalentosDano().getHabilidades().get(loop).getNome() + ". Dano: " + HEROI.getTalentosDano().getHabilidades().get(loop).getEfeito() + ". Energia: " + HEROI.getTalentosDano().getHabilidades().get(loop).getConsumo());    
     }
 
     @Override

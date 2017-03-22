@@ -187,6 +187,17 @@ public final class SalaGUI extends JFrame implements ActionListener {
 	inventario.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	inventario.setLayoutOrientation(JList.VERTICAL);
 	inventario.setVisibleRowCount(-1);
+        inventario.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                JList listaItem = (JList)evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    int index = listaItem.locationToIndex(evt.getPoint());
+                    item(index);
+                    carregarInventario();
+                }       
+            }
+        });
 	JScrollPane pItens = new JScrollPane(inventario);
         pItens.setBounds(30, 580, 150, 100);
 	add(pItens);
@@ -199,6 +210,29 @@ public final class SalaGUI extends JFrame implements ActionListener {
                                         "Você tem apenas uma espada, use os ítens que encontrar pelo mapa "+
                                         "para ajudar em sua vingança!\n\nBoa sorte! Você irá precisa!");
             FLAG = true;
+        }
+    }
+    
+    private void item(int index){
+        if(HEROI.getItens().get(index).getClass() == Armadura.class){
+            HEROI.equipaArmadura((Armadura) HEROI.getItens().get(index));
+        }
+        else{
+            if(HEROI.getItens().get(index).getClass() == Arma.class){
+                HEROI.equipaArma((Arma) HEROI.getItens().get(index));
+            }
+            else{
+                if(HEROI.getItens().get(index).getClass() == ItemCura.class){
+                    if(HEROI.regenVida(HEROI.getItens().get(index).getEfeito()));
+                            HEROI.subMochila(HEROI.getItens().get(index));
+                }
+                else{
+                    if(HEROI.getItens().get(index).getClass() == ItemEnergia.class){
+                        if(HEROI.regenEnergia(HEROI.getItens().get(index).getEfeito()));
+                            HEROI.subMochila(HEROI.getItens().get(index));
+                    }
+                }
+            }
         }
     }
     
@@ -460,7 +494,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
     private void carregarInventario() {
         ((DefaultListModel) inventario.getModel()).removeAllElements();
         for(byte loop = 0; loop < HEROI.getItens().size(); loop++){
-            ((DefaultListModel) inventario.getModel()).addElement(HEROI.getItens().get(loop).getNome());
+            ((DefaultListModel) inventario.getModel()).addElement(HEROI.getItens().get(loop).getNome() + " x" + HEROI.getItens().get(loop).getQuantidade());
         }
     }
     

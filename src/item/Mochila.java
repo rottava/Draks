@@ -153,7 +153,7 @@ public class Mochila {
         byte loop = 0;
         byte ultimo = 0;
         if(mochila.size() > 0){
-            while (loop < tamanho){
+            while (loop < mochila.size()){
                 if (mochila.get(loop).getId() == item.getId())                      //VERIFICA LISTA PROCURANDO ITEM
                     ultimo = loop;
                 loop++;
@@ -165,9 +165,9 @@ public class Mochila {
                     return true;
                 }
                 else {                                                              //SE NOVO NUMERO DE ITENS E 0
-                    if ((mochila.get(loop).getQuantidade() - item.getQuantidade()) == 0){
+                    if ((mochila.get(ultimo).getQuantidade() - item.getQuantidade()) == 0){
                         peso = (byte) (peso - (item.getPesoTotal()));
-                        mochila.remove(loop);
+                        mochila.remove(ultimo);
                         return true;
                     }
                     else
