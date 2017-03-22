@@ -373,13 +373,13 @@ public final class SalaGUI extends JFrame implements ActionListener {
         JLabel item;
         switch (id){
             case 1: 
-                item = new JLabel (new ImageIcon("resources/armadura.png"));
+                item = new JLabel (new ImageIcon("resources/armadura.jpg"));
                 break;
             case 2:
-                item = new JLabel (new ImageIcon("resources/arma.png"));
+                item = new JLabel (new ImageIcon("resources/espada.jpg"));
                 break;
             case 3:
-                item = new JLabel (new ImageIcon("resources/chave.png"));
+                item = new JLabel (new ImageIcon("resources/chave.jpg"));
                 break;
             case 4:
                 item = new JLabel (new ImageIcon("resources/habilidadecura.png"));
