@@ -5,6 +5,7 @@
  */
 package item;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * Mochila
  * @author Junior
  */
-public class Mochila {
+public class Mochila implements Serializable {
     //PARAMETRO DE DEFINICAO
     private final List<Item> mochila;                                           //MOCHILA
     

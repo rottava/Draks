@@ -8,13 +8,14 @@ package item;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import static main.Main.CAMINHOITENSENERGIA;
 
 /**
  * Item Energia
  * @author Junior
  */
-public class ItemEnergia extends Item{
+public class ItemEnergia extends Item implements Serializable {
     
     /**
      * Construtor

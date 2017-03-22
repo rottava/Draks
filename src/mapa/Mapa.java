@@ -8,6 +8,7 @@ package mapa;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import static main.Main.CAMINHOSALAS;
@@ -16,7 +17,7 @@ import static main.Main.CAMINHOSALAS;
  * Mapa
  * @author Junior
  */
-public class Mapa {
+public class Mapa implements Serializable {
     private final List<Sala> salas;                                             //LISTA COM TODAS AS SALAS
     
     //CONSTRUTOR

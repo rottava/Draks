@@ -8,13 +8,14 @@ package item;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import static main.Main.CAMINHOCHAVES;
 
 /**
  * Chave
  * @author Junior
  */
-public class Chave extends Item{
+public class Chave extends Item implements Serializable {
     
     /**
      * Construtor da chave

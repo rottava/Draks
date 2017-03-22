@@ -120,7 +120,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
             //TRY CATCH
         try {
             //CARREGA CARRO DO ARQUIVO MAPA.SER
-            FileInputStream entrada = new FileInputStream("mapa.ser");
+            FileInputStream entrada = new FileInputStream("dados/mapa.ser");
             ObjectInputStream in = new ObjectInputStream(entrada);
             //carro = (Carro) in.readObject();
             MAPA = (Mapa) in.readObject();
@@ -138,7 +138,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
 
         try {
             //CARREGA CARRO DO ARQUIVO HEROI.SER
-            FileInputStream entrada = new FileInputStream("HEROI.ser");
+            FileInputStream entrada = new FileInputStream("dados/heroi.ser");
             ObjectInputStream in = new ObjectInputStream(entrada);
             HEROI = (Heroi) in.readObject();
             in.close();
@@ -155,7 +155,7 @@ public class JanelaInicial extends JFrame implements ActionListener {
         
         try {
             //CARREGA CARRO DO ARQUIVO SALA.SER
-            FileInputStream entrada = new FileInputStream("sala.ser");
+            FileInputStream entrada = new FileInputStream("dados/sala.ser");
             ObjectInputStream in = new ObjectInputStream(entrada);
             SALA = (Sala) in.readObject();
             in.close();

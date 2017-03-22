@@ -8,13 +8,14 @@ package item;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import static main.Main.CAMINHOHABILIDADESDANO;
 
 /**
  * Item Habilidade de Dano
  * @author Junior
  */
-public class ItemHabilidadeDano extends Item{
+public class ItemHabilidadeDano extends Item implements Serializable {
     
     /**
      * Construtor

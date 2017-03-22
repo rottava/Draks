@@ -5,11 +5,13 @@
  */
 package mapa;
 
+import java.io.Serializable;
+
 /**
  * Porta
  * @author Junior
  */
-public final class Porta {
+public final class Porta implements Serializable {
     private boolean estado;                                                     //ESTADO DA PORTA. TRUE = ABERTO, FALSE = FECHADO
     private final byte proximaSala;                                             //ID DA PROXIMA SALA
     private byte chave;                                                         //ID DO ITEM PARA ABRIR A PORTA, 0 = NENHUM

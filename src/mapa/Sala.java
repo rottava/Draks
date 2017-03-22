@@ -5,11 +5,13 @@
  */
 package mapa;
 
+import java.io.Serializable;
+
 /**
  * Sala
  * @author Junior
  */
-public class Sala {
+public class Sala implements Serializable {
     //PARAMETRO DE DEFINICAO
     private final byte id;                                                      //LINHA REFETENTE A SALA NO ARQUIVO
     private final String nome;                                                  //NOME DA SALA

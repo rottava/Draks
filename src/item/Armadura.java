@@ -8,13 +8,14 @@ package item;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import static main.Main.CAMINHOARMADURAS;
 
 /**
  * Armadura
  * @author Junior
  */
-public class Armadura extends Item{
+public class Armadura extends Item implements Serializable {
     
     /**
      * Construtor

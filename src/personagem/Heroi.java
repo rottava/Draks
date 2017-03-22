@@ -9,6 +9,7 @@ import item.Arma;
 import item.Armadura;
 import item.Item;
 import item.Mochila;
+import java.io.Serializable;
 import java.util.List;
 import static main.Main.TAMANHOMAXIMO;
 
@@ -16,7 +17,7 @@ import static main.Main.TAMANHOMAXIMO;
  * Personagem Herói
  * @author Junior
  */
-public class Heroi extends Persona {
+public class Heroi extends Persona implements Serializable {
     //PARAMETROS VARIAVEIS
     private byte pontos;                                                        //PONTOS DE ATRIBUTOS
     private byte peso;                                                          //CARGA DE ITENS ATUAL

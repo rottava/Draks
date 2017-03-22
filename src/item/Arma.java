@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Scanner;
 import static main.Main.CAMINHOARMAS;
 import static main.Main.CAMINHOHABILIDADESDANO;
@@ -18,7 +19,7 @@ import static main.Main.TAMANHOARMAS;
  * Arma
  * @author Junior
  */
-public class Arma extends Item{
+public class Arma extends Item implements Serializable {
     
     /**
      * Construtor Arma

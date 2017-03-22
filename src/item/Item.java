@@ -5,11 +5,13 @@
  */
 package item;
 
+import java.io.Serializable;
+
 /**
  * Classe abstrata de Item
  * @author Junior
  */
-public abstract class Item {
+public abstract class Item implements Serializable {
     //PARAMETRO DE CONFIGURACAO
     private byte id;                                                            //ID DO ITEM = LINHA DO ARQUIVO
     
