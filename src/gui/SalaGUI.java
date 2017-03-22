@@ -19,6 +19,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -54,6 +56,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
     private JButton btnLeste;
     private JButton btnOeste;
     private JButton btnPontos;
+    private JButton btnSalvar;
     private JList inventario;
     private Porta porta;
     /**
@@ -90,6 +93,24 @@ public final class SalaGUI extends JFrame implements ActionListener {
         
         adicionarInimigos();
         adicionarItens();
+        
+        btnSalvar = new JButton ("Salvar");
+        btnSalvar.setBounds(930, 10, 80, 30);
+        btnSalvar.addActionListener(this);
+        add(btnSalvar);
+         btnSalvar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 1) {
+                    try { 
+                        salvar();
+                        JOptionPane.showMessageDialog(null, "Progresso salvo!");
+                    } catch (IOException ex) {
+                        Logger.getLogger(SalaGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }       
+            }
+        });
         
         btnNorte = new JButton ("Norte");
         btnNorte.setBounds(480,10,80,30); //x, y, largura, altura
