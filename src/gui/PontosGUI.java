@@ -25,6 +25,10 @@ public class PontosGUI extends JFrame implements ActionListener{
     private JLabel jLabelAgilidade;
     private JLabel jLabelInteligencia;
     private JLabel jLabelResistencia;
+    private JLabel jLabelMoedas;
+    private JLabel jLabelPeso;
+    private JLabel jLabelArma;
+    private JLabel jLabelArmadura;
     private Button btnIncrementarForca;
     private Button btnDecrementarForca;
     private Button btnIncrementarAgilidade;
@@ -41,7 +45,7 @@ public class PontosGUI extends JFrame implements ActionListener{
     private void initGUI() {
         //Características da Janela
         setTitle("Pontos");
-        setSize(300, 300);
+        setSize(300, 380);
         setLocationRelativeTo(null);
         setLayout(null);
         setResizable(false);
@@ -154,6 +158,34 @@ public class PontosGUI extends JFrame implements ActionListener{
                 }       
             }
         });
+        
+        jLabelMoedas = new JLabel ("Moedas: "+HEROI.getMoedas());
+        jLabelMoedas.setBounds(5, 200, 100, 50);
+        add(jLabelMoedas);
+        
+        jLabelPeso = new JLabel ("Peso: "+HEROI.getPeso());
+        jLabelPeso.setBounds(5, 230, 100, 50);
+        add(jLabelPeso);
+        
+        jLabelArma = new JLabel ("Arma: ");
+        jLabelArma.setBounds (5, 260, 150, 50);
+        if (HEROI.getArma() != null) {
+            jLabelArma.setText("Arma: " + HEROI.getArma().getNome());
+        }
+        else {
+            jLabelArma.setText("Arma: Não equipado");
+        }
+        add(jLabelArma);
+        
+        jLabelArmadura = new JLabel ("Armadura: ");
+        jLabelArmadura.setBounds (5, 290, 150, 50);
+        if (HEROI.getArmadura() != null) {
+            jLabelArmadura.setText ("Armadura: " + HEROI.getArmadura().getNome());
+        }
+        else {
+            jLabelArmadura.setText("Armadura: Não equipado");
+        }
+        add(jLabelArmadura);
     }
     
     private void incrementarResistencia() {

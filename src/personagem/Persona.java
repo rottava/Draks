@@ -107,7 +107,7 @@ public abstract class Persona implements Comparable<Persona>{
     //SETA VIDA E RETORNA VERDADEIRO OU RETORNA FALSO
     /**
      * Seta a vida
-     * @param vida
+     * @param vida byte com a vida do Personagem
      * @return true se ocorreu com sucesso false caso contrário
      */
     protected boolean setVida(byte vida){
