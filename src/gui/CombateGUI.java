@@ -395,8 +395,7 @@ public class CombateGUI extends JFrame implements ActionListener{
             }
             if (linha != null){
                 String[] parametros;
-                linha = lerArq.readLine();
-                parametros = linha.split("/");                                  //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
+                parametros = linha.split("/");                                  //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/MOEDAS/ITEM/...
                 byte tipo = (byte) Integer.parseInt(parametros[8]);             //TIPO DO ITEM PORTADO
                 return tipo > 0;
             }
@@ -500,32 +499,34 @@ public class CombateGUI extends JFrame implements ActionListener{
     //RECOMPENSA DE BATALHA
     private void recompensa(){
         HEROI.addMoedas(inimigo.getMoedas());
-        InimigoChefe inimigoChefe = (InimigoChefe) inimigo;
-        if(inimigoChefe.getItemId() != 0){
-            switch(inimigoChefe.getItemId()){
-                case 1:
-                    HEROI.addMochila(new Armadura(inimigoChefe.getItemId()));
-                    break;
-                case 2:
-                    HEROI.addMochila(new Arma(inimigoChefe.getItemId()));
-                    break;
-                case 3:
-                    HEROI.addMochila(new Chave(inimigoChefe.getItemId()));
-                    break;
-                case 4:
-                    HEROI.addTalentosCura(new HabilidadeCura(inimigoChefe.getItemId()));
-                    break;
-                case -4:
-                    HEROI.addTalentosDano(new HabilidadeDano(inimigoChefe.getItemId()));
-                    break;
-                case 5:
-                    HEROI.addMochila(new ItemCura(inimigoChefe.getItemId()));
-                    break;
-                case 6:
-                    HEROI.addMochila(new ItemEnergia(inimigoChefe.getItemId()));
-                    break;
-               default:
-                    break;      
+        if(inimigo.getClass() == InimigoChefe.class){
+            InimigoChefe inimigoChefe = (InimigoChefe) inimigo;
+            if(inimigoChefe.getItemId() != 0){
+                switch(inimigoChefe.getItemId()){
+                    case 1:
+                        HEROI.addMochila(new Armadura(inimigoChefe.getItemId()));
+                        break;
+                    case 2:
+                        HEROI.addMochila(new Arma(inimigoChefe.getItemId()));
+                        break;
+                    case 3:
+                        HEROI.addMochila(new Chave(inimigoChefe.getItemId()));
+                        break;
+                    case 4:
+                        HEROI.addTalentosCura(new HabilidadeCura(inimigoChefe.getItemId()));
+                        break;
+                    case -4:
+                        HEROI.addTalentosDano(new HabilidadeDano(inimigoChefe.getItemId()));
+                        break;
+                    case 5:
+                        HEROI.addMochila(new ItemCura(inimigoChefe.getItemId()));
+                        break;
+                    case 6:
+                        HEROI.addMochila(new ItemEnergia(inimigoChefe.getItemId()));
+                        break;
+                   default:
+                        break;      
+                }
             }
         }
     }

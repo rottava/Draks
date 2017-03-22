@@ -505,8 +505,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
             }
             if (linha != null){
                 String[] parametros;
-                linha = lerArq.readLine();
-                parametros = linha.split("/");                     //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
+                parametros = linha.split("/");                                  //NOME/FORCA/INTELIGENCIA/AGILIDADE/RESISTENCIA/ARMA/ARMADURA/HABILIDADE/...
                 byte tipo = (byte) Integer.parseInt(parametros[8]);             //TIPO DO ITEM PORTADO
                 return tipo > 0;
             }
