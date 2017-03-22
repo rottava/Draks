@@ -499,6 +499,7 @@ public class CombateGUI extends JFrame implements ActionListener{
     //RECOMPENSA DE BATALHA
     private void recompensa(){
         HEROI.addMoedas(inimigo.getMoedas());
+        HEROI.setPontos((byte) (HEROI.getPontos() + 5));
         if(inimigo.getClass() == InimigoChefe.class){
             InimigoChefe inimigoChefe = (InimigoChefe) inimigo;
             if(inimigoChefe.getItemId() != 0){

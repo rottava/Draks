@@ -50,7 +50,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
     private JButton btnOeste;
     private JButton btnPontos;
     private JList inventario;
-    
+    private Porta porta;
     /**
      * Construtor da interface gráfica da sala
      */
@@ -295,6 +295,12 @@ public final class SalaGUI extends JFrame implements ActionListener {
         this.dispose();
     }
     
+    private void recarregar(){
+        JanelaInicial ji = new JanelaInicial();
+            if (ji.irSala (SALA.getId()));
+               this.dispose();
+    }
+    
     private void adicionarChaves() {
         byte id;
         if ((id = SALA.getNorte().getChave()) != 0)
@@ -346,6 +352,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
                 if(HEROI.getItens().get(loop).getEfeito() == porta.getChave()){
                     porta.setChave();
                     HEROI.subMochila(HEROI.getItens().get(loop));
+                    recarregar();
                 }
                 /*else{
                     //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
@@ -407,7 +414,6 @@ public final class SalaGUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 byte tipo = 0;
-                Porta porta = null;
                 if(posicaoY == 10){
                     tipo = SALA.getNorte().getTipo();
                     porta = SALA.getNorte();
@@ -476,6 +482,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
                     default:
                         break;
                 }
+                recarregar();
             }
             @Override
             public void mousePressed(MouseEvent e) {}
