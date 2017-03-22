@@ -219,6 +219,8 @@ public class CombateGUI extends JFrame implements ActionListener{
                 else{
                     ataqueInimigo(comando[0], comando[1]);
                     if(HEROI.getVida() == 0){
+                        JOptionPane.showMessageDialog(null, "Você morreu!\n\n\nGAME OVER");
+                        System.exit(0);
                         //POPUP VOCÊ PERDEU
                         //VOLTA PRA TELA INICIAL
                     }
