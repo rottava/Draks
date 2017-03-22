@@ -51,6 +51,7 @@ public class Heroi extends Persona {
     private void ini(){
         pontos = 10;                                                            //PONTOS INICIAIS
         peso = 0;                                                               //PESO INICIAL
+        geraPesoMax();                                                          //PESO MAXIMO
         setMoedas(0);                                                           //MOEDAS INICIAL
     }
     

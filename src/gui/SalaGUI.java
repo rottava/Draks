@@ -33,6 +33,7 @@ import static main.Main.CAMINHOINIMIGOS;
 import static main.Main.HEROI;
 import static main.Main.SALA;
 import static main.Main.FLAG;
+import mapa.Porta;
 
 /**
  * Criação das salas com seus ítens e inimigos
@@ -88,16 +89,18 @@ public final class SalaGUI extends JFrame implements ActionListener {
         btnNorte = new JButton ("Norte");
         btnNorte.setBounds(480,10,80,30); //x, y, largura, altura
         btnNorte.addActionListener(this);
-        if (SALA.getNorte().getSala() == 0 || SALA.getNorte().getInimigo() != 0 || SALA.getNorte().getItem() != 0) {
-            //btnNorte.setVisible(false);
-            setNorte();
+        if (SALA.getNorte().getSala() == 0 || SALA.getNorte().getInimigo() != 0 || SALA.getNorte().getItem() != 0 || SALA.getNorte().getChave() != 0) {
+            btnNorte.setVisible(false);
         }
         add(btnNorte);
         
         btnNorte.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 1) {
-                    testaNorte();
+                    JanelaInicial ji = new JanelaInicial();
+                    if (ji.irSala (SALA.getNorte().getSala()))
+                        sair(); 
                 }       
             }
         });
@@ -105,42 +108,51 @@ public final class SalaGUI extends JFrame implements ActionListener {
         btnOeste = new JButton ("Oeste");
         btnOeste.setBounds(10,300,80,30); //x, y, largura, altura
         btnOeste.addActionListener(this);
-        if (SALA.getOeste().getSala() == 0 || SALA.getOeste().getInimigo() != 0 || SALA.getOeste().getItem() != 0) {
+        if (SALA.getOeste().getSala() == 0 || SALA.getOeste().getInimigo() != 0 || SALA.getOeste().getItem() != 0 || SALA.getOeste().getChave() != 0) {
             btnOeste.setVisible(false);
         }
         add (btnOeste);
         btnOeste.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 1) {
-                    testaOeste();
+                    JanelaInicial ji = new JanelaInicial();
+                    if (ji.irSala (SALA.getOeste().getSala()))
+                        sair(); 
                 }       
             }
         });
         btnLeste = new JButton ("Leste");
         btnLeste.setBounds(930,300,80,30); //x, y, largura, altura
         btnLeste.addActionListener(this);
-        if (SALA.getLeste().getSala() == 0 || SALA.getLeste().getInimigo() != 0 || SALA.getLeste().getItem() != 0) {
+        if (SALA.getLeste().getSala() == 0 || SALA.getLeste().getInimigo() != 0 || SALA.getLeste().getItem() != 0 || SALA.getLeste().getChave() != 0) {
             btnLeste.setVisible(false);
         }
         add(btnLeste);
         btnLeste.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 1) {
-                    testaLeste();
+                    JanelaInicial ji = new JanelaInicial();
+                    if (ji.irSala (SALA.getLeste().getSala()))
+                        sair(); 
                 }       
             }
         });
         btnSul = new JButton ("Sul");
         btnSul.setBounds(480,650,80,30); //x, y, largura, altura
         btnSul.addActionListener(this);
-        if (SALA.getSul().getSala() == 0 || SALA.getSul().getInimigo() != 0 || SALA.getSul().getItem() != 0) {
+        if (SALA.getSul().getSala() == 0 || SALA.getSul().getInimigo() != 0 || SALA.getSul().getItem() != 0 || SALA.getSul().getChave() != 0) {
             btnSul.setVisible(false);
         }
         add(btnSul);
         btnSul.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 1) {
-                    testaSul();
+                    JanelaInicial ji = new JanelaInicial();
+                    if (ji.irSala (SALA.getSul().getSala()))
+                        sair(); 
                 }       
             }
         });
@@ -150,6 +162,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
         btnPontos.addActionListener(this);
         add(btnPontos);
         btnPontos.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 1) {
                     PontosGUI pontos = new PontosGUI();
@@ -193,54 +206,117 @@ public final class SalaGUI extends JFrame implements ActionListener {
      * Adiciona na tela a imagem dos inimigos
      */
     private void adicionarInimigos() {
-        for (int i = 0; i < inimigos; i++) {
-            JLabel inimigo;
-            int posicaoX = 0;
-            int posicaoY = 0;
-            byte  id = 0;
-            if (SALA.getNorte().getInimigo() != 0) {
-                id = SALA.getNorte().getInimigo();
-                posicaoX = 480;
-                posicaoY = 10;
-            }
-            if (SALA.getSul().getInimigo() != 0) {
-                id = SALA.getSul().getInimigo();
-                posicaoX = 480;
-                posicaoY = 650;
-            }
-            if (SALA.getLeste().getInimigo() != 0) {
-                id = SALA.getLeste().getInimigo();
-                posicaoX = 930;
-                posicaoY = 300;
-            }
-            if (SALA.getOeste().getInimigo() != 0) {
-                id = SALA.getOeste().getInimigo();
-                posicaoX = 10;
-                posicaoY = 300;
-            }
-            if(testaItem(id))
-                inimigo = new JLabel (new ImageIcon("resources/chefe.png"));
-            else
-                inimigo = new JLabel (new ImageIcon("resources/inimigo.png"));
-            inimigo.setBounds(posicaoX, posicaoY, 100, 100);
-            add(inimigo);
-            inimigo.setVisible(true);
-            inimigo.addMouseListener(new MouseListener(){
-                @Override
-                public void mouseClicked(MouseEvent e) {
+        byte id;
+        if ((id = SALA.getNorte().getInimigo()) != 0)
+            inimigos(id, 480, 10);
+        if ((id = SALA.getSul().getInimigo()) != 0)
+            inimigos(id, 480, 650);
+        if ((id = SALA.getLeste().getInimigo()) != 0)
+            inimigos(id, 930, 300);
+        if ((id = SALA.getOeste().getInimigo()) != 0)
+            inimigos(id, 10, 300);   
+    }
+    
+    private void inimigos(byte id, int posicaoX, int posicaoY){
+        JLabel inimigo;
+        if(testaItem(id))
+            inimigo = new JLabel (new ImageIcon("resources/chefe.png"));
+        else
+            inimigo = new JLabel (new ImageIcon("resources/inimigo.png"));
+        inimigo.setBounds(posicaoX, posicaoY, 100, 100);
+        add(inimigo);
+        inimigo.setVisible(true);
+        inimigo.addMouseListener(new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(posicaoY == 10){
+                    CombateGUI combate = new CombateGUI(SALA.getNorte());
+                    sair();
                 }
-                @Override
-                public void mousePressed(MouseEvent e) {}
-
-                @Override
-                public void mouseReleased(MouseEvent e) {}
-
-                @Override
-                public void mouseEntered(MouseEvent e) {}
-
-                @Override
-                public void mouseExited(MouseEvent e) {}
-            });   
+                if(posicaoY == 650){
+                    CombateGUI combate = new CombateGUI(SALA.getSul());
+                    sair();
+                }
+                if(posicaoX == 930){
+                    CombateGUI combate = new CombateGUI(SALA.getLeste());
+                    sair();
+                }
+                if(posicaoX == 10){
+                    CombateGUI combate = new CombateGUI(SALA.getOeste());
+                    sair();
+                }
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });   
+    }
+    
+    private void sair(){
+        this.dispose();
+    }
+    
+    private void adicionarChaves() {
+        byte id;
+        if ((id = SALA.getNorte().getChave()) != 0)
+            chaves(id, 480, 10);
+        if ((id = SALA.getSul().getChave()) != 0)
+            chaves(id, 480, 650);
+        if ((id = SALA.getLeste().getChave()) != 0)
+            chaves(id, 930, 300);
+        if ((id = SALA.getOeste().getChave()) != 0)
+            chaves(id, 10, 300);   
+    }
+    
+    private void chaves(byte id, int posicaoX, int posicaoY){
+        JLabel chave;
+        chave = new JLabel (new ImageIcon("resources/cadeado.png"));
+        chave.setBounds(posicaoX, posicaoY, 100, 100);
+        add(chave);
+        chave.setVisible(true);
+        chave.addMouseListener(new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(posicaoY == 10){
+                    desbloqueio(SALA.getNorte());
+                }
+                if(posicaoY == 650){
+                    desbloqueio(SALA.getSul());
+                }
+                if(posicaoX == 930){
+                    desbloqueio(SALA.getLeste());
+                }
+                if(posicaoX == 10){
+                    desbloqueio(SALA.getOeste());
+                }
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });   
+    }
+    
+    private void desbloqueio(Porta porta){
+        for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
+            if(HEROI.getItens().get(loop).getClass() == Chave.class){
+                if(HEROI.getItens().get(loop).getEfeito() == porta.getChave()){
+                    porta.setChave();
+                    HEROI.subMochila(HEROI.getItens().get(loop));
+                }
+                /*else{
+                    //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
+                }*/
+            }
         }
     }
     
@@ -248,88 +324,134 @@ public final class SalaGUI extends JFrame implements ActionListener {
      * Adiciona na tela a imagem dos Itens
      */
     private void adicionarItens() {
-        for (int i = 0; i < itens; i++) {
-            JLabel item;
-            int posicaoX = 0;
-            int posicaoY = 0;
-            int id = 0;
-            if (SALA.getNorte().getSala() != 0) {
-                id = SALA.getNorte().getItem();
-                posicaoX = 480;
-                posicaoY = 10;
-            }
-            if (SALA.getSul().getSala() != 0) {
-                id = SALA.getSul().getItem();
-                posicaoX = 480;
-                posicaoY = 650;
-            }
-            if (SALA.getLeste().getSala() != 0) {
-                id = SALA.getLeste().getItem();
-                posicaoX = 930;
-                posicaoY = 300;
-            }
-            if (SALA.getOeste().getSala() != 0) {
-                id = SALA.getOeste().getItem();
-                posicaoX = 10;
-                posicaoY = 300;
-            }
-            switch (id){
-                case 1: 
-                    item = new JLabel (new ImageIcon("resources/armadura.png"));
-                    break;
-                case 2:
-                    item = new JLabel (new ImageIcon("resources/arma.png"));
-                    break;
-                case 3:
-                    item = new JLabel (new ImageIcon("resources/chave.png"));
-                    break;
-                case 4:
-                    item = new JLabel (new ImageIcon("resources/habilidadecura.png"));
-                    break;
-                case -4:
-                    item = new JLabel (new ImageIcon("resources/habilidadedano.png"));
-                    break;
-                case 5:
-                    item = new JLabel (new ImageIcon("resources/itemcura.png"));
-                    break;
-                case 6:
-                    item = new JLabel (new ImageIcon("resources/itemenergia.png"));
-                    break;
-                case 7:
-                    item = new JLabel (new ImageIcon("resources/moedas.png"));
-                    break;
-               default:
-                    item = new JLabel (new ImageIcon("resources/moedas.png"));
-                    break;
-            }
-            item.setBounds(posicaoX, posicaoY, 30, 30);
-            add(item);
-            item.addMouseListener(new MouseListener(){
-            
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    JPopupMenu pop = new JPopupMenu ();
-                    JMenuItem menuItem = new JMenuItem ("Pegar");
-                    pop.add(menuItem);
-                    pop.show(item, 5, 5);
-                    menuItem.addActionListener((ActionEvent e1) -> {
-                    JOptionPane.showMessageDialog(null, "Pegando...");
-                    });
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {}
-
-                @Override
-                public void mouseReleased(MouseEvent e) {}
-
-                @Override
-                public void mouseEntered(MouseEvent e) {}
-
-                @Override
-                public void mouseExited(MouseEvent e) {}
-            });
+        byte id;
+        if ((id = SALA.getNorte().getItem()) != 0)
+            itens(id, 480, 10);
+        if ((id = SALA.getSul().getItem()) != 0)
+            itens(id, 480, 650);
+        if ((id = SALA.getLeste().getItem()) != 0)
+            itens(id, 930, 300);
+        if ((id = SALA.getOeste().getItem()) != 0)
+            itens(id, 10, 300);
+    }
+    
+    private void itens(byte id, int posicaoX, int posicaoY){
+        JLabel item;
+        switch (id){
+            case 1: 
+                item = new JLabel (new ImageIcon("resources/armadura.png"));
+                break;
+            case 2:
+                item = new JLabel (new ImageIcon("resources/arma.png"));
+                break;
+            case 3:
+                item = new JLabel (new ImageIcon("resources/chave.png"));
+                break;
+            case 4:
+                item = new JLabel (new ImageIcon("resources/habilidadecura.png"));
+                break;
+           case -4:
+                item = new JLabel (new ImageIcon("resources/habilidadedano.png"));
+                break;
+            case 5:
+                item = new JLabel (new ImageIcon("resources/itemcura.png"));
+                break;
+            case 6:
+                item = new JLabel (new ImageIcon("resources/itemenergia.png"));
+                break;
+            case 7:
+                item = new JLabel (new ImageIcon("resources/moedas.png"));
+                break;
+            default:
+                item = new JLabel (new ImageIcon("resources/moedas.png"));
+                break;
         }
+        item.setBounds(posicaoX, posicaoY, 100, 100);
+        add(item);
+        item.setVisible(true);
+        item.addMouseListener(new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                byte tipo = 0;
+                Porta porta = null;
+                if(posicaoY == 10){
+                    tipo = SALA.getNorte().getTipo();
+                    porta = SALA.getNorte();
+                }
+                if(posicaoY == 650){
+                    tipo = SALA.getSul().getTipo();
+                    porta = SALA.getSul();
+                }
+                if(posicaoX == 930){
+                    tipo = SALA.getLeste().getTipo();
+                    porta = SALA.getLeste();
+                }
+                if(posicaoX == 10){
+                    tipo = SALA.getOeste().getTipo();
+                    porta = SALA.getOeste();
+                }
+                switch (tipo){
+                    case 1: 
+                        if(HEROI.addMochila(new Armadura(porta.getItem())) == 0)
+                            porta.setItem();
+                        /*else
+                            //MOCHILA CHEIA;*/
+                        break;
+                    case 2:
+                        if(HEROI.addMochila(new Arma(porta.getItem())) == 0)
+                            porta.setItem();
+                        /*else
+                            //MOCHILA CHEIA;*/
+                        break;
+                    case 3:
+                        if(HEROI.addMochila(new Chave(porta.getItem())) == 0)
+                            porta.setItem();
+                        /*else
+                            //MOCHILA CHEIA;*/
+                        break;
+                    case 4:
+                        if(HEROI.addTalentosCura(new HabilidadeCura(porta.getItem())))
+                            porta.setItem();
+                        /*else
+                            //MOCHILA CHEIA;*/
+                        break;
+                   case -4:
+                       if(HEROI.addTalentosDano(new HabilidadeCura(porta.getItem())))
+                            porta.setItem();
+                        /*else
+                            //MOCHILA CHEIA;*/
+                        break;
+                    case 5:
+                        if(HEROI.addMochila(new ItemCura(porta.getItem())) == 0)
+                            porta.setItem();
+                        /*else
+                            //MOCHILA CHEIA;*/
+                        break;
+                    case 6:
+                        if(HEROI.addMochila(new ItemEnergia(porta.getItem())) == 0)
+                            porta.setItem();
+                        /*else
+                            //MOCHILA CHEIA;*/
+                        break;
+                    case 7:
+                        if(HEROI.addMoedas(porta.getQuantidade()))
+                            porta.setItem();
+                        /*else
+                            //MOCHILA CHEIA;*/
+                        break;
+                    default:
+                        break;
+                }
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });   
     }
     
     /**
@@ -348,464 +470,21 @@ public final class SalaGUI extends JFrame implements ActionListener {
      */
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == btnNorte) {
-            System.out.println("BOTAO NORTE");
-            testaNorte();         
-	} else if (ae.getSource() == btnSul) {
-            testaSul();
-	} else if (ae.getSource() == btnLeste) {
-            testaLeste();
-        } else if (ae.getSource() == btnOeste) {
-            testaOeste();
-        }
-    }
-    
-    /**
-     * Verifica o que tem na posição Norte
-     */
-    private void testaNorte(){
-        if(btnNorte.getIcon() != null){
-            if(btnNorte.getIcon().toString().equals("resources/inimigo.png")){
-                CombateGUI combate = new CombateGUI(SALA.getNorte());
-                this.dispose();
-            }
-            else{
-                if(btnNorte.getIcon().toString().equals("resources/item.png")){
-                    switch (SALA.getNorte().getTipo()){
-                        case 1:
-                            Armadura armadura = new Armadura(SALA.getNorte().getItem());
-                            armadura.setQuantidade((byte) SALA.getNorte().getQuantidade());
-                            HEROI.addMochila(armadura);
-                            break;
-                        case 2:
-                            Arma arma = new Arma(SALA.getNorte().getItem());
-                            arma.setQuantidade((byte) SALA.getNorte().getQuantidade());
-                            HEROI.addMochila(arma);
-                            break;
-                        case 3:
-                            Chave chave = new Chave(SALA.getNorte().getItem());
-                            chave.setQuantidade((byte) SALA.getNorte().getQuantidade());
-                            HEROI.addMochila(chave);
-                            break;
-                        case 4:
-                            HabilidadeCura cura = new HabilidadeCura(SALA.getNorte().getItem());
-                            HEROI.addTalentosCura(cura);
-                            break;
-                        case -4:
-                            HabilidadeDano dano = new HabilidadeDano(SALA.getNorte().getItem());
-                            HEROI.addTalentosDano(dano);
-                            break;
-                        case 5:
-                            ItemCura itemCura = new ItemCura(SALA.getNorte().getItem());
-                            itemCura.setQuantidade((byte) SALA.getNorte().getQuantidade());
-                            HEROI.addMochila(itemCura);
-                            break;
-                        case 6:
-                            ItemEnergia itemEnergia = new ItemEnergia(SALA.getNorte().getItem());
-                            itemEnergia.setQuantidade((byte) SALA.getNorte().getQuantidade());
-                            HEROI.addMochila(itemEnergia);
-                        case 7:
-                            HEROI.addMoedas(SALA.getNorte().getQuantidade());
-                            break;
-                       default:
-                           break;
-                    }
-                    SALA.getNorte().setItem();
-                }
-                else{
-                    if(btnNorte.getIcon().toString().equals("resources/cadeado.png")){
-                        for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
-                            if(HEROI.getItens().get(loop).getClass() == Chave.class){
-                                if(HEROI.getItens().get(loop).getEfeito() == SALA.getNorte().getChave()){
-                                    SALA.getNorte().setChave();
-                                    HEROI.subMochila(HEROI.getItens().get(loop));
-                                }
-                                /*else{
-                                  //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
-                                }*/
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-        else{
             JanelaInicial ji = new JanelaInicial();
             if (ji.irSala (SALA.getNorte().getSala()))
-               this.dispose();  
-        }
-        setNorte();
-    }
-    
-    /**
-     * Seta o que tem na posição Norte
-     */
-    private void setNorte(){
-        if(SALA.getNorte().getInimigo() != 0){
-            btnNorte.setVisible(true);
-            ImageIcon img = new ImageIcon("resources/inimigo.png");
-            btnNorte.setIcon(img);
-            btnNorte.setVisible(true);
-        }
-        else{
-            if(SALA.getNorte().getItem() != 0){
-                btnNorte.setVisible(true);
-                ImageIcon img = new ImageIcon("resources/item.png");
-            btnNorte.setIcon(img);
-            }
-            else{
-                if(SALA.getNorte().getChave() != 0){
-                    btnNorte.setVisible(true);
-                    ImageIcon img = new ImageIcon("resources/cadeado.png");
-            btnNorte.setIcon(img);
-                }
-                else{
-                    if(SALA.getNorte().getSala() != 0){
-                        btnNorte.setVisible(true);
-                        ImageIcon img = new ImageIcon("resources/norte.png");
-            btnNorte.setIcon(img);
-                    }
-                    else{
-                        btnNorte.setVisible(false);
-                    }
-                }
-            }
-        }
-    }
-    
-    /**
-     * Verifica o que tem na posição Sul
-     */
-    private void testaSul(){
-        if(btnSul.getIcon() != null){
-            if(btnSul.getIcon().toString().equals("resources/inimigo.png")){
-                CombateGUI combate = new CombateGUI(SALA.getSul());
-            }
-            else{
-                if(btnSul.getIcon().toString().equals("resources/item.png")){
-                    switch (SALA.getSul().getTipo()){
-                        case 1:
-                            Armadura armadura = new Armadura(SALA.getSul().getItem());
-                            armadura.setQuantidade((byte) SALA.getSul().getQuantidade());
-                            HEROI.addMochila(armadura);
-                            break;
-                        case 2:
-                            Arma arma = new Arma(SALA.getSul().getItem());
-                            arma.setQuantidade((byte) SALA.getSul().getQuantidade());
-                            HEROI.addMochila(arma);
-                            break;
-                        case 3:
-                            Chave chave = new Chave(SALA.getSul().getItem());
-                            chave.setQuantidade((byte) SALA.getSul().getQuantidade());
-                            HEROI.addMochila(chave);
-                            break;
-                        case 4:
-                            HabilidadeCura cura = new HabilidadeCura(SALA.getSul().getItem());
-                            HEROI.addTalentosCura(cura);
-                            break;
-                        case -4:
-                            HabilidadeDano dano = new HabilidadeDano(SALA.getSul().getItem());
-                            HEROI.addTalentosDano(dano);
-                            break;
-                        case 5:
-                            ItemCura itemCura = new ItemCura(SALA.getSul().getItem());
-                            itemCura.setQuantidade((byte) SALA.getSul().getQuantidade());
-                            HEROI.addMochila(itemCura);
-                            break;
-                        case 6:
-                            ItemEnergia itemEnergia = new ItemEnergia(SALA.getSul().getItem());
-                            itemEnergia.setQuantidade((byte) SALA.getSul().getQuantidade());
-                            HEROI.addMochila(itemEnergia);
-                        case 7:
-                            HEROI.addMoedas(SALA.getSul().getQuantidade());
-                            break;
-                       default:
-                           break;
-                    }
-                    SALA.getSul().setItem();
-                }
-                else{
-                    if(btnSul.getIcon().toString().equals("resources/cadeado.png")){
-                        for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
-                            if(HEROI.getItens().get(loop).getClass() == Chave.class){
-                                if(HEROI.getItens().get(loop).getEfeito() == SALA.getSul().getChave()){
-                                    SALA.getSul().setChave();
-                                    HEROI.subMochila(HEROI.getItens().get(loop));
-                                }
-                                /*else{
-                                  //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
-                                }*/
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-        else{
+               this.dispose();           
+	} else if (ae.getSource() == btnSul) {
             JanelaInicial ji = new JanelaInicial();
             if (ji.irSala (SALA.getSul().getSala()))
-               this.dispose();  
-        }
-        setSul();
-    }
-    
-    /**
-     * Seta o que tem na posição Sul
-     */
-    private void setSul(){
-        if(SALA.getSul().getInimigo() != 0){
-            btnSul.setVisible(true);
-            ImageIcon img = new ImageIcon("resources/inimigo.png");
-            btnSul.setIcon(img);
-        }
-        else{
-            if(SALA.getSul().getItem() != 0){
-                btnSul.setVisible(true);
-                ImageIcon img = new ImageIcon("resources/item.png");
-            btnSul.setIcon(img);
-            }
-            else{
-                if(SALA.getSul().getChave() != 0){
-                    btnSul.setVisible(true);
-                    ImageIcon img = new ImageIcon("resources/cadeado.png");
-            btnSul.setIcon(img);
-                }
-                else{
-                    if(SALA.getSul().getSala() != 0){
-                        btnSul.setVisible(true);
-                        ImageIcon img = new ImageIcon("resources/Sul.png");
-            btnSul.setIcon(img);
-                    }
-                    else{
-                        btnSul.setVisible(false);
-                    }
-                }
-            }
-        }
-    }
-    
-    /**
-     * Verifica o que tem na posição Leste
-     */
-    private void testaLeste(){
-        if(btnLeste.getIcon() != null){
-            if(btnLeste.getIcon().toString().equals("resources/inimigo.png")){
-                CombateGUI combate = new CombateGUI(SALA.getLeste());
-            }
-            else{
-                if(btnLeste.getIcon().toString().equals("resources/item.png")){
-                    switch (SALA.getLeste().getTipo()){
-                        case 1:
-                            Armadura armadura = new Armadura(SALA.getLeste().getItem());
-                            armadura.setQuantidade((byte) SALA.getLeste().getQuantidade());
-                            HEROI.addMochila(armadura);
-                            break;
-                        case 2:
-                            Arma arma = new Arma(SALA.getLeste().getItem());
-                            arma.setQuantidade((byte) SALA.getLeste().getQuantidade());
-                            HEROI.addMochila(arma);
-                            break;
-                        case 3:
-                            Chave chave = new Chave(SALA.getLeste().getItem());
-                            chave.setQuantidade((byte) SALA.getLeste().getQuantidade());
-                            HEROI.addMochila(chave);
-                            break;
-                        case 4:
-                            HabilidadeCura cura = new HabilidadeCura(SALA.getLeste().getItem());
-                            HEROI.addTalentosCura(cura);
-                            break;
-                        case -4:
-                            HabilidadeDano dano = new HabilidadeDano(SALA.getLeste().getItem());
-                            HEROI.addTalentosDano(dano);
-                            break;
-                        case 5:
-                            ItemCura itemCura = new ItemCura(SALA.getLeste().getItem());
-                            itemCura.setQuantidade((byte) SALA.getLeste().getQuantidade());
-                            HEROI.addMochila(itemCura);
-                            break;
-                        case 6:
-                            ItemEnergia itemEnergia = new ItemEnergia(SALA.getLeste().getItem());
-                            itemEnergia.setQuantidade((byte) SALA.getLeste().getQuantidade());
-                            HEROI.addMochila(itemEnergia);
-                        case 7:
-                            HEROI.addMoedas(SALA.getLeste().getQuantidade());
-                            break;
-                       default:
-                           break;
-                    }
-                    SALA.getLeste().setItem();
-                }
-                else{
-                    if(btnLeste.getIcon().toString().equals("resources/cadeado.png")){
-                        for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
-                            if(HEROI.getItens().get(loop).getClass() == Chave.class){
-                                if(HEROI.getItens().get(loop).getEfeito() == SALA.getLeste().getChave()){
-                                    SALA.getLeste().setChave();
-                                    HEROI.subMochila(HEROI.getItens().get(loop));
-                                }
-                                /*else{
-                                  //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
-                                }*/
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-        else{
+               this.dispose();
+	} else if (ae.getSource() == btnLeste) {
             JanelaInicial ji = new JanelaInicial();
             if (ji.irSala (SALA.getLeste().getSala()))
-               this.dispose();  
-        }
-        setLeste();
-    }
-    
-    /**
-     * Seta o que tem na posição Leste
-     */
-    private void setLeste(){
-        if(SALA.getLeste().getInimigo() != 0){
-            btnLeste.setVisible(true);
-            ImageIcon img = new ImageIcon("resources/inimigo.png");
-            btnLeste.setIcon(img);
-        }
-        else{
-            if(SALA.getLeste().getItem() != 0){
-                btnLeste.setVisible(true);
-                ImageIcon img = new ImageIcon("resources/item.png");
-            btnLeste.setIcon(img);
-            }
-            else{
-                if(SALA.getLeste().getChave() != 0){
-                    btnLeste.setVisible(true);
-                    ImageIcon img = new ImageIcon("resources/cadeado.png");
-            btnLeste.setIcon(img);
-                }
-                else{
-                    if(SALA.getLeste().getSala() != 0){
-                        btnLeste.setVisible(true);
-                        ImageIcon img = new ImageIcon("resources/Leste.png");
-            btnLeste.setIcon(img);
-                    }
-                    else{
-                        btnLeste.setVisible(false);
-                    }
-                }
-            }
-        }
-    }
-    
-    /**
-     * Verifica o que tem na posição Oeste
-     */
-    private void testaOeste(){
-        if(btnOeste.getIcon() != null){
-            if(btnOeste.getIcon().toString().equals("resources/inimigo.png")){
-                CombateGUI combate = new CombateGUI(SALA.getOeste());
-            }
-            else{
-                if(btnOeste.getIcon().toString().equals("resources/item.png")){
-                    switch (SALA.getOeste().getTipo()){
-                        case 1:
-                            Armadura armadura = new Armadura(SALA.getOeste().getItem());
-                            armadura.setQuantidade((byte) SALA.getOeste().getQuantidade());
-                            HEROI.addMochila(armadura);
-                            break;
-                        case 2:
-                            Arma arma = new Arma(SALA.getOeste().getItem());
-                            arma.setQuantidade((byte) SALA.getOeste().getQuantidade());
-                            HEROI.addMochila(arma);
-                            break;
-                        case 3:
-                            Chave chave = new Chave(SALA.getOeste().getItem());
-                            chave.setQuantidade((byte) SALA.getOeste().getQuantidade());
-                            HEROI.addMochila(chave);
-                            break;
-                        case 4:
-                            HabilidadeCura cura = new HabilidadeCura(SALA.getOeste().getItem());
-                            HEROI.addTalentosCura(cura);
-                            break;
-                        case -4:
-                            HabilidadeDano dano = new HabilidadeDano(SALA.getOeste().getItem());
-                            HEROI.addTalentosDano(dano);
-                            break;
-                        case 5:
-                            ItemCura itemCura = new ItemCura(SALA.getOeste().getItem());
-                            itemCura.setQuantidade((byte) SALA.getOeste().getQuantidade());
-                            HEROI.addMochila(itemCura);
-                            break;
-                        case 6:
-                            ItemEnergia itemEnergia = new ItemEnergia(SALA.getOeste().getItem());
-                            itemEnergia.setQuantidade((byte) SALA.getOeste().getQuantidade());
-                            HEROI.addMochila(itemEnergia);
-                        case 7:
-                            HEROI.addMoedas(SALA.getOeste().getQuantidade());
-                            break;
-                       default:
-                           break;
-                    }
-                    SALA.getOeste().setItem();
-                }
-                else{
-                    if(btnOeste.getIcon().toString().equals("resources/cadeado.png")){
-                        for(byte loop = 0; loop < HEROI.getMochila().getTamanho(); loop++){
-                            if(HEROI.getItens().get(loop).getClass() == Chave.class){
-                                if(HEROI.getItens().get(loop).getEfeito() == SALA.getOeste().getChave()){
-                                    SALA.getOeste().setChave();
-                                    HEROI.subMochila(HEROI.getItens().get(loop));
-                                }
-                                /*else{
-                                  //VOCÊ NÃO POSSUI A CHAVE CORRETA!  
-                                }*/
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-        else{
+               this.dispose();
+        } else if (ae.getSource() == btnOeste) {
             JanelaInicial ji = new JanelaInicial();
             if (ji.irSala (SALA.getOeste().getSala()))
-               this.dispose();  
-        }
-        setOeste();
-    }
-    
-    /**
-     * Seta o que tem na posição Oeste
-     */
-    private void setOeste(){
-        if(SALA.getOeste().getInimigo() != 0){
-            btnOeste.setVisible(true);
-            ImageIcon img = new ImageIcon("resources/inimigo.png");
-            btnOeste.setIcon(img);
-        }
-        else{
-            if(SALA.getOeste().getItem() != 0){
-                btnOeste.setVisible(true);
-                ImageIcon img = new ImageIcon("resources/item.png");
-            btnOeste.setIcon(img);
-            }
-            else{
-                if(SALA.getOeste().getChave() != 0){
-                    btnOeste.setVisible(true);
-                    ImageIcon img = new ImageIcon("resources/cadeado.png");
-            btnOeste.setIcon(img);
-                }
-                else{
-                    if(SALA.getOeste().getSala() != 0){
-                        btnOeste.setVisible(true);
-                        ImageIcon img = new ImageIcon("resources/Oeste.png");
-            btnOeste.setIcon(img);
-                    }
-                    else{
-                        btnOeste.setVisible(false);
-                    }
-                }
-            }
+               this.dispose();
         }
     }
     
@@ -816,8 +495,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
      * @return true se for válido false caso contrário
      */
     private boolean testaItem(byte id){        
-        try {
-            FileReader arq = new FileReader (CAMINHOINIMIGOS);
+        try (FileReader arq = new FileReader (CAMINHOINIMIGOS)){
             BufferedReader lerArq = new BufferedReader (arq);
             String linha = lerArq.readLine();
             byte loop = 1;

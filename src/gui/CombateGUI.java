@@ -135,6 +135,7 @@ public class CombateGUI extends JFrame implements ActionListener{
         pMagia.setVisible(false);
 	add(pMagia);
         listaMagia.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent evt) {
                 JList listaMagia = (JList)evt.getSource();
                 if (evt.getClickCount() == 2) {
@@ -154,6 +155,7 @@ public class CombateGUI extends JFrame implements ActionListener{
         pItem.setVisible(false);
 	add(pItem);
         listaItem.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent evt) {
                 JList listaItem = (JList)evt.getSource();
                 if (evt.getClickCount() == 2) {
@@ -381,8 +383,7 @@ public class CombateGUI extends JFrame implements ActionListener{
      * @return true se válido ou false caso contrário
      */
     private boolean testaItem(byte id){
-        try {
-            FileReader arq = new FileReader (CAMINHOINIMIGOS);
+        try (FileReader arq = new FileReader (CAMINHOINIMIGOS)){
             BufferedReader lerArq = new BufferedReader (arq);
             String linha = lerArq.readLine();
             byte loop = 1;
