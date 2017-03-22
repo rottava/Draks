@@ -195,6 +195,7 @@ public final class SalaGUI extends JFrame implements ActionListener {
                     int index = listaItem.locationToIndex(evt.getPoint());
                     item(index);
                     carregarInventario();
+                    labelItens.setText("Inventário " + HEROI.getItens().size() + "/ " + HEROI.getMochila().getTamanho());
                 }       
             }
         });
@@ -380,25 +381,25 @@ public final class SalaGUI extends JFrame implements ActionListener {
         JLabel item;
         switch (id){
             case 1: 
-                item = new JLabel (new ImageIcon("resources/armadura.jpg"));
+                item = new JLabel (new ImageIcon("resources/armadura.png"));
                 break;
             case 2:
-                item = new JLabel (new ImageIcon("resources/espada.jpg"));
+                item = new JLabel (new ImageIcon("resources/espada.png"));
                 break;
             case 3:
-                item = new JLabel (new ImageIcon("resources/chave.jpg"));
+                item = new JLabel (new ImageIcon("resources/chave.png"));
                 break;
             case 4:
-                item = new JLabel (new ImageIcon("resources/habilidadecura.png"));
+                item = new JLabel (new ImageIcon("resources/habilidadecura.PNG"));
                 break;
            case -4:
-                item = new JLabel (new ImageIcon("resources/habilidadedano.png"));
+                item = new JLabel (new ImageIcon("resources/habilidadedano.PNG"));
                 break;
             case 5:
-                item = new JLabel (new ImageIcon("resources/itemcura.png"));
+                item = new JLabel (new ImageIcon("resources/pocaocura.png"));
                 break;
             case 6:
-                item = new JLabel (new ImageIcon("resources/itemenergia.png"));
+                item = new JLabel (new ImageIcon("resources/pocaoenergia.PNG"));
                 break;
             case 7:
                 item = new JLabel (new ImageIcon("resources/moedas.png"));
